@@ -1,0 +1,27 @@
+import React from 'react';
+import { [COMPONENT_NAME]Props } from './[COMPONENT_NAME].types';
+
+export const [COMPONENT_NAME] = React.forwardRef<HTML[ELEMENT]Element, [COMPONENT_NAME]Props>(
+  (
+    {
+      children,
+      className = '',
+      ...props
+    },
+    ref
+  ) => {
+    const baseStyles = 'tu-clase-base';
+
+    return (
+      <[element]
+        ref={ref}
+        className={`${baseStyles} ${className}`}
+        {...props}
+      >
+        {children}
+      </[element]>
+    );
+  }
+);
+
+[COMPONENT_NAME].displayName = '[COMPONENT_NAME]';

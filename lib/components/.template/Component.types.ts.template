@@ -1,0 +1,15 @@
+import { [HTML_ELEMENT]Attributes } from 'react';
+
+export interface [COMPONENT_NAME]Props extends [HTML_ELEMENT]Attributes<HTML[HTML_ELEMENT]Element> {
+  /**
+   * El contenido del componente
+   */
+  children?: React.ReactNode;
+
+  /**
+   * Clases CSS adicionales
+   */
+  className?: string;
+
+  // Agregar más props específicas del componente aquí
+}

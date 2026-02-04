@@ -1,7 +1,25 @@
 {
   "name": "mcj-components",
   "version": "0.1.0",
+  "description": "Librería de componentes React reutilizables",
+  "author": "",
+  "license": "MIT",
   "private": true,
+  "main": "lib/index.ts",
+  "types": "lib/index.ts",
+  "exports": {
+    ".": "./lib/index.ts"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "tailwind",
+    "typescript"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

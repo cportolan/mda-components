@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MCJ Components
 
-## Getting Started
+Librería de componentes React reutilizables construida con Next.js, TypeScript y Tailwind CSS.
 
-First, run the development server:
+## 🚀 Componentes Disponibles
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Button
+
+Un componente de botón versátil con múltiples variantes y tamaños.
+
+**Props:**
+- `variant`: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
+- `size`: 'sm' | 'md' | 'lg'
+- `loading`: boolean - Muestra un indicador de carga
+- `disabled`: boolean - Deshabilita el botón
+- `fullWidth`: boolean - Ocupa todo el ancho disponible
+
+**Ejemplo:**
+```tsx
+import { Button } from '@/lib';
+
+<Button variant="primary" size="md" onClick={() => console.log('Click')}>
+  Click me
+</Button>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Estructura del Proyecto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+lib/
+├── components/          # Componentes de la librería
+│   └── Button/         # Cada componente en su carpeta
+│       ├── Button.tsx
+│       ├── Button.types.ts
+│       └── index.ts
+├── types/              # Tipos compartidos
+│   └── index.ts
+└── index.ts            # Punto de entrada principal
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Desarrollo
 
-## Learn More
+```bash
+# Instalar dependencias
+npm install
 
-To learn more about Next.js, take a look at the following resources:
+# Modo desarrollo
+npm run dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Build
+npm run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Lint
+npm run lint
+```
 
-## Deploy on Vercel
+## 📝 Agregar Nuevos Componentes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Crea una carpeta en `lib/components/[NombreComponente]`
+2. Crea los archivos:
+   - `[NombreComponente].tsx` - El componente
+   - `[NombreComponente].types.ts` - Los tipos TypeScript
+   - `index.ts` - Exportaciones
+3. Agrega las exportaciones en `lib/index.ts`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Próximos Componentes
+
+- [ ] Autocomplete
+- [ ] Toggle
+- [ ] Table
+- [ ] Input
+- [ ] Select
+- [ ] Modal
+- [ ] Card
+
+## 📄 Licencia
+
+MIT
