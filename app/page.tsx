@@ -1,68 +1,81 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Button, Select, Autocomplete, Toggle, Checkbox } from '@/lib';
+import { useState } from "react";
+import { Button, Select, Autocomplete, Toggle, Checkbox } from "@/lib";
 
 export default function Home() {
-    const [selectValue, setSelectValue] = useState('');
-    const [autocompleteValue, setAutocompleteValue] = useState('');
+    const [selectValue, setSelectValue] = useState("");
+    const [autocompleteValue, setAutocompleteValue] = useState("");
     const [toggleChecked, setToggleChecked] = useState(false);
     const [checkboxChecked, setCheckboxChecked] = useState(false);
 
     const selectOptions = [
-        { label: 'React', value: 'react' },
-        { label: 'Vue', value: 'vue' },
-        { label: 'Angular', value: 'angular' },
-        { label: 'Svelte', value: 'svelte' },
-        { label: 'Next.js', value: 'nextjs' },
+        { label: "React", value: "react" },
+        { label: "Vue", value: "vue" },
+        { label: "Angular", value: "angular" },
+        { label: "Svelte", value: "svelte" },
+        { label: "Next.js", value: "nextjs" },
     ];
 
     const countries = [
-        { label: 'Argentina', value: 'ar' },
-        { label: 'Brasil', value: 'br' },
-        { label: 'Chile', value: 'cl' },
-        { label: 'Colombia', value: 'co' },
-        { label: 'México', value: 'mx' },
-        { label: 'Perú', value: 'pe' },
-        { label: 'Uruguay', value: 'uy' },
-        { label: 'Venezuela', value: 've' },
+        { label: "Argentina", value: "ar" },
+        { label: "Brasil", value: "br" },
+        { label: "Chile", value: "cl" },
+        { label: "Colombia", value: "co" },
+        { label: "México", value: "mx" },
+        { label: "Perú", value: "pe" },
+        { label: "Uruguay", value: "uy" },
+        { label: "Venezuela", value: "ve" },
     ];
 
     return (
-        <div className="min-h-screen px-4 py-8 lg:px-8">
+        <div className="px-4 py-8">
             <div className="mx-auto max-w-6xl">
                 {/* Header */}
                 <div className="mb-12">
-                    <h1 className="mb-4 text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-purple-400 lg:text-5xl">
-                        Todos los Componentes
+                    <img
+                        src="/images/mda_logo.svg"
+                        alt="Logo de la MDA"
+                        className="mb-8 h-16 w-auto"
+                    />
+                    <h1 className="mb-4 text-4xl lg:text-5xl">
+                        Librería de Componentes - MDA
                     </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-400">
-                        Button, Select, Autocomplete, Toggle y Checkbox con animaciones modernas
+                    <h2 className="mb-2 text-2xl font-bold bg-linear-to-r from-[#83c442] to-[#6fb035] bg-clip-text text-transparent">
+                        Municipalidad de Avellaneda
+                    </h2>
+                    <p className="text-lg text-gray-600">
+                        Página de muestra de todos los componentes desarrollados
+                        para la Municipalidad de Avellaneda. Acá podrás ver
+                        ejemplos de cada componente, sus variantes, tamaños y
+                        estados. Esta librería está diseñada para ser fácil de
+                        usar e integrar en cualquier proyecto web.
                     </p>
                 </div>
 
                 <div className="space-y-8">
                     {/* Button Component */}
-                    <section className="rounded-2xl border border-gray-200/50 bg-white/80 p-8 shadow-lg backdrop-blur-xl dark:border-gray-700/50 dark:bg-gray-900/80">
-                        <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                            Button
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-2xl font-semibold text-gray-900">
+                            Botones
                         </h2>
                         <div className="space-y-6">
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Variantes
                                 </h3>
                                 <div className="flex flex-wrap gap-4">
                                     <Button variant="primary">Primary</Button>
-                                    <Button variant="secondary">Secondary</Button>
-                                    <Button variant="outline">Outline</Button>
+                                    <Button variant="secondary">
+                                        Secondary
+                                    </Button>
                                     <Button variant="danger">Danger</Button>
-                                    <Button className='bg-green-600 text-white hover:bg-green-700 rounded-xl'>Portal Avellaneda</Button>
+                                    <Button variant="ghost">Ghost</Button>
                                 </div>
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Tamaños
                                 </h3>
                                 <div className="flex flex-wrap items-center gap-4">
@@ -73,7 +86,7 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Estados
                                 </h3>
                                 <div className="flex flex-wrap gap-4">
@@ -87,7 +100,7 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Ancho Completo
                                 </h3>
                                 <div className="space-y-4">
@@ -99,39 +112,17 @@ export default function Home() {
                                     </Button>
                                 </div>
                             </div>
-
-                            <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
-                                    Ejemplos Interactivos
-                                </h3>
-                                <div className="flex flex-wrap gap-4">
-                                    <Button
-                                        variant="primary"
-                                        onClick={() => alert('¡Botón clickeado!')}
-                                    >
-                                        Click me
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        onClick={() =>
-                                            console.log('Button clicked!')
-                                        }
-                                    >
-                                        Log to Console
-                                    </Button>
-                                </div>
-                            </div>
                         </div>
                     </section>
 
                     {/* Select Component */}
-                    <section className="rounded-2xl border border-gray-200/50 bg-white/80 p-8 shadow-lg backdrop-blur-xl dark:border-gray-700/50 dark:bg-gray-900/80">
-                        <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-2xl font-semibold text-gray-900">
                             Select
                         </h2>
                         <div className="space-y-6">
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Tamaños
                                 </h3>
                                 <div className="flex flex-wrap gap-4">
@@ -158,7 +149,7 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Estados
                                 </h3>
                                 <div className="flex flex-wrap gap-4">
@@ -180,7 +171,7 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Full Width
                                 </h3>
                                 <Select
@@ -193,13 +184,13 @@ export default function Home() {
                     </section>
 
                     {/* Autocomplete Component */}
-                    <section className="rounded-2xl border border-gray-200/50 bg-white/80 p-8 shadow-lg backdrop-blur-xl dark:border-gray-700/50 dark:bg-gray-900/80">
-                        <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-2xl font-semibold text-gray-900">
                             Autocomplete
                         </h2>
                         <div className="space-y-6">
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Tamaños
                                 </h3>
                                 <div className="flex flex-wrap gap-4">
@@ -208,7 +199,7 @@ export default function Home() {
                                         placeholder="Small"
                                         size="sm"
                                         onSelect={(option) =>
-                                            console.log('Selected:', option)
+                                            console.log("Selected:", option)
                                         }
                                     />
                                     <Autocomplete
@@ -225,7 +216,7 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Estados
                                 </h3>
                                 <div className="flex flex-wrap gap-4">
@@ -247,7 +238,7 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Full Width con Callback
                                 </h3>
                                 <Autocomplete
@@ -259,9 +250,7 @@ export default function Home() {
                                         setAutocompleteValue(e.target.value)
                                     }
                                     onSelect={(option) =>
-                                        alert(
-                                            `Seleccionaste: ${option.label}`
-                                        )
+                                        alert(`Seleccionaste: ${option.label}`)
                                     }
                                 />
                             </div>
@@ -269,13 +258,13 @@ export default function Home() {
                     </section>
 
                     {/* Toggle Component */}
-                    <section className="rounded-2xl border border-gray-200/50 bg-white/80 p-8 shadow-lg backdrop-blur-xl dark:border-gray-700/50 dark:bg-gray-900/80">
-                        <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-2xl font-semibold text-gray-900">
                             Toggle (Estilo iPhone)
                         </h2>
                         <div className="space-y-6">
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Tamaños
                                 </h3>
                                 <div className="flex flex-wrap items-center gap-6">
@@ -287,22 +276,27 @@ export default function Home() {
                                             setToggleChecked(e.target.checked)
                                         }
                                     />
-                                    <Toggle size="md" label="Medium" defaultChecked />
-                                    <Toggle size="lg" label="Large" defaultChecked />
+                                    <Toggle
+                                        size="md"
+                                        label="Medium"
+                                        defaultChecked
+                                    />
+                                    <Toggle
+                                        size="lg"
+                                        label="Large"
+                                        defaultChecked
+                                    />
                                 </div>
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Estados
                                 </h3>
                                 <div className="flex flex-wrap items-center gap-6">
                                     <Toggle label="Off" />
                                     <Toggle label="On" defaultChecked />
-                                    <Toggle
-                                        label="Disabled Off"
-                                        disabled
-                                    />
+                                    <Toggle label="Disabled Off" disabled />
                                     <Toggle
                                         label="Disabled On"
                                         defaultChecked
@@ -312,11 +306,11 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Interactivo
                                 </h3>
                                 <Toggle
-                                    label={`Notificaciones ${toggleChecked ? 'activadas' : 'desactivadas'}`}
+                                    label={`Notificaciones ${toggleChecked ? "activadas" : "desactivadas"}`}
                                     checked={toggleChecked}
                                     onChange={(e) =>
                                         setToggleChecked(e.target.checked)
@@ -327,13 +321,13 @@ export default function Home() {
                     </section>
 
                     {/* Checkbox Component */}
-                    <section className="rounded-2xl border border-gray-200/50 bg-white/80 p-8 shadow-lg backdrop-blur-xl dark:border-gray-700/50 dark:bg-gray-900/80">
-                        <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-2xl font-semibold text-gray-900">
                             Checkbox
                         </h2>
                         <div className="space-y-6">
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Tamaños
                                 </h3>
                                 <div className="flex flex-wrap items-center gap-6">
@@ -342,24 +336,33 @@ export default function Home() {
                                         label="Small"
                                         checked={checkboxChecked}
                                         onChange={(e) =>
-                                            setCheckboxChecked(
-                                                e.target.checked
-                                            )
+                                            setCheckboxChecked(e.target.checked)
                                         }
                                     />
-                                    <Checkbox size="md" label="Medium" defaultChecked />
-                                    <Checkbox size="lg" label="Large" defaultChecked />
+                                    <Checkbox
+                                        size="md"
+                                        label="Medium"
+                                        defaultChecked
+                                    />
+                                    <Checkbox
+                                        size="lg"
+                                        label="Large"
+                                        defaultChecked
+                                    />
                                 </div>
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Estados
                                 </h3>
                                 <div className="space-y-3">
                                     <div className="flex flex-wrap gap-6">
                                         <Checkbox label="Unchecked" />
-                                        <Checkbox label="Checked" defaultChecked />
+                                        <Checkbox
+                                            label="Checked"
+                                            defaultChecked
+                                        />
                                         <Checkbox
                                             label="Indeterminate"
                                             indeterminate
@@ -389,7 +392,7 @@ export default function Home() {
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <h3 className="mb-3 text-lg font-medium text-gray-700">
                                     Lista Interactiva
                                 </h3>
                                 <div className="space-y-2">
@@ -397,12 +400,13 @@ export default function Home() {
                                         label="Acepto los términos y condiciones"
                                         checked={checkboxChecked}
                                         onChange={(e) =>
-                                            setCheckboxChecked(
-                                                e.target.checked
-                                            )
+                                            setCheckboxChecked(e.target.checked)
                                         }
                                     />
-                                    <Checkbox label="Quiero recibir notificaciones por email" defaultChecked />
+                                    <Checkbox
+                                        label="Quiero recibir notificaciones por email"
+                                        defaultChecked
+                                    />
                                     <Checkbox label="Suscribirse al newsletter" />
                                 </div>
                             </div>
@@ -410,11 +414,11 @@ export default function Home() {
                     </section>
 
                     {/* Info */}
-                    <section className="rounded-2xl border border-blue-200/50 bg-linear-to-br from-blue-50/80 to-purple-50/80 p-8 backdrop-blur-xl dark:border-blue-700/50 dark:from-blue-900/20 dark:to-purple-900/20">
-                        <h3 className="mb-2 text-lg font-semibold text-blue-900 dark:text-blue-300">
+                    <section className="rounded-2xl border border-green-300/60 bg-linear-to-br from-green-50/80 to-[#83c442]/10 p-8 backdrop-blur-sm shadow-lg">
+                        <h3 className="mb-2 text-lg font-semibold text-[#5a9428]">
                             💡 Próximos componentes
                         </h3>
-                        <p className="text-blue-800 dark:text-blue-400">
+                        <p className="text-gray-700">
                             Input, Modal, Card, Table y más...
                         </p>
                     </section>
@@ -423,4 +427,3 @@ export default function Home() {
         </div>
     );
 }
-

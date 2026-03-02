@@ -20,17 +20,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref
     ) => {
         const baseStyles =
-            "inline-flex items-center justify-center rounded-lg transition-all duration-200 cursor-pointer  focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+            "inline-flex items-center justify-center rounded-lg transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
 
         const variants = {
             primary:
-                "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 active:bg-blue-800",
+                "bg-[#83C442] text-white hover:bg-[#6fb035] active:bg-[#5a9428]",
             secondary:
-                "bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500 active:bg-gray-400 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600",
-            outline:
-                "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500 active:bg-blue-100 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-950",
-            ghost: "text-gray-700 hover:bg-gray-100 focus:ring-gray-500 active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800",
-            danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 active:bg-red-800",
+                "bg-transparent text-[#83C442] border-2 border-[#83C442] hover:bg-[#83C442]/10 active:bg-[#83C442]/20 dark:border-[#83C442] dark:text-[#83C442] dark:hover:bg-[#83C442]/20",
+            ghost: "text-[#83C442] hover:bg-[#83C442]/10 active:bg-[#83C442]/20 dark:text-[#83C442] dark:hover:bg-[#83C442]/20",
+            danger: "bg-red-600 text-white hover:bg-red-700 active:bg-red-800",
         };
 
         const sizes = {
@@ -52,6 +50,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 className={classes}
                 {...props}
             >
+                {children}
                 {loading && (
                     <svg
                         className="animate-spin h-4 w-4"
@@ -74,7 +73,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                         />
                     </svg>
                 )}
-                {children}
             </button>
         );
     }

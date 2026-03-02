@@ -1,36 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter_Tight } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const interTight = Inter_Tight({
+    variable: "--font-inter-tight",
+    subsets: ["latin"],
+    display: "swap",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "MCJ Components - Librería de componentes React",
-  description: "Librería moderna de componentes React reutilizables con Tailwind CSS",
-};
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="es" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-950`}
-      >
-        <main className="pt-8 lg:pl-80">
-          {children}
-        </main>
-      </body>
-    </html>
-  );
+    children,
+}: Readonly<{ children: React.ReactNode }>) {
+    return (
+        <html lang="es">
+            <body
+                className={`${interTight.variable} ${interTight.className} antialiased bg-gray-50 dark:bg-gray-950`}
+            >
+                <main className="pt-8">{children}</main>
+            </body>
+        </html>
+    );
 }
