@@ -23,3 +23,15 @@ body {
     color: var(--foreground);
     font-family: var(--font-inter-tight);
 }
+
+/* Animación fadeIn para Autocomplete */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

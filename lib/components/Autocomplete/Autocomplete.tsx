@@ -104,11 +104,11 @@ export const Autocomplete = React.forwardRef<
         };
 
         const baseStyles =
-            "rounded-[10px] border transition-all duration-300 ease-out focus:outline-none bg-[#f6f6f6]";
+            "rounded-[10px] border transition-all duration-300 ease-out focus:outline-none bg-[#f6f6f6] pr-[45px]";
 
         const sizes = {
             sm: "px-3 py-2 text-sm",
-            md: "px-5 py-2.5 text-base",
+            md: "px-5 py-2.5 text-[15px]",
             lg: "px-6 py-3 text-lg",
         };
 
@@ -127,7 +127,7 @@ export const Autocomplete = React.forwardRef<
         return (
             <div
                 ref={containerRef}
-                className={`relative ${fullWidth ? "w-full" : ""}`}
+                className={`relative inline-flex self-start ${fullWidth ? "w-full" : "w-auto"}`}
             >
                 <input
                     ref={ref}
@@ -142,41 +142,14 @@ export const Autocomplete = React.forwardRef<
                     {...props}
                 />
 
-                {/* Dropdown with smooth animations */}
-                {isOpen && filteredOptions.length > 0 && (
-                    <div className="absolute z-500 mt-2 w-full animate-in fade-in slide-in-from-top-2 duration-300">
-                        <div className="max-h-60 overflow-auto rounded-[10px] border border-[#70f787] bg-[#f6f6f6] shadow-lg">
-                            {filteredOptions.map((option, index) => (
-                                <div
-                                    key={option.value}
-                                    onClick={() => handleOptionClick(option)}
-                                    className={`cursor-pointer px-4 py-3 transition-all duration-200 ease-out first:rounded-t-[10px] last:rounded-b-[10px] ${
-                                        option.disabled
-                                            ? "cursor-not-allowed opacity-40"
-                                            : "hover:bg-[#83c442]/10 hover:pl-6"
-                                    } ${
-                                        index === highlightedIndex
-                                            ? "bg-[#83c442]/20 pl-6 font-medium"
-                                            : ""
-                                    }`}
-                                >
-                                    <span className="block text-[#3f3f3f]">
-                                        {option.label}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
                 {/* Custom arrow icon */}
-                <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
+                <div className="pointer-events-none absolute right-3 top-[55%] z-1 -translate-y-1/2 opacity-75">
                     <svg
                         className={`transition-colors duration-300 ${
                             error ? "text-red-400" : "text-[#83c442]"
                         } ${disabled ? "opacity-50" : ""}`}
-                        width="18"
-                        height="18"
+                        width="22"
+                        height="22"
                         viewBox="0 0 20 20"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -191,12 +164,37 @@ export const Autocomplete = React.forwardRef<
                     </svg>
                 </div>
 
+                {/* Dropdown with smooth animations */}
+                {isOpen && filteredOptions.length > 0 && (
+                    <div className="absolute left-0 right-0 top-full z-2 mt-1.5 animate-[fadeIn_0.12s_ease-out]">
+                        <div className="max-h-[200px] overflow-y-auto rounded-[14px] border border-[rgba(131,196,66,0.35)] bg-white py-1.5 shadow-[0_10px_24px_rgba(131,196,66,0.18)] [&::-webkit-scrollbar-thumb:hover]:bg-[rgba(131,196,66,0.65)] [&::-webkit-scrollbar-thumb]:rounded-[20px] [&::-webkit-scrollbar-thumb]:bg-[rgba(131,196,66,0.45)] [&::-webkit-scrollbar]:w-1.5">
+                            {filteredOptions.map((option, index) => (
+                                <div
+                                    key={option.value}
+                                    onClick={() => handleOptionClick(option)}
+                                    className={`mx-1.5 my-0.5 cursor-pointer rounded-[10px] px-3.5 py-2.5 text-[15px] text-[#2f2f2f] transition-all duration-150 ease-out ${
+                                        option.disabled
+                                            ? "cursor-not-allowed opacity-40"
+                                            : "hover:bg-[rgba(131,196,66,0.12)] hover:pl-5"
+                                    } ${
+                                        index === highlightedIndex
+                                            ? "bg-[rgba(131,196,66,0.22)] pl-5 font-semibold text-[#1f3a0f]"
+                                            : ""
+                                    }`}
+                                >
+                                    {option.label}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 {/* Empty state with animation */}
                 {isOpen && filteredOptions.length === 0 && (
-                    <div className="absolute z-50 mt-2 w-full animate-in fade-in slide-in-from-top-2 duration-300">
-                        <div className="rounded-[10px] border border-[#70f787] bg-[#f6f6f6] px-4 py-6 text-center shadow-lg">
+                    <div className="absolute left-0 right-0 top-full z-2 mt-1.5 animate-[fadeIn_0.12s_ease-out]">
+                        <div className="rounded-[14px] border border-[rgba(131,196,66,0.35)] bg-white px-4 py-6 text-center shadow-[0_10px_24px_rgba(131,196,66,0.18)]">
                             <svg
-                                className="mx-auto mb-2 h-8 w-8 text-[#83c442]"
+                                className="mx-auto mb-2 h-8 w-8 text-[#83c442] opacity-75"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -208,7 +206,7 @@ export const Autocomplete = React.forwardRef<
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                                 />
                             </svg>
-                            <p className="text-sm text-[#3f3f3f]">
+                            <p className="text-[15px] text-[#2f2f2f]">
                                 No se encontraron resultados
                             </p>
                         </div>

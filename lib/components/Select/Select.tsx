@@ -18,12 +18,12 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         ref
     ) => {
         const baseStyles =
-            "appearance-none rounded-[10px] border transition-all duration-300 ease-out focus:outline-none bg-[#f6f6f6] cursor-pointer";
+            "appearance-none rounded-[10px] border transition-all duration-300 ease-out focus:outline-none bg-[#f6f6f6] cursor-pointer pr-[45px]";
 
         const sizes = {
-            sm: "px-3 py-2 text-sm pr-10",
-            md: "px-5 py-2.5 text-base pr-11",
-            lg: "px-6 py-3 text-lg pr-12",
+            sm: "px-3 py-2 text-sm",
+            md: "px-5 py-2.5 text-[15px]",
+            lg: "px-6 py-3 text-lg",
         };
 
         const stateStyles = error
@@ -66,13 +66,13 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                     ))}
                 </select>
                 {/* Custom arrow icon */}
-                <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
+                <div className="pointer-events-none absolute right-3 top-[55%] z-1 -translate-y-1/2 opacity-75">
                     <svg
                         className={`transition-colors duration-300 ${
                             error ? "text-red-400" : "text-[#83c442]"
                         } ${disabled ? "opacity-50" : ""}`}
-                        width="18"
-                        height="18"
+                        width="22"
+                        height="22"
                         viewBox="0 0 20 20"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
