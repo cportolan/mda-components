@@ -18,20 +18,20 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         ref
     ) => {
         const baseStyles =
-            "appearance-none rounded-xl border-2 transition-all duration-300 ease-out focus:outline-none bg-white dark:bg-gray-900 cursor-pointer shadow-sm hover:shadow-md";
+            "appearance-none rounded-[10px] border transition-all duration-300 ease-out focus:outline-none bg-[#f6f6f6] cursor-pointer";
 
         const sizes = {
             sm: "px-3 py-2 text-sm pr-10",
-            md: "px-4 py-3 text-base pr-11",
-            lg: "px-5 py-4 text-lg pr-12",
+            md: "px-5 py-2.5 text-base pr-11",
+            lg: "px-6 py-3 text-lg pr-12",
         };
 
         const stateStyles = error
-            ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-100 dark:border-red-500 dark:focus:ring-red-900/30 text-red-900 dark:text-red-200"
-            : "border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:border-gray-700 dark:focus:border-blue-400 dark:focus:ring-blue-900/30 text-gray-900 dark:text-gray-100";
+            ? "border-red-400 focus:border-red-500 focus:shadow-[0_0_10px_rgba(255,0,0,0.3)] text-red-900"
+            : "border-[#70f787] focus:border-[#83c442] focus:shadow-[0_0_10px_rgba(128,255,0,0.426)] text-[#3f3f3f]";
 
         const disabledStyles = disabled
-            ? "opacity-60 cursor-not-allowed hover:shadow-sm"
+            ? "bg-[#f0f0f0] border-[#e2e2e2] cursor-not-allowed opacity-60"
             : "";
 
         const widthClass = fullWidth ? "w-full" : "";
@@ -69,9 +69,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
                     <svg
                         className={`transition-colors duration-300 ${
-                            error
-                                ? "text-red-400"
-                                : "text-gray-400 dark:text-gray-500"
+                            error ? "text-red-400" : "text-[#83c442]"
                         } ${disabled ? "opacity-50" : ""}`}
                         width="18"
                         height="18"

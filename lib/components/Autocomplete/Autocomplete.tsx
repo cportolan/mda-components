@@ -104,20 +104,20 @@ export const Autocomplete = React.forwardRef<
         };
 
         const baseStyles =
-            "rounded-xl border-2 transition-all duration-300 ease-out focus:outline-none bg-white dark:bg-gray-900 shadow-sm hover:shadow-md focus:shadow-lg";
+            "rounded-[10px] border transition-all duration-300 ease-out focus:outline-none bg-[#f6f6f6]";
 
         const sizes = {
             sm: "px-3 py-2 text-sm",
-            md: "px-4 py-3 text-base",
-            lg: "px-5 py-4 text-lg",
+            md: "px-5 py-2.5 text-base",
+            lg: "px-6 py-3 text-lg",
         };
 
         const stateStyles = error
-            ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-100 dark:border-red-500 dark:focus:ring-red-900/30 text-red-900 dark:text-red-200"
-            : "border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:border-gray-700 dark:focus:border-blue-400 dark:focus:ring-blue-900/30 text-gray-900 dark:text-gray-100";
+            ? "border-red-400 focus:border-red-500 focus:shadow-[0_0_10px_rgba(255,0,0,0.3)] text-red-900"
+            : "border-[#70f787] focus:border-[#83c442] focus:shadow-[0_0_10px_rgba(128,255,0,0.426)] text-[#3f3f3f]";
 
         const disabledStyles = disabled
-            ? "opacity-60 cursor-not-allowed hover:shadow-sm"
+            ? "bg-[#f0f0f0] border-[#e2e2e2] cursor-not-allowed opacity-60"
             : "";
 
         const widthClass = fullWidth ? "w-full" : "";
@@ -145,22 +145,22 @@ export const Autocomplete = React.forwardRef<
                 {/* Dropdown with smooth animations */}
                 {isOpen && filteredOptions.length > 0 && (
                     <div className="absolute z-500 mt-2 w-full animate-in fade-in slide-in-from-top-2 duration-300">
-                        <div className="max-h-60 overflow-auto rounded-xl border-2 border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900 backdrop-blur-sm">
+                        <div className="max-h-60 overflow-auto rounded-[10px] border border-[#70f787] bg-[#f6f6f6] shadow-lg">
                             {filteredOptions.map((option, index) => (
                                 <div
                                     key={option.value}
                                     onClick={() => handleOptionClick(option)}
-                                    className={`cursor-pointer px-4 py-3 transition-all duration-200 ease-out first:rounded-t-xl last:rounded-b-xl ${
+                                    className={`cursor-pointer px-4 py-3 transition-all duration-200 ease-out first:rounded-t-[10px] last:rounded-b-[10px] ${
                                         option.disabled
                                             ? "cursor-not-allowed opacity-40"
-                                            : "hover:bg-linear-to-r hover:from-blue-50 hover:to-blue-100/50 dark:hover:from-blue-900/30 dark:hover:to-blue-800/20 hover:pl-6"
+                                            : "hover:bg-[#83c442]/10 hover:pl-6"
                                     } ${
                                         index === highlightedIndex
-                                            ? "bg-linear-to-r from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-800/30 pl-6 font-medium"
+                                            ? "bg-[#83c442]/20 pl-6 font-medium"
                                             : ""
                                     }`}
                                 >
-                                    <span className="block text-gray-900 dark:text-gray-100">
+                                    <span className="block text-[#3f3f3f]">
                                         {option.label}
                                     </span>
                                 </div>
@@ -173,9 +173,7 @@ export const Autocomplete = React.forwardRef<
                 <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
                     <svg
                         className={`transition-colors duration-300 ${
-                            error
-                                ? "text-red-400"
-                                : "text-gray-400 dark:text-gray-500"
+                            error ? "text-red-400" : "text-[#83c442]"
                         } ${disabled ? "opacity-50" : ""}`}
                         width="18"
                         height="18"
@@ -196,9 +194,9 @@ export const Autocomplete = React.forwardRef<
                 {/* Empty state with animation */}
                 {isOpen && filteredOptions.length === 0 && (
                     <div className="absolute z-50 mt-2 w-full animate-in fade-in slide-in-from-top-2 duration-300">
-                        <div className="rounded-xl border-2 border-gray-200 bg-white px-4 py-6 text-center shadow-xl dark:border-gray-700 dark:bg-gray-900">
+                        <div className="rounded-[10px] border border-[#70f787] bg-[#f6f6f6] px-4 py-6 text-center shadow-lg">
                             <svg
-                                className="mx-auto mb-2 h-8 w-8 text-gray-400 dark:text-gray-600"
+                                className="mx-auto mb-2 h-8 w-8 text-[#83c442]"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -210,7 +208,7 @@ export const Autocomplete = React.forwardRef<
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                                 />
                             </svg>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                            <p className="text-sm text-[#3f3f3f]">
                                 No se encontraron resultados
                             </p>
                         </div>
