@@ -174,7 +174,7 @@ export const Message: React.FC<MessageProps> = ({
                     <button
                         type="button"
                         onClick={handleClose}
-                        className={`shrink-0 rounded-md p-1 transition-all duration-200 ${styles.closeButton}`}
+                        className={`shrink-0 h-6 w-6 flex items-center justify-center rounded-md transition-all duration-200 cursor-pointer ${styles.closeButton}`}
                     >
                         <svg
                             width="16"
