@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Select, Autocomplete, Toggle, Checkbox } from "@/lib";
+import { Button, Select, Autocomplete, Toggle, Checkbox, Input } from "@/lib";
 
 export default function Home() {
     const [selectValue, setSelectValue] = useState("");
     const [autocompleteValue, setAutocompleteValue] = useState("");
     const [toggleChecked, setToggleChecked] = useState(false);
     const [checkboxChecked, setCheckboxChecked] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+    const [emailValue, setEmailValue] = useState("");
+    const [passwordValue, setPasswordValue] = useState("");
+    const [numberValue, setNumberValue] = useState("");
 
     const selectOptions = [
         { label: "React", value: "react" },
@@ -239,7 +243,7 @@ export default function Home() {
 
                             <div>
                                 <h3 className="mb-3 text-lg font-medium text-gray-700">
-                                    Full Width con Callback
+                                    Full Width
                                 </h3>
                                 <Autocomplete
                                     options={countries}
@@ -260,7 +264,7 @@ export default function Home() {
                     {/* Toggle Component */}
                     <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
                         <h2 className="mb-6 text-2xl font-semibold text-gray-900">
-                            Toggle (Estilo iPhone)
+                            Toggle
                         </h2>
                         <div className="space-y-6">
                             <div>
@@ -390,25 +394,182 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </section>
 
+                    {/* Input Component */}
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-3xl font-semibold text-gray-900">
+                            Input
+                        </h2>
+                        <div className="space-y-6">
                             <div>
-                                <h3 className="mb-3 text-lg font-medium text-gray-700">
-                                    Lista Interactiva
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Tipos de Input
                                 </h3>
-                                <div className="space-y-2">
-                                    <Checkbox
-                                        label="Acepto los términos y condiciones"
-                                        checked={checkboxChecked}
+                                <div className="grid gap-4 md:grid-cols-2">
+                                    <Input
+                                        type="text"
+                                        placeholder="Ingrese texto"
+                                        label="Texto"
+                                        value={inputValue}
                                         onChange={(e) =>
-                                            setCheckboxChecked(e.target.checked)
+                                            setInputValue(e.target.value)
                                         }
                                     />
-                                    <Checkbox
-                                        label="Quiero recibir notificaciones por email"
-                                        defaultChecked
+                                    <Input
+                                        type="email"
+                                        placeholder="correo@ejemplo.com"
+                                        label="Email"
+                                        value={emailValue}
+                                        onChange={(e) =>
+                                            setEmailValue(e.target.value)
+                                        }
+                                        helperText="Ingrese un email válido"
                                     />
-                                    <Checkbox label="Suscribirse al newsletter" />
+                                    <Input
+                                        type="password"
+                                        placeholder="••••••••"
+                                        label="Contraseña"
+                                        value={passwordValue}
+                                        onChange={(e) =>
+                                            setPasswordValue(e.target.value)
+                                        }
+                                    />
+                                    <Input
+                                        type="number"
+                                        placeholder="123"
+                                        label="Número"
+                                        value={numberValue}
+                                        onChange={(e) =>
+                                            setNumberValue(e.target.value)
+                                        }
+                                        helperText="Solo se permiten números"
+                                    />
+                                    <Input
+                                        type="tel"
+                                        placeholder="+54 11 1234-5678"
+                                        label="Teléfono"
+                                    />
+                                    <Input
+                                        type="url"
+                                        placeholder="https://ejemplo.com"
+                                        label="URL"
+                                    />
+                                    <Input
+                                        type="search"
+                                        placeholder="Buscar..."
+                                        label="Búsqueda"
+                                    />
+                                    <Input type="date" label="Fecha" />
                                 </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Tamaños
+                                </h3>
+                                <div className="flex flex-col gap-4">
+                                    <Input
+                                        size="sm"
+                                        placeholder="Small"
+                                        label="Small"
+                                    />
+                                    <Input
+                                        size="md"
+                                        placeholder="Medium"
+                                        label="Medium"
+                                    />
+                                    <Input
+                                        size="lg"
+                                        placeholder="Large"
+                                        label="Large"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Estados
+                                </h3>
+                                <div className="flex flex-col gap-4">
+                                    <Input
+                                        placeholder="Input normal"
+                                        label="Normal"
+                                    />
+                                    <Input
+                                        placeholder="Input deshabilitado"
+                                        label="Deshabilitado"
+                                        disabled
+                                    />
+                                    <Input
+                                        placeholder="Input con error"
+                                        label="Con Error"
+                                        error
+                                        helperText="Este campo contiene un error"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Con Iconos
+                                </h3>
+                                <div className="flex flex-col gap-4">
+                                    <Input
+                                        placeholder="Buscar..."
+                                        label="Con icono izquierdo"
+                                        leftIcon={
+                                            <svg
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="text-[#83c442]"
+                                            >
+                                                <path
+                                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        }
+                                    />
+                                    <Input
+                                        placeholder="usuario@ejemplo.com"
+                                        label="Con icono derecho"
+                                        rightIcon={
+                                            <svg
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="text-[#83c442]"
+                                            >
+                                                <path
+                                                    d="M16 12a4 4 0 11-8 0 4 4 0 018 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        }
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Full Width
+                                </h3>
+                                <Input
+                                    placeholder="Este input ocupa todo el ancho"
+                                    label="Ancho Completo"
+                                    fullWidth
+                                />
                             </div>
                         </div>
                     </section>
@@ -419,7 +580,7 @@ export default function Home() {
                             💡 Próximos componentes
                         </h3>
                         <p className="text-gray-700">
-                            Input, Modal, Card, Table y más...
+                            Modal, Card, Table y más...
                         </p>
                     </section>
                 </div>
