@@ -29,6 +29,17 @@ export type { CheckboxProps, CheckboxSize } from "./components/Checkbox";
 export { Input } from "./components/Input";
 export type { InputProps, InputType } from "./components/Input";
 
+export { Card, ArticleCard, ImageCard, ProfileCard, StatsCard, ProductCard } from "./components/Card";
+export type {
+    CardProps,
+    CardVariant,
+    ArticleCardProps,
+    ImageCardProps,
+    ProfileCardProps,
+    StatsCardProps,
+    ProductCardProps,
+} from "./components/Card";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';

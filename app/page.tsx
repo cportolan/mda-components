@@ -1,7 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Select, Autocomplete, Toggle, Checkbox, Input } from "@/lib";
+import {
+    Button,
+    Select,
+    Autocomplete,
+    Toggle,
+    Checkbox,
+    Input,
+    Card,
+    ArticleCard,
+    ImageCard,
+    ProfileCard,
+    StatsCard,
+} from "@/lib";
 
 export default function Home() {
     const [selectValue, setSelectValue] = useState("");
@@ -574,14 +586,323 @@ export default function Home() {
                         </div>
                     </section>
 
-                    {/* Info */}
-                    <section className="rounded-2xl border border-green-300/60 bg-linear-to-br from-green-50/80 to-[#83c442]/10 p-8 backdrop-blur-sm shadow-lg">
-                        <h3 className="mb-2 text-lg font-semibold text-[#5a9428]">
-                            💡 Próximos componentes
-                        </h3>
-                        <p className="text-gray-700">
-                            Modal, Card, Table y más...
-                        </p>
+                    {/* Card Component */}
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-3xl font-semibold text-gray-900">
+                            Cards
+                        </h2>
+                        <div className="space-y-8">
+                            <div>
+                                <h3 className="mb-4 text-xl font-medium text-gray-800">
+                                    Cards Base
+                                </h3>
+                                <div className="grid gap-4 md:grid-cols-3">
+                                    <Card variant="default">
+                                        <h4 className="mb-2 text-lg font-semibold text-[#3f3f3f]">
+                                            Card Default
+                                        </h4>
+                                        <p className="text-sm text-[#3f3f3f]/70">
+                                            Esta es una card con estilo por
+                                            defecto.
+                                        </p>
+                                    </Card>
+
+                                    <Card variant="outlined">
+                                        <h4 className="mb-2 text-lg font-semibold text-[#3f3f3f]">
+                                            Card Outlined
+                                        </h4>
+                                        <p className="text-sm text-[#3f3f3f]/70">
+                                            Card con borde verde característico.
+                                        </p>
+                                    </Card>
+
+                                    <Card variant="elevated">
+                                        <h4 className="mb-2 text-lg font-semibold text-[#3f3f3f]">
+                                            Card Elevated
+                                        </h4>
+                                        <p className="text-sm text-[#3f3f3f]/70">
+                                            Card con sombra elevada y efecto
+                                            hover.
+                                        </p>
+                                    </Card>
+
+                                    <Card variant="gradient">
+                                        <h4 className="mb-2 text-lg font-semibold text-[#3f3f3f]">
+                                            Card Gradient
+                                        </h4>
+                                        <p className="text-sm text-[#3f3f3f]/70">
+                                            Card con gradiente verde suave.
+                                        </p>
+                                    </Card>
+
+                                    <Card variant="interactive">
+                                        <h4 className="mb-2 text-lg font-semibold text-[#3f3f3f]">
+                                            Card Interactive
+                                        </h4>
+                                        <p className="text-sm text-[#3f3f3f]/70">
+                                            Card clickeable con animación.
+                                        </p>
+                                    </Card>
+
+                                    <Card hover>
+                                        <h4 className="mb-2 text-lg font-semibold text-[#3f3f3f]">
+                                            Card con Hover
+                                        </h4>
+                                        <p className="text-sm text-[#3f3f3f]/70">
+                                            Card con efecto de elevación al
+                                            hacer hover.
+                                        </p>
+                                    </Card>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-4 text-xl font-medium text-gray-800">
+                                    Article Cards
+                                </h3>
+                                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                    <ArticleCard
+                                        title="Nuevas iniciativas ambientales"
+                                        description="La municipalidad lanza un programa de reciclaje comunitario para reducir los residuos y fomentar la sustentabilidad en toda la ciudad."
+                                        author="Juan Pérez"
+                                        date="15 Feb 2026"
+                                        readTime="5 min"
+                                        tags={["Ambiente", "Comunidad"]}
+                                        onClick={() =>
+                                            alert("Ver artículo completo")
+                                        }
+                                    />
+
+                                    <ArticleCard
+                                        title="Mejoras en infraestructura vial"
+                                        description="Se anuncian obras de pavimentación y mejora de calles en diversos barrios de Avellaneda para mejorar la movilidad urbana."
+                                        author="María González"
+                                        date="12 Feb 2026"
+                                        readTime="3 min"
+                                        image="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400&h=200&fit=crop"
+                                        tags={["Obras", "Infraestructura"]}
+                                        onClick={() =>
+                                            alert("Ver artículo completo")
+                                        }
+                                    />
+
+                                    <ArticleCard
+                                        title="Programas culturales 2026"
+                                        description="Conocé la agenda cultural del año con actividades gratuitas para toda la familia en los espacios públicos de la ciudad."
+                                        author="Carlos Martínez"
+                                        date="10 Feb 2026"
+                                        readTime="4 min"
+                                        tags={["Cultura", "Eventos"]}
+                                        onClick={() =>
+                                            alert("Ver artículo completo")
+                                        }
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-4 text-xl font-medium text-gray-800">
+                                    Image Cards
+                                </h3>
+                                <div className="grid gap-6 md:grid-cols-3">
+                                    <ImageCard
+                                        image="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=400&fit=crop"
+                                        title="Plaza Central"
+                                        description="Nuevo espacio verde"
+                                        aspectRatio="square"
+                                        onClick={() => alert("Ver galería")}
+                                    />
+
+                                    <ImageCard
+                                        image="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=225&fit=crop"
+                                        title="Centro Cultural"
+                                        description="Agenda de eventos"
+                                        aspectRatio="video"
+                                        overlay={false}
+                                        onClick={() => alert("Ver más")}
+                                    />
+
+                                    <ImageCard
+                                        image="https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?w=400&h=533&fit=crop"
+                                        title="Biblioteca Municipal"
+                                        description="Horarios y actividades"
+                                        aspectRatio="portrait"
+                                        onClick={() => alert("Ver detalles")}
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-4 text-xl font-medium text-gray-800">
+                                    Profile Cards
+                                </h3>
+                                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                                    <ProfileCard
+                                        name="Ana Torres"
+                                        role="Secretaria de Cultura"
+                                        email="ana.torres@avellaneda.gob.ar"
+                                        phone="+54 11 4222-3333"
+                                        bio="Coordinando actividades culturales para toda la comunidad."
+                                    />
+
+                                    <ProfileCard
+                                        name="Roberto Silva"
+                                        role="Director de Obras Públicas"
+                                        avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop"
+                                        email="roberto.silva@avellaneda.gob.ar"
+                                        actions={
+                                            <Button size="sm" fullWidth>
+                                                Contactar
+                                            </Button>
+                                        }
+                                    />
+
+                                    <ProfileCard
+                                        name="Laura Mendoza"
+                                        role="Secretaria de Ambiente"
+                                        email="laura.mendoza@avellaneda.gob.ar"
+                                        bio="Impulsando políticas ambientales sustentables."
+                                    />
+
+                                    <ProfileCard
+                                        name="Diego Ramírez"
+                                        role="Coordinador de Deportes"
+                                        avatar="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop"
+                                        phone="+54 11 4222-4444"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-4 text-xl font-medium text-gray-800">
+                                    Stats Cards
+                                </h3>
+                                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                                    <StatsCard
+                                        title="Vecinos Registrados"
+                                        value="12,547"
+                                        change="+12%"
+                                        trend="up"
+                                        description="Respecto al mes anterior"
+                                        icon={
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="text-[#83c442]"
+                                            >
+                                                <path
+                                                    d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                />
+                                                <circle
+                                                    cx="9"
+                                                    cy="7"
+                                                    r="4"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                />
+                                                <path
+                                                    d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                />
+                                            </svg>
+                                        }
+                                    />
+
+                                    <StatsCard
+                                        title="Trámites Completados"
+                                        value="3,842"
+                                        change="+8%"
+                                        trend="up"
+                                        description="En el último trimestre"
+                                        icon={
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="text-[#83c442]"
+                                            >
+                                                <path
+                                                    d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                />
+                                                <path
+                                                    d="M22 4L12 14.01l-3-3"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                />
+                                            </svg>
+                                        }
+                                    />
+
+                                    <StatsCard
+                                        title="Eventos Realizados"
+                                        value="48"
+                                        change="-5%"
+                                        trend="down"
+                                        description="Este mes"
+                                        icon={
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="text-[#83c442]"
+                                            >
+                                                <rect
+                                                    x="3"
+                                                    y="4"
+                                                    width="18"
+                                                    height="18"
+                                                    rx="2"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                />
+                                                <path
+                                                    d="M16 2v4M8 2v4M3 10h18"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                />
+                                            </svg>
+                                        }
+                                    />
+
+                                    <StatsCard
+                                        title="Satisfacción"
+                                        value="94%"
+                                        trend="neutral"
+                                        description="Valoración ciudadana"
+                                        icon={
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="text-[#83c442]"
+                                            >
+                                                <path
+                                                    d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                />
+                                                <path
+                                                    d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                />
+                                            </svg>
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 </div>
             </div>
