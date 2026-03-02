@@ -29,6 +29,9 @@ export type { CheckboxProps, CheckboxSize } from "./components/Checkbox";
 export { Input } from "./components/Input";
 export type { InputProps, InputType } from "./components/Input";
 
+export { InputFile } from "./components/InputFile";
+export type { InputFileProps, FileWithPreview } from "./components/InputFile";
+
 export { Card, ArticleCard, ImageCard, ProfileCard, StatsCard, ProductCard } from "./components/Card";
 export type {
     CardProps,

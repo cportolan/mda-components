@@ -8,6 +8,7 @@ import {
     Toggle,
     Checkbox,
     Input,
+    InputFile,
     Card,
     ArticleCard,
     ImageCard,
@@ -24,6 +25,9 @@ export default function Home() {
     const [emailValue, setEmailValue] = useState("");
     const [passwordValue, setPasswordValue] = useState("");
     const [numberValue, setNumberValue] = useState("");
+    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+    const [imageFiles, setImageFiles] = useState<File[]>([]);
+    const [pdfFiles, setPdfFiles] = useState<File[]>([]);
 
     const selectOptions = [
         { label: "React", value: "react" },
@@ -565,7 +569,6 @@ export default function Home() {
                                                     stroke="currentColor"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
-                                                    strokeLinejoin="round"
                                                 />
                                             </svg>
                                         }
@@ -582,6 +585,135 @@ export default function Home() {
                                     label="Ancho Completo"
                                     fullWidth
                                 />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* InputFile Component */}
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-3xl font-semibold text-gray-900">
+                            Input File
+                        </h2>
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Upload de Imágenes
+                                </h3>
+                                <InputFile
+                                    accept="image/*"
+                                    multiple
+                                    maxSize={5}
+                                    maxFiles={3}
+                                    label="Subir Imágenes"
+                                    helperText="Arrastra o selecciona hasta 3 imágenes (máx. 5MB cada una)"
+                                    showPreview
+                                    value={imageFiles}
+                                    onChange={(files) => {
+                                        setImageFiles(files);
+                                        console.log("Imágenes:", files);
+                                    }}
+                                    onRemove={(file, index) => {
+                                        console.log(`Imagen eliminada: ${file.name}`);
+                                    }}
+                                />
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Upload de PDFs
+                                </h3>
+                                <InputFile
+                                    accept=".pdf,application/pdf"
+                                    multiple
+                                    maxSize={10}
+                                    maxFiles={5}
+                                    label="Documentos PDF"
+                                    helperText="Sube tus documentos en formato PDF"
+                                    buttonText="Seleccionar PDFs"
+                                    dropzoneText="o arrastra tus archivos PDF aquí"
+                                    value={pdfFiles}
+                                    onChange={(files) => {
+                                        setPdfFiles(files);
+                                        console.log("PDFs:", files);
+                                    }}
+                                />
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Archivo Único
+                                </h3>
+                                <InputFile
+                                    accept="image/*,.pdf,.doc,.docx"
+                                    label="Subir Documento o Imagen"
+                                    helperText="Se acepta un solo archivo"
+                                    maxSize={15}
+                                    showPreview
+                                />
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Todos los Archivos
+                                </h3>
+                                <InputFile
+                                    multiple
+                                    maxSize={20}
+                                    maxFiles={10}
+                                    label="Subir Cualquier Archivo"
+                                    helperText="Acepta cualquier tipo de archivo"
+                                    value={uploadedFiles}
+                                    onChange={(files) => {
+                                        setUploadedFiles(files);
+                                        console.log("Archivos subidos:", files);
+                                    }}
+                                    fullWidth
+                                />
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Estados
+                                </h3>
+                                <div className="space-y-4">
+                                    <InputFile
+                                        label="Normal"
+                                        helperText="Sube tus archivos"
+                                    />
+                                    <InputFile
+                                        label="Deshabilitado"
+                                        disabled
+                                        helperText="Este campo está deshabilitado"
+                                    />
+                                    <InputFile
+                                        label="Con Error"
+                                        error
+                                        helperText="Hubo un error al subir los archivos"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Tamaños
+                                </h3>
+                                <div className="space-y-4">
+                                    <InputFile
+                                        size="sm"
+                                        label="Small"
+                                        buttonText="Subir"
+                                    />
+                                    <InputFile
+                                        size="md"
+                                        label="Medium"
+                                        buttonText="Subir archivos"
+                                    />
+                                    <InputFile
+                                        size="lg"
+                                        label="Large"
+                                        buttonText="Seleccionar archivos"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </section>
