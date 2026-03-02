@@ -132,7 +132,7 @@ export const InputFile: React.FC<InputFileProps> = ({
     const removeFile = (index: number) => {
         const fileToRemove = files[index];
         const updatedFiles = files.filter((_, i) => i !== index);
-        
+
         // Revocar URL de preview si existe
         if (fileToRemove.preview) {
             URL.revokeObjectURL(fileToRemove.preview);
@@ -178,7 +178,9 @@ export const InputFile: React.FC<InputFileProps> = ({
         const k = 1024;
         const sizes = ["Bytes", "KB", "MB", "GB"];
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + " " + sizes[i];
+        return (
+            Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i]
+        );
     };
 
     const getFileIcon = (file: File) => {
@@ -248,11 +250,7 @@ export const InputFile: React.FC<InputFileProps> = ({
                     stroke="currentColor"
                     strokeWidth="2"
                 />
-                <path
-                    d="M13 2v7h7"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                />
+                <path d="M13 2v7h7" stroke="currentColor" strokeWidth="2" />
             </svg>
         );
     };
@@ -271,9 +269,13 @@ export const InputFile: React.FC<InputFileProps> = ({
     `;
 
     return (
-        <div className={`flex flex-col gap-3 ${fullWidth ? "w-full" : "w-auto"} ${className}`}>
+        <div
+            className={`flex flex-col gap-3 ${fullWidth ? "w-full" : "w-auto"} ${className}`}
+        >
             {label && (
-                <label className={`text-sm font-medium ${error || errorMessage ? "text-red-600" : "text-[#3f3f3f]"}`}>
+                <label
+                    className={`text-sm font-medium ${error || errorMessage ? "text-red-600" : "text-[#3f3f3f]"}`}
+                >
                     {label}
                 </label>
             )}
@@ -314,12 +316,17 @@ export const InputFile: React.FC<InputFileProps> = ({
                         >
                             {buttonText}
                         </button>
-                        <p className="text-sm text-[#3f3f3f]/70 mt-1">{dropzoneText}</p>
+                        <p className="text-sm text-[#3f3f3f]/70 mt-1">
+                            {dropzoneText}
+                        </p>
                     </div>
 
                     <div className="text-xs text-[#3f3f3f]/60 text-center">
                         {accept && <p>Archivos permitidos: {accept}</p>}
-                        <p>Tamaño máximo: {maxSize}MB {multiple && `• Máximo ${maxFiles} archivos`}</p>
+                        <p>
+                            Tamaño máximo: {maxSize}MB{" "}
+                            {multiple && `• Máximo ${maxFiles} archivos`}
+                        </p>
                     </div>
                 </div>
 

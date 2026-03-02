@@ -25,33 +25,30 @@ import { InputFile } from "@/lib/components/InputFile";
 ## Uso Básico
 
 ```tsx
-<InputFile
-    label="Subir Archivos"
-    onChange={(files) => console.log(files)}
-/>
+<InputFile label="Subir Archivos" onChange={(files) => console.log(files)} />
 ```
 
 ## Props
 
-| Prop | Tipo | Default | Descripción |
-|------|------|---------|-------------|
-| `accept` | `string` | `undefined` | Tipos de archivo aceptados (ej: "image/*", ".pdf") |
-| `multiple` | `boolean` | `false` | Permitir múltiples archivos |
-| `maxSize` | `number` | `10` | Tamaño máximo en MB |
-| `maxFiles` | `number` | `5` | Número máximo de archivos |
-| `label` | `string` | `undefined` | Etiqueta del input |
-| `helperText` | `string` | `undefined` | Texto de ayuda |
-| `error` | `boolean` | `false` | Estado de error |
-| `disabled` | `boolean` | `false` | Estado deshabilitado |
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Tamaño del componente |
-| `fullWidth` | `boolean` | `false` | Ocupar todo el ancho |
-| `onChange` | `(files: File[]) => void` | `undefined` | Callback al cambiar archivos |
-| `onRemove` | `(file: File, index: number) => void` | `undefined` | Callback al eliminar archivo |
-| `showPreview` | `boolean` | `true` | Mostrar vista previa de imágenes |
-| `buttonText` | `string` | `"Seleccionar archivos"` | Texto del botón |
-| `dropzoneText` | `string` | `"o arrastra y suelta archivos aquí"` | Texto del área de drop |
-| `className` | `string` | `""` | Clases CSS adicionales |
-| `value` | `File[]` | `undefined` | Archivos controlados |
+| Prop           | Tipo                                  | Default                               | Descripción                                         |
+| -------------- | ------------------------------------- | ------------------------------------- | --------------------------------------------------- |
+| `accept`       | `string`                              | `undefined`                           | Tipos de archivo aceptados (ej: "image/\*", ".pdf") |
+| `multiple`     | `boolean`                             | `false`                               | Permitir múltiples archivos                         |
+| `maxSize`      | `number`                              | `10`                                  | Tamaño máximo en MB                                 |
+| `maxFiles`     | `number`                              | `5`                                   | Número máximo de archivos                           |
+| `label`        | `string`                              | `undefined`                           | Etiqueta del input                                  |
+| `helperText`   | `string`                              | `undefined`                           | Texto de ayuda                                      |
+| `error`        | `boolean`                             | `false`                               | Estado de error                                     |
+| `disabled`     | `boolean`                             | `false`                               | Estado deshabilitado                                |
+| `size`         | `"sm" \| "md" \| "lg"`                | `"md"`                                | Tamaño del componente                               |
+| `fullWidth`    | `boolean`                             | `false`                               | Ocupar todo el ancho                                |
+| `onChange`     | `(files: File[]) => void`             | `undefined`                           | Callback al cambiar archivos                        |
+| `onRemove`     | `(file: File, index: number) => void` | `undefined`                           | Callback al eliminar archivo                        |
+| `showPreview`  | `boolean`                             | `true`                                | Mostrar vista previa de imágenes                    |
+| `buttonText`   | `string`                              | `"Seleccionar archivos"`              | Texto del botón                                     |
+| `dropzoneText` | `string`                              | `"o arrastra y suelta archivos aquí"` | Texto del área de drop                              |
+| `className`    | `string`                              | `""`                                  | Clases CSS adicionales                              |
+| `value`        | `File[]`                              | `undefined`                           | Archivos controlados                                |
 
 ## Ejemplos
 
@@ -70,7 +67,7 @@ const [images, setImages] = useState<File[]>([]);
     showPreview
     value={images}
     onChange={setImages}
-/>
+/>;
 ```
 
 ### Solo PDFs
@@ -108,7 +105,7 @@ const [images, setImages] = useState<File[]>([]);
     label="Subir Cualquier Archivo"
     fullWidth
     onChange={(files) => {
-        files.forEach(file => {
+        files.forEach((file) => {
             console.log(`${file.name}: ${file.size} bytes`);
         });
     }}
@@ -129,10 +126,12 @@ const handleChange = (newFiles: File[]) => {
 <InputFile
     label="Documentos Requeridos"
     error={hasError}
-    helperText={hasError ? "Debes subir al menos un archivo" : "Sube tus documentos"}
+    helperText={
+        hasError ? "Debes subir al menos un archivo" : "Sube tus documentos"
+    }
     value={files}
     onChange={handleChange}
-/>
+/>;
 ```
 
 ### Controlado con Callback de Eliminación
@@ -151,7 +150,7 @@ const [files, setFiles] = useState<File[]>([]);
     onRemove={(file, index) => {
         console.log(`Archivo eliminado: ${file.name} en posición ${index}`);
     }}
-/>
+/>;
 ```
 
 ### Diferentes Tamaños
@@ -177,37 +176,40 @@ Los mensajes de error se muestran automáticamente cuando hay validaciones falli
 
 ```tsx
 // Solo imágenes
-accept="image/*"
+accept = "image/*";
 
 // Solo PDFs
-accept=".pdf,application/pdf"
+accept = ".pdf,application/pdf";
 
 // Imágenes y PDFs
-accept="image/*,.pdf"
+accept = "image/*,.pdf";
 
 // Documentos específicos
-accept=".pdf,.doc,.docx,.xls,.xlsx"
+accept = ".pdf,.doc,.docx,.xls,.xlsx";
 
 // Videos
-accept="video/*"
+accept = "video/*";
 
 // Tipos MIME específicos
-accept="image/jpeg,image/png,image/gif"
+accept = "image/jpeg,image/png,image/gif";
 ```
 
 ## Vista Previa
 
 ### Imágenes
+
 - Muestra un thumbnail de 80x80px
 - Botón de eliminación flotante (X roja)
 - Nombre del archivo y tamaño
 
 ### PDFs
+
 - Icono de PDF en rojo
 - Nombre del archivo y tamaño
 - Botón de eliminación al lado
 
 ### Otros Archivos
+
 - Icono genérico de archivo
 - Nombre del archivo y tamaño
 - Botón de eliminación al lado
@@ -226,11 +228,13 @@ Siguiendo los lineamientos de la MDA:
 ## Drag & Drop
 
 El componente detecta automáticamente cuando:
+
 - El usuario arrastra archivos sobre la zona
 - Suelta los archivos
 - Sale de la zona de drop
 
 Estados visuales:
+
 - **Normal**: Borde verde claro punteado
 - **Hover**: Borde verde sólido + fondo verde suave
 - **Dragging**: Escala aumentada + borde verde + fondo verde

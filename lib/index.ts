@@ -32,7 +32,17 @@ export type { InputProps, InputType } from "./components/Input";
 export { InputFile } from "./components/InputFile";
 export type { InputFileProps, FileWithPreview } from "./components/InputFile";
 
-export { Card, ArticleCard, ImageCard, ProfileCard, StatsCard, ProductCard } from "./components/Card";
+export { Message } from "./components/Message";
+export type { MessageProps, MessageVariant } from "./components/Message";
+
+export {
+    Card,
+    ArticleCard,
+    ImageCard,
+    ProfileCard,
+    StatsCard,
+    ProductCard,
+} from "./components/Card";
 export type {
     CardProps,
     CardVariant,

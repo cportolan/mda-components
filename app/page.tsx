@@ -9,6 +9,7 @@ import {
     Checkbox,
     Input,
     InputFile,
+    Message,
     Card,
     ArticleCard,
     ImageCard,
@@ -613,7 +614,9 @@ export default function Home() {
                                         console.log("Imágenes:", files);
                                     }}
                                     onRemove={(file, index) => {
-                                        console.log(`Imagen eliminada: ${file.name}`);
+                                        console.log(
+                                            `Imagen eliminada: ${file.name}`
+                                        );
                                     }}
                                 />
                             </div>
@@ -713,6 +716,211 @@ export default function Home() {
                                         label="Large"
                                         buttonText="Seleccionar archivos"
                                     />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Message Component */}
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-3xl font-semibold text-gray-900">
+                            Mensajes
+                        </h2>
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Tipos de Mensaje
+                                </h3>
+                                <div className="space-y-3">
+                                    <Message
+                                        variant="success"
+                                        title="Operación exitosa"
+                                    >
+                                        Tu solicitud ha sido procesada
+                                        correctamente.
+                                    </Message>
+
+                                    <Message
+                                        variant="error"
+                                        title="Error al procesar"
+                                    >
+                                        Ocurrió un error al intentar guardar la
+                                        información. Por favor, intenta
+                                        nuevamente.
+                                    </Message>
+
+                                    <Message
+                                        variant="warning"
+                                        title="Atención requerida"
+                                    >
+                                        Algunos campos necesitan ser revisados
+                                        antes de continuar.
+                                    </Message>
+
+                                    <Message
+                                        variant="default"
+                                        title="Información"
+                                    >
+                                        Esta es una notificación informativa
+                                        general.
+                                    </Message>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Con Botón de Cerrar
+                                </h3>
+                                <div className="space-y-3">
+                                    <Message
+                                        variant="success"
+                                        title="¡Bienvenido!"
+                                        closable
+                                        onClose={() =>
+                                            console.log("Mensaje cerrado")
+                                        }
+                                    >
+                                        Te damos la bienvenida a la plataforma
+                                        de la Municipalidad de Avellaneda.
+                                    </Message>
+
+                                    <Message variant="warning" closable>
+                                        Recuerda completar tu perfil para
+                                        acceder a todos los servicios.
+                                    </Message>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Sin Icono
+                                </h3>
+                                <div className="space-y-3">
+                                    <Message
+                                        variant="success"
+                                        title="Mensaje sin icono"
+                                        showIcon={false}
+                                    >
+                                        Este mensaje no muestra un icono
+                                        predeterminado.
+                                    </Message>
+
+                                    <Message variant="error" showIcon={false}>
+                                        Mensaje simple sin título ni icono.
+                                    </Message>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Con Icono Personalizado
+                                </h3>
+                                <div className="space-y-3">
+                                    <Message
+                                        variant="success"
+                                        title="Trámite completado"
+                                        icon={
+                                            <svg
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="text-[#83c442]"
+                                            >
+                                                <path
+                                                    d="M9 11l3 3L22 4"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                />
+                                            </svg>
+                                        }
+                                    >
+                                        Tu solicitud ha sido aprobada y está
+                                        lista para retirar.
+                                    </Message>
+
+                                    <Message
+                                        variant="default"
+                                        title="Recordatorio"
+                                        icon={
+                                            <svg
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="text-gray-500"
+                                            >
+                                                <path
+                                                    d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        }
+                                    >
+                                        Tienes 3 notificaciones pendientes de
+                                        revisar.
+                                    </Message>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="mb-3 text-xl font-medium text-gray-800">
+                                    Mensajes Informativos
+                                </h3>
+                                <div className="space-y-3">
+                                    <Message variant="success" closable>
+                                        <strong>Actualización exitosa:</strong>{" "}
+                                        Los datos de tu perfil han sido
+                                        guardados correctamente.
+                                    </Message>
+
+                                    <Message
+                                        variant="error"
+                                        title="Campos incompletos"
+                                        closable
+                                    >
+                                        Por favor completa los siguientes
+                                        campos:
+                                        <ul className="mt-2 ml-4 list-disc">
+                                            <li>Nombre completo</li>
+                                            <li>Número de documento</li>
+                                            <li>Email de contacto</li>
+                                        </ul>
+                                    </Message>
+
+                                    <Message variant="warning" closable>
+                                        <strong>
+                                            Mantenimiento programado:
+                                        </strong>{" "}
+                                        El sistema estará en mantenimiento el
+                                        día 15/03 de 10:00 a 12:00 hs.
+                                    </Message>
+
+                                    <Message
+                                        variant="default"
+                                        title="¿Necesitas ayuda?"
+                                        closable
+                                    >
+                                        Comunicate con nosotros a través del
+                                        Centro de Atención al Vecino:
+                                        <div className="mt-2 flex gap-4 text-sm">
+                                            <span>📞 0800-333-AVELL</span>
+                                            <span>
+                                                ✉️ contacto@avellaneda.gob.ar
+                                            </span>
+                                        </div>
+                                    </Message>
                                 </div>
                             </div>
                         </div>
