@@ -433,6 +433,7 @@ export default function Home() {
                                         onChange={(e) =>
                                             setInputValue(e.target.value)
                                         }
+                                        fullWidth
                                     />
                                     <Input
                                         type="email"
@@ -443,6 +444,7 @@ export default function Home() {
                                             setEmailValue(e.target.value)
                                         }
                                         helperText="Ingrese un email válido"
+                                        fullWidth
                                     />
                                     <Input
                                         type="password"
@@ -452,6 +454,7 @@ export default function Home() {
                                         onChange={(e) =>
                                             setPasswordValue(e.target.value)
                                         }
+                                        fullWidth
                                     />
                                     <Input
                                         type="number"
@@ -462,23 +465,31 @@ export default function Home() {
                                             setNumberValue(e.target.value)
                                         }
                                         helperText="Solo se permiten números"
+                                        fullWidth
                                     />
                                     <Input
                                         type="tel"
                                         placeholder="+54 11 1234-5678"
                                         label="Teléfono"
+                                        fullWidth
                                     />
                                     <Input
                                         type="url"
                                         placeholder="https://ejemplo.com"
                                         label="URL"
+                                        fullWidth
                                     />
                                     <Input
                                         type="search"
                                         placeholder="Buscar..."
                                         label="Búsqueda"
+                                        fullWidth
                                     />
-                                    <Input type="date" label="Fecha" />
+                                    <Input
+                                        type="date"
+                                        label="Fecha"
+                                        fullWidth
+                                    />
                                 </div>
                             </div>
 
@@ -491,16 +502,19 @@ export default function Home() {
                                         size="sm"
                                         placeholder="Small"
                                         label="Small"
+                                        fullWidth
                                     />
                                     <Input
                                         size="md"
                                         placeholder="Medium"
                                         label="Medium"
+                                        fullWidth
                                     />
                                     <Input
                                         size="lg"
                                         placeholder="Large"
                                         label="Large"
+                                        fullWidth
                                     />
                                 </div>
                             </div>
@@ -513,17 +527,20 @@ export default function Home() {
                                     <Input
                                         placeholder="Input normal"
                                         label="Normal"
+                                        fullWidth
                                     />
                                     <Input
                                         placeholder="Input deshabilitado"
                                         label="Deshabilitado"
                                         disabled
+                                        fullWidth
                                     />
                                     <Input
                                         placeholder="Input con error"
                                         label="Con Error"
                                         error
                                         helperText="Este campo contiene un error"
+                                        fullWidth
                                     />
                                 </div>
                             </div>
@@ -553,6 +570,7 @@ export default function Home() {
                                                 />
                                             </svg>
                                         }
+                                        fullWidth
                                     />
                                     <Input
                                         placeholder="usuario@ejemplo.com"
@@ -573,19 +591,9 @@ export default function Home() {
                                                 />
                                             </svg>
                                         }
+                                        fullWidth
                                     />
                                 </div>
-                            </div>
-
-                            <div>
-                                <h3 className="mb-3 text-xl font-medium text-gray-800">
-                                    Full Width
-                                </h3>
-                                <Input
-                                    placeholder="Este input ocupa todo el ancho"
-                                    label="Ancho Completo"
-                                    fullWidth
-                                />
                             </div>
                         </div>
                     </section>
@@ -615,7 +623,7 @@ export default function Home() {
                                     }}
                                     onRemove={(file, index) => {
                                         console.log(
-                                            `Imagen eliminada: ${file.name}`
+                                            `Imagen eliminada: ${file.name}`,
                                         );
                                     }}
                                 />

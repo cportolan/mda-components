@@ -21,12 +21,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             onChange,
             ...props
         },
-        ref
+        ref,
     ) => {
         const [showPassword, setShowPassword] = useState(false);
 
         const handleNumberInput = (
-            e: React.KeyboardEvent<HTMLInputElement>
+            e: React.KeyboardEvent<HTMLInputElement>,
         ) => {
             if (type === "number") {
                 // Permitir: números, retroceso, tab, escape, enter, punto decimal, guiones para negativos
@@ -55,14 +55,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         };
 
         const handleEmailValidation = (
-            e: React.ChangeEvent<HTMLInputElement>
+            e: React.ChangeEvent<HTMLInputElement>,
         ) => {
             if (type === "email" && e.target.value) {
                 // Validación básica de email en tiempo real (opcional)
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(e.target.value)) {
                     e.target.setCustomValidity(
-                        "Por favor, ingrese un email válido"
+                        "Por favor, ingrese un email válido",
                     );
                 } else {
                     e.target.setCustomValidity("");
@@ -107,7 +107,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         const stateStyles = error
             ? "border-red-400 focus:border-red-500 focus:shadow-[0_0_10px_rgba(255,0,0,0.3)] text-red-900"
-            : "border-[#70f787] focus:border-[#83c442] focus:shadow-[0_0_10px_rgba(128,255,0,0.426)] text-[#3f3f3f]";
+            : "border-[#e2e2e2] focus:border-[#83c442] focus:shadow-[0_0_10px_rgba(128,255,0,0.426)] text-[#3f3f3f]";
 
         const disabledStyles = disabled
             ? "bg-[#f0f0f0] border-[#e2e2e2] cursor-not-allowed opacity-60"
@@ -235,7 +235,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 )}
             </div>
         );
-    }
+    },
 );
 
 Input.displayName = "Input";
