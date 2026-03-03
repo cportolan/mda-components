@@ -50,7 +50,7 @@ export interface ProfileCardProps {
 export interface StatsCardProps {
     title: string;
     value: string | number;
-    change?: number;
+    change?: string | number;
     trend?: "up" | "down" | "neutral";
     icon?: ReactNode;
     description?: string;

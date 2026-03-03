@@ -23,7 +23,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
             children,
             ...props
         },
-        ref
+        ref,
     ) => {
         const baseStyles = "transition-all duration-300";
 
@@ -66,7 +66,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
                 {children}
             </div>
         );
-    }
+    },
 );
 
 Card.displayName = "Card";
@@ -353,10 +353,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
                             className={`flex items-center gap-1 text-sm font-medium ${trendColors[trend]}`}
                         >
                             {trendIcons[trend]}
-                            <span>
-                                {change > 0 ? "+" : ""}
-                                {change}%
-                            </span>
+                            <span>{change}%</span>
                         </div>
                     )}
                     {description && (

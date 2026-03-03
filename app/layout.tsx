@@ -8,6 +8,15 @@ const interTight = Inter_Tight({
     display: "swap",
 });
 
+export const metadata: Metadata = {
+    title: "MDA Componentes - Librería Frontend",
+    description:
+        "Librería de componentes frontend para React, diseñada para ser fácil de usar, personalizable y accesible. Incluye una amplia variedad de componentes preconstruidos y estilos flexibles para adaptarse a cualquier proyecto.",
+    icons: {
+        icon: "/images/mda_logo.svg",
+    },
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
