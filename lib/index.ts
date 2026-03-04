@@ -53,6 +53,17 @@ export type {
     ProductCardProps,
 } from "./components/Card";
 
+export { Stepper, StepperNavigation } from "./components/Stepper";
+export type {
+    StepperProps,
+    StepperNavigationProps,
+    StepperVariant,
+    StepperSize,
+    StepperOrientation,
+    StepStatus,
+    Step,
+} from "./components/Stepper";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';

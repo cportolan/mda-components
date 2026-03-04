@@ -15,7 +15,10 @@ import {
     ImageCard,
     ProfileCard,
     StatsCard,
+    Stepper,
+    StepperNavigation,
 } from "@/lib";
+import type { Step } from "@/lib";
 
 export default function Home() {
     const [selectValue, setSelectValue] = useState("");
@@ -29,6 +32,119 @@ export default function Home() {
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [imageFiles, setImageFiles] = useState<File[]>([]);
     const [pdfFiles, setPdfFiles] = useState<File[]>([]);
+
+    // Stepper state
+    const [stepperDefault, setStepperDefault] = useState(1);
+    const [stepperOutlined, setStepperOutlined] = useState(1);
+    const [stepperMinimal, setStepperMinimal] = useState(2);
+    const [stepperDots, setStepperDots] = useState(1);
+    const [stepperVertical, setStepperVertical] = useState(1);
+    const [stepperNav, setStepperNav] = useState(0);
+    const [stepperNavClickable, setStepperNavClickable] = useState(2);
+
+    const stepsBasic: Step[] = [
+        { title: "Datos personales", description: "Nombre y DNI" },
+        { title: "Domicilio", description: "Dirección de residencia" },
+        { title: "Documentación", description: "Adjuntar archivos" },
+        { title: "Confirmación", description: "Revisar y enviar" },
+    ];
+
+    const stepsWithIcons: Step[] = [
+        {
+            title: "Cuenta",
+            description: "Crear usuario",
+            icon: (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                    />
+                    <circle
+                        cx="12"
+                        cy="7"
+                        r="4"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                    />
+                </svg>
+            ),
+        },
+        {
+            title: "Pago",
+            description: "Método de pago",
+            icon: (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <rect
+                        x="1"
+                        y="4"
+                        width="22"
+                        height="16"
+                        rx="2"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                    />
+                    <path d="M1 10h22" stroke="currentColor" strokeWidth="2" />
+                </svg>
+            ),
+        },
+        {
+            title: "Envío",
+            description: "Dirección de envío",
+            icon: (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M5 12H19M12 5l7 7-7 7"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            ),
+        },
+        {
+            title: "Listo",
+            description: "Pedido confirmado",
+            icon: (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            ),
+        },
+    ];
+
+    const stepsWithError: Step[] = [
+        { title: "Datos personales" },
+        {
+            title: "Domicilio",
+            status: "error",
+            description: "Dirección inválida",
+        },
+        { title: "Documentación" },
+        { title: "Confirmación" },
+    ];
+
+    const stepsDisabled: Step[] = [
+        { title: "Paso 1", description: "Completado" },
+        { title: "Paso 2", description: "En progreso" },
+        { title: "Paso 3", description: "Bloqueado", disabled: true },
+        { title: "Paso 4", description: "Bloqueado", disabled: true },
+    ];
+
+    const stepsNav: Step[] = [
+        { title: "Información", description: "Datos del trámite" },
+        { title: "Documentos", description: "Archivos requeridos" },
+        { title: "Revisión", description: "Confirmar datos" },
+        { title: "Envío", description: "Finalizar trámite" },
+    ];
 
     const selectOptions = [
         { label: "React", value: "react" },
@@ -623,7 +739,7 @@ export default function Home() {
                                     }}
                                     onRemove={(file, index) => {
                                         console.log(
-                                            `Imagen eliminada: ${file.name}`,
+                                            `Imagen eliminada: ${file.name}`
                                         );
                                     }}
                                 />
@@ -1248,6 +1364,473 @@ export default function Home() {
                                             </svg>
                                         }
                                     />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Stepper Component */}
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-3xl font-semibold text-gray-900">
+                            Stepper
+                        </h2>
+                        <div className="space-y-10">
+                            {/* Variante Default */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Variante Default
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Círculos rellenos con color primario al
+                                    completar/activar.
+                                </p>
+                                <Stepper
+                                    steps={stepsBasic}
+                                    activeStep={stepperDefault}
+                                />
+                                <div className="mt-4 flex gap-2">
+                                    <Button
+                                        size="sm"
+                                        variant="secondary"
+                                        disabled={stepperDefault === 0}
+                                        onClick={() =>
+                                            setStepperDefault((s) => s - 1)
+                                        }
+                                    >
+                                        ← Anterior
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        disabled={
+                                            stepperDefault ===
+                                            stepsBasic.length - 1
+                                        }
+                                        onClick={() =>
+                                            setStepperDefault((s) => s + 1)
+                                        }
+                                    >
+                                        Siguiente →
+                                    </Button>
+                                </div>
+                            </div>
+
+                            {/* Variante Outlined */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Variante Outlined
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Círculos con borde verde, sin relleno. Ring
+                                    glow en el paso activo.
+                                </p>
+                                <Stepper
+                                    steps={stepsBasic}
+                                    activeStep={stepperOutlined}
+                                    variant="outlined"
+                                />
+                                <div className="mt-4 flex gap-2">
+                                    <Button
+                                        size="sm"
+                                        variant="secondary"
+                                        disabled={stepperOutlined === 0}
+                                        onClick={() =>
+                                            setStepperOutlined((s) => s - 1)
+                                        }
+                                    >
+                                        ← Anterior
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        disabled={
+                                            stepperOutlined ===
+                                            stepsBasic.length - 1
+                                        }
+                                        onClick={() =>
+                                            setStepperOutlined((s) => s + 1)
+                                        }
+                                    >
+                                        Siguiente →
+                                    </Button>
+                                </div>
+                            </div>
+
+                            {/* Variante Minimal */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Variante Minimal
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Estilo limpio: solo borde en completado,
+                                    relleno en activo.
+                                </p>
+                                <Stepper
+                                    steps={stepsBasic}
+                                    activeStep={stepperMinimal}
+                                    variant="minimal"
+                                />
+                                <div className="mt-4 flex gap-2">
+                                    <Button
+                                        size="sm"
+                                        variant="secondary"
+                                        disabled={stepperMinimal === 0}
+                                        onClick={() =>
+                                            setStepperMinimal((s) => s - 1)
+                                        }
+                                    >
+                                        ← Anterior
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        disabled={
+                                            stepperMinimal ===
+                                            stepsBasic.length - 1
+                                        }
+                                        onClick={() =>
+                                            setStepperMinimal((s) => s + 1)
+                                        }
+                                    >
+                                        Siguiente →
+                                    </Button>
+                                </div>
+                            </div>
+
+                            {/* Variante Dots */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Variante Dots
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Representación compacta con puntos. Ideal
+                                    para wizards simples.
+                                </p>
+                                <Stepper
+                                    steps={stepsBasic}
+                                    activeStep={stepperDots}
+                                    variant="dots"
+                                />
+                                <div className="mt-4 flex gap-2">
+                                    <Button
+                                        size="sm"
+                                        variant="secondary"
+                                        disabled={stepperDots === 0}
+                                        onClick={() =>
+                                            setStepperDots((s) => s - 1)
+                                        }
+                                    >
+                                        ← Anterior
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        disabled={
+                                            stepperDots ===
+                                            stepsBasic.length - 1
+                                        }
+                                        onClick={() =>
+                                            setStepperDots((s) => s + 1)
+                                        }
+                                    >
+                                        Siguiente →
+                                    </Button>
+                                </div>
+                            </div>
+
+                            {/* Orientación Vertical */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Orientación Vertical
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Pasos apilados verticalmente. Compatible con
+                                    todas las variantes.
+                                </p>
+                                <div className="grid gap-8 md:grid-cols-2">
+                                    <div>
+                                        <p className="mb-3 text-sm font-medium text-gray-600">
+                                            Default vertical
+                                        </p>
+                                        <Stepper
+                                            steps={stepsBasic}
+                                            activeStep={stepperVertical}
+                                            orientation="vertical"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="mb-3 text-sm font-medium text-gray-600">
+                                            Outlined vertical
+                                        </p>
+                                        <Stepper
+                                            steps={stepsBasic}
+                                            activeStep={stepperVertical}
+                                            orientation="vertical"
+                                            variant="outlined"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="mt-4 flex gap-2">
+                                    <Button
+                                        size="sm"
+                                        variant="secondary"
+                                        disabled={stepperVertical === 0}
+                                        onClick={() =>
+                                            setStepperVertical((s) => s - 1)
+                                        }
+                                    >
+                                        ← Anterior
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        disabled={
+                                            stepperVertical ===
+                                            stepsBasic.length - 1
+                                        }
+                                        onClick={() =>
+                                            setStepperVertical((s) => s + 1)
+                                        }
+                                    >
+                                        Siguiente →
+                                    </Button>
+                                </div>
+                            </div>
+
+                            {/* Con iconos personalizados */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Con Íconos Personalizados
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Cada paso puede tener un ícono SVG propio.
+                                </p>
+                                <Stepper
+                                    steps={stepsWithIcons}
+                                    activeStep={2}
+                                    variant="default"
+                                />
+                            </div>
+
+                            {/* Con estado de error */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Con Estado de Error
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Un paso puede marcarse con{" "}
+                                    <code className="bg-gray-100 px-1 rounded text-xs">
+                                        status: "error"
+                                    </code>{" "}
+                                    para indicar un problema.
+                                </p>
+                                <Stepper
+                                    steps={stepsWithError}
+                                    activeStep={1}
+                                />
+                            </div>
+
+                            {/* Con pasos deshabilitados */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Con Pasos Deshabilitados
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Los pasos con{" "}
+                                    <code className="bg-gray-100 px-1 rounded text-xs">
+                                        disabled: true
+                                    </code>{" "}
+                                    no son interactuables.
+                                </p>
+                                <Stepper
+                                    steps={stepsDisabled}
+                                    activeStep={1}
+                                    clickable
+                                    onStepClick={(i) =>
+                                        alert(`Paso ${i + 1} clickeado`)
+                                    }
+                                />
+                            </div>
+
+                            {/* Clickeable */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Clickeable
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Con{" "}
+                                    <code className="bg-gray-100 px-1 rounded text-xs">
+                                        clickable
+                                    </code>{" "}
+                                    el usuario puede saltar entre pasos
+                                    directamente.
+                                </p>
+                                <Stepper
+                                    steps={stepsBasic}
+                                    activeStep={stepperNavClickable}
+                                    variant="outlined"
+                                    clickable
+                                    onStepClick={setStepperNavClickable}
+                                />
+                            </div>
+
+                            {/* Tamaños */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Tamaños
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Disponibles en{" "}
+                                    <code className="bg-gray-100 px-1 rounded text-xs">
+                                        sm
+                                    </code>
+                                    ,{" "}
+                                    <code className="bg-gray-100 px-1 rounded text-xs">
+                                        md
+                                    </code>{" "}
+                                    y{" "}
+                                    <code className="bg-gray-100 px-1 rounded text-xs">
+                                        lg
+                                    </code>
+                                    .
+                                </p>
+                                <div className="space-y-6">
+                                    <div>
+                                        <p className="mb-2 text-xs text-gray-500 font-medium uppercase tracking-wide">
+                                            Small
+                                        </p>
+                                        <Stepper
+                                            steps={stepsBasic}
+                                            activeStep={1}
+                                            size="sm"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="mb-2 text-xs text-gray-500 font-medium uppercase tracking-wide">
+                                            Medium (default)
+                                        </p>
+                                        <Stepper
+                                            steps={stepsBasic}
+                                            activeStep={1}
+                                            size="md"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="mb-2 text-xs text-gray-500 font-medium uppercase tracking-wide">
+                                            Large
+                                        </p>
+                                        <Stepper
+                                            steps={stepsBasic}
+                                            activeStep={1}
+                                            size="lg"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* StepperNavigation */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    StepperNavigation
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Componente completo con botones de
+                                    navegación, contenido de paso y contador.
+                                </p>
+                                <StepperNavigation
+                                    steps={stepsNav}
+                                    activeStep={stepperNav}
+                                    onNext={() =>
+                                        setStepperNav((s) =>
+                                            Math.min(s + 1, stepsNav.length - 1)
+                                        )
+                                    }
+                                    onBack={() =>
+                                        setStepperNav((s) => Math.max(s - 1, 0))
+                                    }
+                                    onFinish={() =>
+                                        alert("¡Trámite enviado con éxito!")
+                                    }
+                                >
+                                    {stepperNav === 0 && (
+                                        <div className="space-y-2">
+                                            <p className="font-medium text-[#3f3f3f]">
+                                                Información del trámite
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                Completá los datos personales
+                                                para iniciar el trámite
+                                                municipal.
+                                            </p>
+                                        </div>
+                                    )}
+                                    {stepperNav === 1 && (
+                                        <div className="space-y-2">
+                                            <p className="font-medium text-[#3f3f3f]">
+                                                Documentos requeridos
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                Adjuntá tu DNI y comprobante de
+                                                domicilio en formato PDF.
+                                            </p>
+                                        </div>
+                                    )}
+                                    {stepperNav === 2 && (
+                                        <div className="space-y-2">
+                                            <p className="font-medium text-[#3f3f3f]">
+                                                Revisión de datos
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                Verificá que toda la información
+                                                sea correcta antes de enviar.
+                                            </p>
+                                        </div>
+                                    )}
+                                    {stepperNav === 3 && (
+                                        <div className="space-y-2">
+                                            <p className="font-medium text-[#3f3f3f]">
+                                                ¡Todo listo!
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                Hacé click en{" "}
+                                                <strong>Finalizar</strong> para
+                                                enviar el trámite.
+                                            </p>
+                                        </div>
+                                    )}
+                                </StepperNavigation>
+                            </div>
+
+                            {/* StepperNavigation Outlined */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    StepperNavigation — Outlined + Dots
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    El componente de navegación también acepta
+                                    todas las variantes del Stepper.
+                                </p>
+                                <div className="grid gap-8 md:grid-cols-2">
+                                    <StepperNavigation
+                                        steps={stepsNav.slice(0, 3)}
+                                        activeStep={1}
+                                        variant="outlined"
+                                        nextLabel="Continuar"
+                                        backLabel="Volver"
+                                        finishLabel="Guardar"
+                                    >
+                                        <p className="text-sm text-gray-500">
+                                            Contenido del paso activo
+                                            (outlined).
+                                        </p>
+                                    </StepperNavigation>
+                                    <StepperNavigation
+                                        steps={stepsNav}
+                                        activeStep={2}
+                                        variant="dots"
+                                        nextLabel="Continuar"
+                                        backLabel="Volver"
+                                        finishLabel="Guardar"
+                                    >
+                                        <p className="text-sm text-gray-500">
+                                            Contenido del paso activo (dots).
+                                        </p>
+                                    </StepperNavigation>
                                 </div>
                             </div>
                         </div>

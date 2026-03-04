@@ -15,6 +15,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [InputFile](#inputfile)
     - [Card](#card)
     - [Message](#message)
+    - [Stepper](#stepper)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -1031,52 +1032,228 @@ const [mensajes, setMensajes] = useState([
 
 ---
 
+### Stepper
+
+Componente de pasos para guiar al usuario a través de flujos multi-etapa (wizards, formularios, trámites). Incluye `Stepper` para mostrar el progreso y `StepperNavigation` como wrapper completo con botones de navegación.
+
+#### Tipos
+
+```typescript
+type StepperVariant = "default" | "outlined" | "minimal" | "dots";
+type StepperSize = "sm" | "md" | "lg";
+type StepperOrientation = "horizontal" | "vertical";
+type StepStatus = "completed" | "active" | "pending" | "error";
+
+interface Step {
+    title: string;
+    description?: string;
+    icon?: ReactNode;
+    status?: StepStatus; // sobreescribe el estado calculado
+    disabled?: boolean;
+}
+```
+
+#### Props — `Stepper`
+
+| Prop          | Tipo                      | Default        | Descripción                                    |
+| ------------- | ------------------------- | -------------- | ---------------------------------------------- |
+| `steps`       | `Step[]`                  | -              | Array de pasos                                 |
+| `activeStep`  | `number`                  | `0`            | Índice del paso activo (0-based)               |
+| `variant`     | `StepperVariant`          | `'default'`    | Variante visual                                |
+| `size`        | `StepperSize`             | `'md'`         | Tamaño del stepper                             |
+| `orientation` | `StepperOrientation`      | `'horizontal'` | Orientación                                    |
+| `clickable`   | `boolean`                 | `false`        | Permite navegar haciendo click en los pasos    |
+| `onStepClick` | `(index: number) => void` | -              | Callback al hacer click en un paso (clickable) |
+| `className`   | `string`                  | `''`           | Clases CSS adicionales                         |
+
+#### Props — `StepperNavigation`
+
+| Prop          | Tipo                 | Default        | Descripción                         |
+| ------------- | -------------------- | -------------- | ----------------------------------- |
+| `steps`       | `Step[]`             | -              | Array de pasos                      |
+| `activeStep`  | `number`             | `0`            | Índice del paso activo              |
+| `onNext`      | `() => void`         | -              | Callback al avanzar                 |
+| `onBack`      | `() => void`         | -              | Callback al retroceder              |
+| `onFinish`    | `() => void`         | -              | Callback al finalizar (último paso) |
+| `children`    | `ReactNode`          | -              | Contenido del paso activo           |
+| `variant`     | `StepperVariant`     | `'default'`    | Variante visual del stepper interno |
+| `size`        | `StepperSize`        | `'md'`         | Tamaño                              |
+| `orientation` | `StepperOrientation` | `'horizontal'` | Orientación                         |
+| `nextLabel`   | `string`             | `'Siguiente'`  | Texto del botón siguiente           |
+| `backLabel`   | `string`             | `'Anterior'`   | Texto del botón anterior            |
+| `finishLabel` | `string`             | `'Finalizar'`  | Texto del botón finalizar           |
+| `className`   | `string`             | `''`           | Clases CSS adicionales              |
+
+#### Ejemplos
+
+```tsx
+import { Stepper, StepperNavigation } from '@/lib';
+import type { Step } from '@/lib';
+
+const steps: Step[] = [
+  { title: 'Datos personales', description: 'Nombre y DNI' },
+  { title: 'Domicilio',        description: 'Dirección de residencia' },
+  { title: 'Documentación',   description: 'Adjuntar archivos' },
+  { title: 'Confirmación',    description: 'Revisar y enviar' },
+];
+
+// ── Variante default ──────────────────────────────────────────────────────────
+<Stepper steps={steps} activeStep={1} />
+
+// ── Variante outlined ─────────────────────────────────────────────────────────
+<Stepper steps={steps} activeStep={2} variant="outlined" />
+
+// ── Variante minimal ──────────────────────────────────────────────────────────
+<Stepper steps={steps} activeStep={1} variant="minimal" />
+
+// ── Variante dots ─────────────────────────────────────────────────────────────
+// Muestra puntos con la etiqueta del paso activo debajo.
+<Stepper steps={steps} activeStep={2} variant="dots" />
+
+// ── Orientación vertical ──────────────────────────────────────────────────────
+<Stepper steps={steps} activeStep={1} orientation="vertical" />
+<Stepper steps={steps} activeStep={1} orientation="vertical" variant="outlined" />
+
+// ── Tamaños ───────────────────────────────────────────────────────────────────
+<Stepper steps={steps} activeStep={1} size="sm" />
+<Stepper steps={steps} activeStep={1} size="md" />
+<Stepper steps={steps} activeStep={1} size="lg" />
+
+// ── Clickeable ────────────────────────────────────────────────────────────────
+const [active, setActive] = useState(0);
+
+<Stepper
+  steps={steps}
+  activeStep={active}
+  clickable
+  onStepClick={setActive}
+/>
+
+// ── Con íconos personalizados ─────────────────────────────────────────────────
+const stepsConIconos: Step[] = [
+  { title: 'Cuenta',  icon: <UserIcon /> },
+  { title: 'Pago',    icon: <CardIcon /> },
+  { title: 'Envío',   icon: <ArrowIcon /> },
+  { title: 'Listo',   icon: <CheckIcon /> },
+];
+
+<Stepper steps={stepsConIconos} activeStep={2} />
+
+// ── Con estado de error ───────────────────────────────────────────────────────
+const stepsConError: Step[] = [
+  { title: 'Datos personales' },
+  { title: 'Domicilio', status: 'error', description: 'Dirección inválida' },
+  { title: 'Documentación' },
+  { title: 'Confirmación' },
+];
+
+<Stepper steps={stepsConError} activeStep={1} />
+
+// ── Con pasos deshabilitados ──────────────────────────────────────────────────
+const stepsConDisabled: Step[] = [
+  { title: 'Paso 1' },
+  { title: 'Paso 2' },
+  { title: 'Paso 3', disabled: true },
+  { title: 'Paso 4', disabled: true },
+];
+
+<Stepper steps={stepsConDisabled} activeStep={1} clickable onStepClick={setActive} />
+
+// ── StepperNavigation — básico ────────────────────────────────────────────────
+const [activeStep, setActiveStep] = useState(0);
+
+<StepperNavigation
+  steps={steps}
+  activeStep={activeStep}
+  onNext={()   => setActiveStep(s => Math.min(s + 1, steps.length - 1))}
+  onBack={()   => setActiveStep(s => Math.max(s - 1, 0))}
+  onFinish={()  => console.log('¡Finalizado!')}
+>
+  {activeStep === 0 && <p>Contenido del paso 1</p>}
+  {activeStep === 1 && <p>Contenido del paso 2</p>}
+  {activeStep === 2 && <p>Contenido del paso 3</p>}
+  {activeStep === 3 && <p>Contenido del paso 4</p>}
+</StepperNavigation>
+
+// ── StepperNavigation — variante outlined con labels personalizados ────────────
+<StepperNavigation
+  steps={steps}
+  activeStep={activeStep}
+  variant="outlined"
+  nextLabel="Continuar"
+  backLabel="Volver"
+  finishLabel="Enviar trámite"
+  onNext={()  => setActiveStep(s => s + 1)}
+  onBack={()  => setActiveStep(s => s - 1)}
+  onFinish={() => submitForm()}
+>
+  <FormularioPaso paso={activeStep} />
+</StepperNavigation>
+
+// ── StepperNavigation — variante dots ─────────────────────────────────────────
+<StepperNavigation
+  steps={steps}
+  activeStep={activeStep}
+  variant="dots"
+  onNext={()  => setActiveStep(s => s + 1)}
+  onBack={()  => setActiveStep(s => s - 1)}
+  onFinish={() => finish()}
+/>
+
+// ── Ejemplo completo — Trámite municipal ──────────────────────────────────────
+const pasosTramite: Step[] = [
+  { title: 'Inicio',       description: 'Tipo de trámite' },
+  { title: 'Solicitante',  description: 'Datos del vecino' },
+  { title: 'Documentos',   description: 'Adjuntar archivos' },
+  { title: 'Pago',         description: 'Abonar tasa' },
+  { title: 'Confirmación', description: 'Revisar y enviar' },
+];
+
+const [paso, setPaso] = useState(0);
+
+<StepperNavigation
+  steps={pasosTramite}
+  activeStep={paso}
+  variant="default"
+  size="md"
+  onNext={()   => setPaso(p => Math.min(p + 1, pasosTramite.length - 1))}
+  onBack={()   => setPaso(p => Math.max(p - 1, 0))}
+  onFinish={()  => enviarTramite()}
+  nextLabel="Continuar"
+  backLabel="Volver"
+  finishLabel="Enviar Trámite"
+>
+  {paso === 0 && <FormularioTipoTramite />}
+  {paso === 1 && <FormularioSolicitante />}
+  {paso === 2 && <FormularioDocumentos />}
+  {paso === 3 && <FormularioPago />}
+  {paso === 4 && <ResumenTramite />}
+</StepperNavigation>
+```
+
+---
+
 ## 📦 Estructura del Proyecto
 
 ```
 lib/
-├── components/              # Componentes de la librería
-│   ├── .template/          # Plantillas para nuevos componentes
+├── components/
 │   ├── Autocomplete/
-│   │   ├── Autocomplete.tsx
-│   │   ├── Autocomplete.types.ts
-│   │   └── index.ts
 │   ├── Button/
-│   │   ├── Button.tsx
-│   │   ├── Button.types.ts
-│   │   └── index.ts
 │   ├── Card/
-│   │   ├── Card.tsx
-│   │   ├── Card.types.ts
-│   │   └── index.ts
 │   ├── Checkbox/
-│   │   ├── Checkbox.tsx
-│   │   ├── Checkbox.types.ts
-│   │   └── index.ts
 │   ├── Input/
-│   │   ├── Input.tsx
-│   │   ├── Input.types.ts
-│   │   └── index.ts
 │   ├── InputFile/
-│   │   ├── InputFile.tsx
-│   │   ├── InputFile.types.ts
-│   │   ├── README.md
-│   │   └── index.ts
 │   ├── Message/
-│   │   ├── Message.tsx
-│   │   ├── Message.types.ts
-│   │   └── index.ts
 │   ├── Select/
-│   │   ├── Select.tsx
-│   │   ├── Select.types.ts
+│   ├── Stepper/
+│   │   ├── Stepper.tsx
+│   │   ├── Stepper.types.ts
 │   │   └── index.ts
 │   └── Toggle/
-│       ├── Toggle.tsx
-│       ├── Toggle.types.ts
-│       └── index.ts
-├── types/                  # Tipos compartidos
+├── types/
 │   └── index.ts
-└── index.ts               # Punto de entrada principal
+└── index.ts
 ```
 
 ---
