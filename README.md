@@ -17,6 +17,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [Message](#message)
     - [Stepper](#stepper)
     - [Pagination](#pagination)
+    - [Loader](#loader)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -1356,6 +1357,109 @@ const totalTramites = 234;
 
 ---
 
+### Loader
+
+Componente de carga que soporta tres variantes: pantalla completa opaca, overlay semitransparente e inline dentro de un contenedor. Las variantes `full` y `overlay` usan un **portal al body** para no interferir con el layout. Incluye soporte para SSR sin parpadeo.
+
+#### Props
+
+| Prop        | Tipo                              | Default   | Descripción                                                                                        |
+| ----------- | --------------------------------- | --------- | -------------------------------------------------------------------------------------------------- |
+| `variant`   | `'full' \| 'overlay' \| 'inline'` | `'full'`  | Tipo de loader. `full` = fondo opaco, `overlay` = fondo semitransparente, `inline` = en contenedor |
+| `color`     | `'green' \| 'blue'`               | `'green'` | Color del spinner. `green` para rutas estándar, `blue` para secciones municipales                  |
+| `size`      | `'sm' \| 'md' \| 'lg'`            | `'md'`    | Tamaño del ícono animado                                                                           |
+| `icon`      | `ReactNode`                       | -         | Ícono o imagen personalizada. Si se omite, se usa el spinner SVG por defecto                       |
+| `label`     | `string`                          | -         | Texto opcional debajo del ícono                                                                    |
+| `className` | `string`                          | `''`      | Clases CSS adicionales sobre el contenedor raíz                                                    |
+
+#### Variantes
+
+| Variante  | Fondo             | Posición   | Portal | Uso típico                        |
+| --------- | ----------------- | ---------- | ------ | --------------------------------- |
+| `full`    | Blanco 100% opaco | `fixed`    | ✅     | Carga inicial de página           |
+| `overlay` | Blanco 85% + blur | `fixed`    | ✅     | Procesando una acción del usuario |
+| `inline`  | Blanco 80% + blur | `absolute` | ❌     | Carga de una sección o tabla      |
+
+> El componente padre de un `Loader` con `variant="inline"` debe tener `position: relative`.
+
+#### Ejemplos
+
+```tsx
+import { Loader } from '@/lib';
+
+// ── Variante full (pantalla completa opaca) ───────────────────────────────────
+const [loading, setLoading] = useState(false);
+
+{loading && <Loader variant="full" />}
+
+// Con color azul municipal y etiqueta
+{loading && (
+  <Loader variant="full" color="blue" size="lg" label="Cargando..." />
+)}
+
+// ── Variante overlay (pantalla semitransparente) ──────────────────────────────
+{loading && (
+  <Loader variant="overlay" color="green" label="Procesando solicitud..." />
+)}
+
+// ── Variante inline (dentro de un contenedor) ─────────────────────────────────
+// El padre DEBE tener position: relative
+<div className="relative h-40 rounded-xl border bg-gray-50">
+  <Loader variant="inline" />
+</div>
+
+// Con etiqueta
+<div className="relative h-40 rounded-xl border bg-gray-50">
+  <Loader variant="inline" color="green" size="md" label="Cargando datos..." />
+</div>
+
+// ── Tamaños ───────────────────────────────────────────────────────────────────
+<div className="relative h-20 w-20">
+  <Loader variant="inline" size="sm" />
+</div>
+
+<div className="relative h-28 w-28">
+  <Loader variant="inline" size="md" />
+</div>
+
+<div className="relative h-40 w-40">
+  <Loader variant="inline" size="lg" />
+</div>
+
+// ── Con ícono personalizado ───────────────────────────────────────────────────
+<Loader
+  variant="inline"
+  icon={
+    <img src="/images/mda_logo.svg" alt="Cargando" className="w-full h-full animate-pulse" />
+  }
+  label="Cargando..."
+/>
+
+// ── Ejemplo práctico — loader controlado por fetch ────────────────────────────
+const [loading, setLoading] = useState(false);
+const [data, setData] = useState(null);
+
+const fetchData = async () => {
+  setLoading(true);
+  try {
+    const res = await fetch('/api/tramites');
+    setData(await res.json());
+  } finally {
+    setLoading(false);
+  }
+};
+
+{loading && <Loader variant="overlay" color="green" label="Cargando trámites..." />}
+
+// ── Ejemplo práctico — loader inline en tabla ─────────────────────────────────
+<div className="relative rounded-xl border">
+  <table>...</table>
+  {loading && <Loader variant="inline" label="Actualizando..." />}
+</div>
+```
+
+---
+
 ## 📦 Estructura del Proyecto
 
 ```
@@ -1367,6 +1471,10 @@ lib/
 │   ├── Checkbox/
 │   ├── Input/
 │   ├── InputFile/
+│   ├── Loader/
+│   │   ├── Loader.tsx
+│   │   ├── Loader.types.ts
+│   │   └── index.ts
 │   ├── Message/
 │   ├── Pagination/
 │   │   ├── Pagination.tsx

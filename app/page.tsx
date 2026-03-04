@@ -18,6 +18,7 @@ import {
     Stepper,
     StepperNavigation,
     Pagination,
+    Loader,
 } from "@/lib";
 import type { Step } from "@/lib";
 
@@ -42,6 +43,11 @@ export default function Home() {
     const [pagFew, setPagFew] = useState(2);
     const [pagPageSize, setPagPageSize] = useState<10 | 25 | 50 | 100>(10);
     const [pagPageSizePage, setPagPageSizePage] = useState(1);
+
+    // Loader state
+    const [loaderFull, setLoaderFull] = useState(false);
+    const [loaderOverlay, setLoaderOverlay] = useState(false);
+    const [loaderBlue, setLoaderBlue] = useState(false);
 
     // Stepper state
     const [stepperDefault, setStepperDefault] = useState(1);
@@ -2029,6 +2035,272 @@ export default function Home() {
                                     currentPage={1}
                                     onPageChange={() => {}}
                                 />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Loader Component */}
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-3xl font-semibold text-gray-900">
+                            Loader
+                        </h2>
+                        <div className="space-y-8">
+                            {/* Inline */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Inline
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Se ajusta al contenedor padre (necesita{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        position: relative
+                                    </code>{" "}
+                                    en el padre). Ideal para secciones o tablas
+                                    con carga individual.
+                                </p>
+                                <div className="grid gap-6 md:grid-cols-3">
+                                    <div className="relative h-32 rounded-xl border border-green-200/60 bg-gray-50">
+                                        <Loader
+                                            variant="inline"
+                                            color="green"
+                                            size="md"
+                                            label="Cargando..."
+                                        />
+                                    </div>
+                                    <div className="relative h-32 rounded-xl border border-green-200/60 bg-gray-50">
+                                        <Loader
+                                            variant="inline"
+                                            color="blue"
+                                            size="md"
+                                            label="Cargando..."
+                                        />
+                                    </div>
+                                    <div className="relative h-32 rounded-xl border border-green-200/60 bg-gray-50">
+                                        <Loader
+                                            variant="inline"
+                                            color="green"
+                                            size="lg"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Tamaños inline */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Tamaños
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Disponibles en{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        sm
+                                    </code>
+                                    ,{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        md
+                                    </code>{" "}
+                                    y{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        lg
+                                    </code>
+                                    .
+                                </p>
+                                <div className="flex flex-wrap items-center gap-8">
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className="relative h-20 w-20 rounded-xl border border-green-200/60 bg-gray-50">
+                                            <Loader
+                                                variant="inline"
+                                                size="sm"
+                                            />
+                                        </div>
+                                        <span className="text-xs text-gray-500">
+                                            sm
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className="relative h-24 w-24 rounded-xl border border-green-200/60 bg-gray-50">
+                                            <Loader
+                                                variant="inline"
+                                                size="md"
+                                            />
+                                        </div>
+                                        <span className="text-xs text-gray-500">
+                                            md
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className="relative h-32 w-32 rounded-xl border border-green-200/60 bg-gray-50">
+                                            <Loader
+                                                variant="inline"
+                                                size="lg"
+                                            />
+                                        </div>
+                                        <span className="text-xs text-gray-500">
+                                            lg
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Colores */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Colores
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Color{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        green
+                                    </code>{" "}
+                                    para rutas estándar,{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        blue
+                                    </code>{" "}
+                                    para secciones municipales.
+                                </p>
+                                <div className="flex flex-wrap gap-8">
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className="relative h-28 w-28 rounded-xl border border-green-200/60 bg-gray-50">
+                                            <Loader
+                                                variant="inline"
+                                                color="green"
+                                                size="md"
+                                            />
+                                        </div>
+                                        <span className="text-xs text-gray-500">
+                                            green
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className="relative h-28 w-28 rounded-xl border border-blue-200/60 bg-gray-50">
+                                            <Loader
+                                                variant="inline"
+                                                color="blue"
+                                                size="md"
+                                            />
+                                        </div>
+                                        <span className="text-xs text-gray-500">
+                                            blue
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Con etiqueta */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Con Etiqueta
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Prop{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        label
+                                    </code>{" "}
+                                    muestra un texto debajo del spinner.
+                                </p>
+                                <div className="grid gap-6 md:grid-cols-2">
+                                    <div className="relative h-36 rounded-xl border border-green-200/60 bg-gray-50">
+                                        <Loader
+                                            variant="inline"
+                                            color="green"
+                                            label="Cargando datos..."
+                                        />
+                                    </div>
+                                    <div className="relative h-36 rounded-xl border border-blue-200/60 bg-gray-50">
+                                        <Loader
+                                            variant="inline"
+                                            color="blue"
+                                            label="Procesando..."
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Pantalla completa — full y overlay */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Full Screen — Full y Overlay
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Se renderizan mediante un{" "}
+                                    <strong>portal al body</strong>. <br />
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        full
+                                    </code>{" "}
+                                    → fondo blanco 100% opaco. &nbsp;
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        overlay
+                                    </code>{" "}
+                                    → fondo blanco 85% con blur. &nbsp; El
+                                    loader desaparece automáticamente a los 2
+                                    segundos en este demo.
+                                </p>
+                                <div className="flex flex-wrap gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setLoaderFull(true);
+                                            setTimeout(
+                                                () => setLoaderFull(false),
+                                                2000
+                                            );
+                                        }}
+                                        className="inline-flex items-center gap-2 rounded-lg bg-[#83c442] px-4 py-2 text-sm font-medium text-white transition-all hover:bg-[#6fb035]"
+                                    >
+                                        Ver Full (verde)
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setLoaderOverlay(true);
+                                            setTimeout(
+                                                () => setLoaderOverlay(false),
+                                                2000
+                                            );
+                                        }}
+                                        className="inline-flex items-center gap-2 rounded-lg border-2 border-[#83c442] px-4 py-2 text-sm font-medium text-[#83c442] transition-all hover:bg-[#83c442]/10"
+                                    >
+                                        Ver Overlay (verde)
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setLoaderBlue(true);
+                                            setTimeout(
+                                                () => setLoaderBlue(false),
+                                                2000
+                                            );
+                                        }}
+                                        className="inline-flex items-center gap-2 rounded-lg border-2 border-[#1a6fa8] px-4 py-2 text-sm font-medium text-[#1a6fa8] transition-all hover:bg-[#1a6fa8]/10"
+                                    >
+                                        Ver Overlay (azul municipal)
+                                    </button>
+                                </div>
+
+                                {loaderFull && (
+                                    <Loader
+                                        variant="full"
+                                        color="green"
+                                        size="lg"
+                                        label="Cargando..."
+                                    />
+                                )}
+                                {loaderOverlay && (
+                                    <Loader
+                                        variant="overlay"
+                                        color="green"
+                                        size="lg"
+                                        label="Procesando..."
+                                    />
+                                )}
+                                {loaderBlue && (
+                                    <Loader
+                                        variant="overlay"
+                                        color="blue"
+                                        size="lg"
+                                        label="Cargando..."
+                                    />
+                                )}
                             </div>
                         </div>
                     </section>

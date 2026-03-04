@@ -71,6 +71,14 @@ export type {
     PaginationPageSize,
 } from "./components/Pagination";
 
+export { Loader } from "./components/Loader";
+export type {
+    LoaderProps,
+    LoaderVariant,
+    LoaderColor,
+    LoaderSize,
+} from "./components/Loader";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';
