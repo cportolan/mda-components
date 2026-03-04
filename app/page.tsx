@@ -17,6 +17,7 @@ import {
     StatsCard,
     Stepper,
     StepperNavigation,
+    Pagination,
 } from "@/lib";
 import type { Step } from "@/lib";
 
@@ -32,6 +33,13 @@ export default function Home() {
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [imageFiles, setImageFiles] = useState<File[]>([]);
     const [pdfFiles, setPdfFiles] = useState<File[]>([]);
+
+    // Pagination state
+    const [pagDefault, setPagDefault] = useState(1);
+    const [pagSm, setPagSm] = useState(3);
+    const [pagLg, setPagLg] = useState(5);
+    const [pagInfo, setPagInfo] = useState(4);
+    const [pagFew, setPagFew] = useState(2);
 
     // Stepper state
     const [stepperDefault, setStepperDefault] = useState(1);
@@ -1832,6 +1840,162 @@ export default function Home() {
                                         </p>
                                     </StepperNavigation>
                                 </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Pagination Component */}
+                    <section className="rounded-2xl border border-green-200/60 bg-white/90 p-8 shadow-lg backdrop-blur-sm">
+                        <h2 className="mb-6 text-3xl font-semibold text-gray-900">
+                            Paginación
+                        </h2>
+                        <div className="space-y-8">
+                            {/* Default */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Default
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Paginación estándar con puntos suspensivos
+                                    automáticos al alejarse del inicio o el
+                                    final.
+                                </p>
+                                <Pagination
+                                    totalPages={20}
+                                    currentPage={pagDefault}
+                                    onPageChange={setPagDefault}
+                                />
+                            </div>
+
+                            {/* Con contador */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Con Contador de Página
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Muestra "Página X de Y" sobre los controles
+                                    con{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        showPageInfo
+                                    </code>
+                                    .
+                                </p>
+                                <Pagination
+                                    totalPages={15}
+                                    currentPage={pagInfo}
+                                    onPageChange={setPagInfo}
+                                    showPageInfo
+                                />
+                            </div>
+
+                            {/* Pocas páginas */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Pocas Páginas
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Sin puntos suspensivos cuando el total es
+                                    pequeño.
+                                </p>
+                                <Pagination
+                                    totalPages={5}
+                                    currentPage={pagFew}
+                                    onPageChange={setPagFew}
+                                />
+                            </div>
+
+                            {/* Tamaños */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Tamaños
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Disponibles en{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        sm
+                                    </code>
+                                    ,{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        md
+                                    </code>{" "}
+                                    y{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        lg
+                                    </code>
+                                    .
+                                </p>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+                                            Small
+                                        </p>
+                                        <Pagination
+                                            totalPages={10}
+                                            currentPage={pagSm}
+                                            onPageChange={setPagSm}
+                                            size="sm"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+                                            Medium (default)
+                                        </p>
+                                        <Pagination
+                                            totalPages={10}
+                                            currentPage={pagSm}
+                                            onPageChange={setPagSm}
+                                            size="md"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+                                            Large
+                                        </p>
+                                        <Pagination
+                                            totalPages={10}
+                                            currentPage={pagLg}
+                                            onPageChange={setPagLg}
+                                            size="lg"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Deshabilitado */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Deshabilitado
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Con{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        disabled
+                                    </code>{" "}
+                                    todos los botones quedan inactivos.
+                                </p>
+                                <Pagination
+                                    totalPages={10}
+                                    currentPage={3}
+                                    onPageChange={() => {}}
+                                    disabled
+                                />
+                            </div>
+
+                            {/* Una sola página */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Una Sola Página
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Los botones anterior/siguiente se
+                                    deshabilitan automáticamente en los
+                                    extremos.
+                                </p>
+                                <Pagination
+                                    totalPages={1}
+                                    currentPage={1}
+                                    onPageChange={() => {}}
+                                />
                             </div>
                         </div>
                     </section>

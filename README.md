@@ -16,6 +16,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [Card](#card)
     - [Message](#message)
     - [Stepper](#stepper)
+    - [Pagination](#pagination)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -1233,6 +1234,93 @@ const [paso, setPaso] = useState(0);
 
 ---
 
+### Pagination
+
+Componente de paginación con rango de páginas dinámico, puntos suspensivos automáticos, múltiples tamaños y estado deshabilitado.
+
+#### Props
+
+| Prop           | Tipo                     | Default | Descripción                         |
+| -------------- | ------------------------ | ------- | ----------------------------------- |
+| `totalPages`   | `number`                 | -       | Número total de páginas             |
+| `currentPage`  | `number`                 | -       | Página activa (1-based)             |
+| `onPageChange` | `(page: number) => void` | -       | Callback al cambiar de página       |
+| `size`         | `'sm' \| 'md' \| 'lg'`   | `'md'`  | Tamaño de los botones               |
+| `disabled`     | `boolean`                | `false` | Deshabilita toda la paginación      |
+| `showPageInfo` | `boolean`                | `false` | Muestra el contador "Página X de Y" |
+| `className`    | `string`                 | `''`    | Clases CSS adicionales              |
+
+#### Comportamiento del rango
+
+- Siempre muestra la **primera** y la **última** página.
+- Muestra las páginas adyacentes (`currentPage - 1`, `currentPage`, `currentPage + 1`).
+- Inserta `…` automáticamente cuando hay un hueco entre el inicio o el final y el rango visible.
+- Los botones ← y → se deshabilitan automáticamente en los extremos.
+
+#### Ejemplos
+
+```tsx
+import { Pagination } from '@/lib';
+
+// Básico
+const [page, setPage] = useState(1);
+
+<Pagination
+  totalPages={20}
+  currentPage={page}
+  onPageChange={setPage}
+/>
+
+// Con contador "Página X de Y"
+<Pagination
+  totalPages={15}
+  currentPage={page}
+  onPageChange={setPage}
+  showPageInfo
+/>
+
+// Pocas páginas (sin puntos suspensivos)
+<Pagination
+  totalPages={5}
+  currentPage={page}
+  onPageChange={setPage}
+/>
+
+// Tamaños
+<Pagination totalPages={10} currentPage={page} onPageChange={setPage} size="sm" />
+<Pagination totalPages={10} currentPage={page} onPageChange={setPage} size="md" />
+<Pagination totalPages={10} currentPage={page} onPageChange={setPage} size="lg" />
+
+// Deshabilitado
+<Pagination
+  totalPages={10}
+  currentPage={3}
+  onPageChange={() => {}}
+  disabled
+/>
+
+// Ejemplo práctico — lista de trámites
+const [paginaTramites, setPaginaTramites] = useState(1);
+const ITEMS_POR_PAGINA = 10;
+const totalTramites = 234;
+
+<div className="space-y-4">
+  {tramites
+    .slice((paginaTramites - 1) * ITEMS_POR_PAGINA, paginaTramites * ITEMS_POR_PAGINA)
+    .map(tramite => <TramiteRow key={tramite.id} tramite={tramite} />)
+  }
+
+  <Pagination
+    totalPages={Math.ceil(totalTramites / ITEMS_POR_PAGINA)}
+    currentPage={paginaTramites}
+    onPageChange={setPaginaTramites}
+    showPageInfo
+  />
+</div>
+```
+
+---
+
 ## 📦 Estructura del Proyecto
 
 ```
@@ -1245,6 +1333,10 @@ lib/
 │   ├── Input/
 │   ├── InputFile/
 │   ├── Message/
+│   ├── Pagination/
+│   │   ├── Pagination.tsx
+│   │   ├── Pagination.index.ts   ← tipos
+│   │   └── index.ts
 │   ├── Select/
 │   ├── Stepper/
 │   │   ├── Stepper.tsx

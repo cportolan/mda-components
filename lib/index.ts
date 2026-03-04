@@ -64,6 +64,9 @@ export type {
     Step,
 } from "./components/Stepper";
 
+export { Pagination } from "./components/Pagination";
+export type { PaginationProps, PaginationSize } from "./components/Pagination";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';
