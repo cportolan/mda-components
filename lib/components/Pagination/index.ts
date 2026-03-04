@@ -1,2 +1,6 @@
 export { Pagination } from "./Pagination";
-export type { PaginationProps, PaginationSize } from "./Pagination.index";
+export type {
+    PaginationProps,
+    PaginationSize,
+    PaginationPageSize,
+} from "./Pagination.index";

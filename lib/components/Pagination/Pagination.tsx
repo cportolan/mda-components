@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { PaginationProps } from "./Pagination.index";
+import { PaginationProps, PaginationPageSize } from "./Pagination.index";
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -74,6 +74,9 @@ export const Pagination: React.FC<PaginationProps> = ({
     size = "md",
     disabled = false,
     showPageInfo = false,
+    pageSize,
+    onPageSizeChange,
+    pageSizeOptions = [10, 25, 50, 100],
     className = "",
 }) => {
     // Guardar currentPage en 1 si totalPages es 1
@@ -106,78 +109,105 @@ export const Pagination: React.FC<PaginationProps> = ({
     const isLast = safePage === totalPages;
 
     return (
-        <div className={`flex flex-col items-end gap-2 ${className}`}>
-            {showPageInfo && (
-                <p className="text-xs text-[#3f3f3f]/60">
-                    Página{" "}
-                    <span className="font-semibold text-[#3f3f3f]">
-                        {safePage}
-                    </span>{" "}
-                    de{" "}
-                    <span className="font-semibold text-[#3f3f3f]">
-                        {totalPages}
-                    </span>
-                </p>
+        <div className={`flex flex-col items-end gap-3 ${className}`}>
+            {/* Fila superior: "Mostrando X resultados" */}
+            {pageSize !== undefined && (
+                <div className="flex items-center gap-2 text-sm text-[#3f3f3f]/70">
+                    <span>Mostrando</span>
+                    <select
+                        value={pageSize}
+                        disabled={disabled}
+                        onChange={(e) =>
+                            onPageSizeChange?.(
+                                Number(e.target.value) as PaginationPageSize
+                            )
+                        }
+                        className="rounded-lg border border-[#dfe3e8] bg-[#f6f6f6] px-2 py-1 text-sm font-semibold text-[#3f3f3f] transition-all duration-200 focus:border-[#83c442] focus:outline-none focus:shadow-[0_0_0_3px_rgba(131,196,66,0.15)] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
+                    >
+                        {pageSizeOptions.map((opt) => (
+                            <option key={opt} value={opt}>
+                                {opt}
+                            </option>
+                        ))}
+                    </select>
+                    <span>resultados</span>
+                </div>
             )}
 
-            <div className="flex items-center gap-2">
-                {/* Botón anterior */}
-                <button
-                    type="button"
-                    aria-label="Página anterior"
-                    disabled={isFirst || disabled}
-                    onClick={() => !disabled && onPageChange(safePage - 1)}
-                    className={getButtonClasses(false, isFirst || disabled)}
-                >
-                    <ChevronLeft />
-                </button>
+            {/* Fila inferior: contador + botones */}
+            <div className="flex items-center gap-3">
+                {showPageInfo && (
+                    <p className="text-xs text-[#3f3f3f]/60">
+                        Página{" "}
+                        <span className="font-semibold text-[#3f3f3f]">
+                            {safePage}
+                        </span>{" "}
+                        de{" "}
+                        <span className="font-semibold text-[#3f3f3f]">
+                            {totalPages}
+                        </span>
+                    </p>
+                )}
 
-                {/* Páginas */}
-                {pages.map((page, index) => {
-                    if (page === "prevDots" || page === "nextDots") {
+                <div className="flex items-center gap-2">
+                    {/* Botón anterior */}
+                    <button
+                        type="button"
+                        aria-label="Página anterior"
+                        disabled={isFirst || disabled}
+                        onClick={() => !disabled && onPageChange(safePage - 1)}
+                        className={getButtonClasses(false, isFirst || disabled)}
+                    >
+                        <ChevronLeft />
+                    </button>
+
+                    {/* Páginas */}
+                    {pages.map((page) => {
+                        if (page === "prevDots" || page === "nextDots") {
+                            return (
+                                <button
+                                    key={page}
+                                    type="button"
+                                    disabled
+                                    aria-hidden="true"
+                                    className={`${btnBase} ${btnSize} bg-transparent text-[#a1a6ad] cursor-default`}
+                                >
+                                    …
+                                </button>
+                            );
+                        }
+
+                        const isActive = page === safePage;
+
                         return (
                             <button
-                                key={page}
+                                key={`page-${page}`}
                                 type="button"
-                                disabled
-                                aria-hidden="true"
-                                className={`${btnBase} ${btnSize} bg-transparent text-[#a1a6ad] cursor-default`}
+                                aria-label={`Ir a página ${page}`}
+                                aria-current={isActive ? "page" : undefined}
+                                disabled={disabled}
+                                onClick={() => !disabled && onPageChange(page)}
+                                className={getButtonClasses(
+                                    isActive,
+                                    disabled && !isActive
+                                )}
                             >
-                                …
+                                {page}
                             </button>
                         );
-                    }
+                    })}
 
-                    const isActive = page === safePage;
-
-                    return (
-                        <button
-                            key={`page-${page}`}
-                            type="button"
-                            aria-label={`Ir a página ${page}`}
-                            aria-current={isActive ? "page" : undefined}
-                            disabled={disabled}
-                            onClick={() => !disabled && onPageChange(page)}
-                            className={getButtonClasses(
-                                isActive,
-                                disabled && !isActive
-                            )}
-                        >
-                            {page}
-                        </button>
-                    );
-                })}
-
-                {/* Botón siguiente */}
-                <button
-                    type="button"
-                    aria-label="Página siguiente"
-                    disabled={isLast || disabled}
-                    onClick={() => !disabled && onPageChange(safePage + 1)}
-                    className={getButtonClasses(false, isLast || disabled)}
-                >
-                    <ChevronRight />
-                </button>
+                    {/* Botón siguiente */}
+                    <button
+                        type="button"
+                        aria-label="Página siguiente"
+                        disabled={isLast || disabled}
+                        onClick={() => !disabled && onPageChange(safePage + 1)}
+                        className={getButtonClasses(false, isLast || disabled)}
+                    >
+                        <ChevronRight />
+                    </button>
+                </div>
             </div>
         </div>
     );

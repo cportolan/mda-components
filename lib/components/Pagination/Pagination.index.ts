@@ -1,4 +1,5 @@
 export type PaginationSize = "sm" | "md" | "lg";
+export type PaginationPageSize = 10 | 25 | 50 | 100;
 
 export interface PaginationProps {
     /**
@@ -28,6 +29,20 @@ export interface PaginationProps {
      * @default false
      */
     showPageInfo?: boolean;
+    /**
+     * Cantidad de resultados por página actualmente seleccionada.
+     * Al pasarla se muestra el texto "Mostrando X resultados" con un select.
+     */
+    pageSize?: PaginationPageSize;
+    /**
+     * Callback al cambiar la cantidad de resultados por página
+     */
+    onPageSizeChange?: (pageSize: PaginationPageSize) => void;
+    /**
+     * Opciones disponibles en el select de resultados por página
+     * @default [10, 25, 50, 100]
+     */
+    pageSizeOptions?: PaginationPageSize[];
     /**
      * Clases CSS adicionales
      */

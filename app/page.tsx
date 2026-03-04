@@ -40,6 +40,8 @@ export default function Home() {
     const [pagLg, setPagLg] = useState(5);
     const [pagInfo, setPagInfo] = useState(4);
     const [pagFew, setPagFew] = useState(2);
+    const [pagPageSize, setPagPageSize] = useState<10 | 25 | 50 | 100>(10);
+    const [pagPageSizePage, setPagPageSizePage] = useState(1);
 
     // Stepper state
     const [stepperDefault, setStepperDefault] = useState(1);
@@ -1959,6 +1961,37 @@ export default function Home() {
                                         />
                                     </div>
                                 </div>
+                            </div>
+
+                            {/* Mostrando X resultados */}
+                            <div>
+                                <h3 className="mb-1 text-xl font-medium text-gray-800">
+                                    Mostrando X Resultados
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-500">
+                                    Pasando{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        pageSize
+                                    </code>{" "}
+                                    y{" "}
+                                    <code className="rounded bg-gray-100 px-1 text-xs">
+                                        onPageSizeChange
+                                    </code>{" "}
+                                    aparece el texto{" "}
+                                    <em>"Mostrando X resultados"</em> con un
+                                    select de opciones.
+                                </p>
+                                <Pagination
+                                    totalPages={Math.ceil(247 / pagPageSize)}
+                                    currentPage={pagPageSizePage}
+                                    onPageChange={(p) => setPagPageSizePage(p)}
+                                    pageSize={pagPageSize}
+                                    onPageSizeChange={(ps) => {
+                                        setPagPageSize(ps);
+                                        setPagPageSizePage(1);
+                                    }}
+                                    showPageInfo
+                                />
                             </div>
 
                             {/* Deshabilitado */}

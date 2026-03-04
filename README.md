@@ -1240,15 +1240,18 @@ Componente de paginación con rango de páginas dinámico, puntos suspensivos au
 
 #### Props
 
-| Prop           | Tipo                     | Default | Descripción                         |
-| -------------- | ------------------------ | ------- | ----------------------------------- |
-| `totalPages`   | `number`                 | -       | Número total de páginas             |
-| `currentPage`  | `number`                 | -       | Página activa (1-based)             |
-| `onPageChange` | `(page: number) => void` | -       | Callback al cambiar de página       |
-| `size`         | `'sm' \| 'md' \| 'lg'`   | `'md'`  | Tamaño de los botones               |
-| `disabled`     | `boolean`                | `false` | Deshabilita toda la paginación      |
-| `showPageInfo` | `boolean`                | `false` | Muestra el contador "Página X de Y" |
-| `className`    | `string`                 | `''`    | Clases CSS adicionales              |
+| Prop               | Tipo                                     | Default             | Descripción                                              |
+| ------------------ | ---------------------------------------- | ------------------- | -------------------------------------------------------- |
+| `totalPages`       | `number`                                 | -                   | Número total de páginas                                  |
+| `currentPage`      | `number`                                 | -                   | Página activa (1-based)                                  |
+| `onPageChange`     | `(page: number) => void`                 | -                   | Callback al cambiar de página                            |
+| `size`             | `'sm' \| 'md' \| 'lg'`                   | `'md'`              | Tamaño de los botones                                    |
+| `disabled`         | `boolean`                                | `false`             | Deshabilita toda la paginación                           |
+| `showPageInfo`     | `boolean`                                | `false`             | Muestra el contador "Página X de Y"                      |
+| `pageSize`         | `10 \| 25 \| 50 \| 100`                  | -                   | Resultados por página activos. Activa el selector        |
+| `onPageSizeChange` | `(pageSize: PaginationPageSize) => void` | -                   | Callback al cambiar la cantidad de resultados por página |
+| `pageSizeOptions`  | `PaginationPageSize[]`                   | `[10, 25, 50, 100]` | Opciones disponibles en el select                        |
+| `className`        | `string`                                 | `''`                | Clases CSS adicionales                                   |
 
 #### Comportamiento del rango
 
@@ -1261,6 +1264,7 @@ Componente de paginación con rango de páginas dinámico, puntos suspensivos au
 
 ```tsx
 import { Pagination } from '@/lib';
+import type { PaginationPageSize } from '@/lib';
 
 // Básico
 const [page, setPage] = useState(1);
@@ -1299,21 +1303,52 @@ const [page, setPage] = useState(1);
   disabled
 />
 
-// Ejemplo práctico — lista de trámites
+// Con selector "Mostrando X resultados"
+const [page, setPage] = useState(1);
+const [pageSize, setPageSize] = useState<PaginationPageSize>(10);
+
+<Pagination
+  totalPages={Math.ceil(247 / pageSize)}
+  currentPage={page}
+  onPageChange={setPage}
+  pageSize={pageSize}
+  onPageSizeChange={(ps) => {
+    setPageSize(ps);
+    setPage(1); // resetear a la primera página al cambiar el tamaño
+  }}
+  showPageInfo
+/>
+
+// Con opciones personalizadas de pageSize
+<Pagination
+  totalPages={Math.ceil(500 / pageSize)}
+  currentPage={page}
+  onPageChange={setPage}
+  pageSize={pageSize}
+  onPageSizeChange={setPageSize}
+  pageSizeOptions={[10, 25, 50]}
+/>
+
+// Ejemplo práctico — lista de trámites con selector de resultados
 const [paginaTramites, setPaginaTramites] = useState(1);
-const ITEMS_POR_PAGINA = 10;
+const [itemsPorPagina, setItemsPorPagina] = useState<PaginationPageSize>(10);
 const totalTramites = 234;
 
 <div className="space-y-4">
   {tramites
-    .slice((paginaTramites - 1) * ITEMS_POR_PAGINA, paginaTramites * ITEMS_POR_PAGINA)
+    .slice((paginaTramites - 1) * itemsPorPagina, paginaTramites * itemsPorPagina)
     .map(tramite => <TramiteRow key={tramite.id} tramite={tramite} />)
   }
 
   <Pagination
-    totalPages={Math.ceil(totalTramites / ITEMS_POR_PAGINA)}
+    totalPages={Math.ceil(totalTramites / itemsPorPagina)}
     currentPage={paginaTramites}
     onPageChange={setPaginaTramites}
+    pageSize={itemsPorPagina}
+    onPageSizeChange={(ps) => {
+      setItemsPorPagina(ps);
+      setPaginaTramites(1);
+    }}
     showPageInfo
   />
 </div>
