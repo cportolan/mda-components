@@ -87,6 +87,20 @@ export type {
     NavigationRouteSize,
 } from "./components/NavigationRoutes";
 
+export { SectionHeading } from "./components/Headings";
+export type {
+    SectionHeadingProps,
+    SectionHeadingLink,
+} from "./components/Headings";
+
+export { Heading } from "./components/Heading";
+export type {
+    HeadingProps,
+    HeadingLevel,
+    HeadingWeight,
+    HeadingColor,
+} from "./components/Heading";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';

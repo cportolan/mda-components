@@ -20,6 +20,8 @@ import {
     Pagination,
     Loader,
     NavigationRoutes,
+    SectionHeading,
+    Heading,
 } from "@/lib";
 import type { Step } from "@/lib";
 
@@ -2567,6 +2569,255 @@ export default function Home() {
                                         { label: "Nueva solicitud" },
                                     ]}
                                 />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── SectionHeading ── */}
+                    <section>
+                        <h2 className="text-xl font-semibold text-[#3f3f3f] mb-6">
+                            SectionHeading
+                        </h2>
+                        <div className="space-y-8">
+                            {/* Completo: link + título + subtítulo */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Completo — link + título + subtítulo
+                                </h3>
+                                <SectionHeading
+                                    link={{
+                                        label: "Volver a trámites",
+                                        href: "#",
+                                    }}
+                                    title="Habilitación Comercial"
+                                    subtitle="Completá el formulario para solicitar la habilitación de tu local."
+                                />
+                            </div>
+
+                            {/* Solo título + subtítulo */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Sin link
+                                </h3>
+                                <SectionHeading
+                                    title="Mis trámites"
+                                    subtitle="Revisá el estado de tus solicitudes en curso."
+                                />
+                            </div>
+
+                            {/* Solo título */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Solo título
+                                </h3>
+                                <SectionHeading title="Novedades del municipio" />
+                            </div>
+
+                            {/* Niveles semánticos */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-6">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide mb-2">
+                                    Niveles semánticos (as)
+                                </h3>
+                                {(["h1", "h2", "h3", "h4"] as const).map(
+                                    (tag) => (
+                                        <div
+                                            key={tag}
+                                            className="flex items-baseline gap-4"
+                                        >
+                                            <span className="text-xs font-mono text-[#999] w-6 shrink-0">
+                                                {tag}
+                                            </span>
+                                            <SectionHeading
+                                                as={tag}
+                                                title="Título de sección de ejemplo"
+                                            />
+                                        </div>
+                                    )
+                                )}
+                            </div>
+
+                            {/* Ícono personalizado en el link */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Link con ícono personalizado
+                                </h3>
+                                <SectionHeading
+                                    link={{
+                                        label: "Ir al inicio",
+                                        href: "#",
+                                        icon: (
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className="w-5 h-5"
+                                            >
+                                                <path
+                                                    d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinejoin="round"
+                                                />
+                                                <path
+                                                    d="M9 21V12h6v9"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        ),
+                                    }}
+                                    title="Panel de control"
+                                    subtitle="Administrá tus datos y configuraciones."
+                                />
+                            </div>
+
+                            {/* Alineación centrada */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Alineación centrada
+                                </h3>
+                                <SectionHeading
+                                    align="center"
+                                    link={{
+                                        label: "Ver todos los servicios",
+                                        href: "#",
+                                    }}
+                                    title="Servicios Municipales"
+                                    subtitle="Todo lo que necesitás en un solo lugar."
+                                />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── Heading ── */}
+                    <section>
+                        <h2 className="text-xl font-semibold text-[#3f3f3f] mb-6">
+                            Heading
+                        </h2>
+                        <div className="space-y-8">
+                            {/* Escala h1–h6 */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-4">
+                                <p className="text-xs font-semibold text-[#999] uppercase tracking-wide mb-6">
+                                    Escala tipográfica — h1 → h6
+                                </p>
+                                {(
+                                    [
+                                        "h1",
+                                        "h2",
+                                        "h3",
+                                        "h4",
+                                        "h5",
+                                        "h6",
+                                    ] as const
+                                ).map((level) => (
+                                    <div
+                                        key={level}
+                                        className="flex items-baseline gap-6 border-b border-[#f0f0f0] pb-4 last:border-0 last:pb-0"
+                                    >
+                                        <span className="text-xs font-mono text-[#bbb] w-6 shrink-0">
+                                            {level}
+                                        </span>
+                                        <Heading
+                                            as={level}
+                                        >{`Titular de sección ${level.toUpperCase()}`}</Heading>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Pesos */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-4">
+                                <p className="text-xs font-semibold text-[#999] uppercase tracking-wide mb-6">
+                                    Pesos tipográficos (en h2)
+                                </p>
+                                {(
+                                    [
+                                        "light",
+                                        "normal",
+                                        "medium",
+                                        "semibold",
+                                        "bold",
+                                    ] as const
+                                ).map((w) => (
+                                    <div
+                                        key={w}
+                                        className="flex items-baseline gap-6"
+                                    >
+                                        <span className="text-xs font-mono text-[#bbb] w-16 shrink-0">
+                                            {w}
+                                        </span>
+                                        <Heading as="h2" weight={w}>
+                                            Municipalidad de Avellaneda
+                                        </Heading>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Colores */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-4">
+                                <p className="text-xs font-semibold text-[#999] uppercase tracking-wide mb-6">
+                                    Colores
+                                </p>
+                                <div className="space-y-3">
+                                    <div className="flex items-baseline gap-6">
+                                        <span className="text-xs font-mono text-[#bbb] w-16 shrink-0">
+                                            default
+                                        </span>
+                                        <Heading as="h3">
+                                            Trámites y servicios municipales
+                                        </Heading>
+                                    </div>
+                                    <div className="flex items-baseline gap-6">
+                                        <span className="text-xs font-mono text-[#bbb] w-16 shrink-0">
+                                            primary
+                                        </span>
+                                        <Heading as="h3" color="primary">
+                                            Trámites y servicios municipales
+                                        </Heading>
+                                    </div>
+                                    <div className="flex items-baseline gap-6">
+                                        <span className="text-xs font-mono text-[#bbb] w-16 shrink-0">
+                                            muted
+                                        </span>
+                                        <Heading as="h3" color="muted">
+                                            Trámites y servicios municipales
+                                        </Heading>
+                                    </div>
+                                    <div className="flex items-baseline gap-6">
+                                        <span className="text-xs font-mono text-[#bbb] w-16 shrink-0">
+                                            dark
+                                        </span>
+                                        <Heading as="h3" color="dark">
+                                            Trámites y servicios municipales
+                                        </Heading>
+                                    </div>
+                                    <div className="flex items-baseline gap-6 rounded-lg bg-[#3f3f3f] p-4">
+                                        <span className="text-xs font-mono text-[#999] w-16 shrink-0">
+                                            white
+                                        </span>
+                                        <Heading as="h3" color="white">
+                                            Trámites y servicios municipales
+                                        </Heading>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Truncate */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-4">
+                                <p className="text-xs font-semibold text-[#999] uppercase tracking-wide mb-6">
+                                    Truncate
+                                </p>
+                                <div className="max-w-xs">
+                                    <Heading as="h4" truncate>
+                                        Este es un título muy largo que debería
+                                        cortarse con puntos suspensivos
+                                    </Heading>
+                                </div>
+                                <div className="max-w-xs">
+                                    <Heading as="h4">
+                                        Este es un título muy largo que debería
+                                        cortarse con puntos suspensivos
+                                    </Heading>
+                                </div>
                             </div>
                         </div>
                     </section>

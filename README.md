@@ -19,6 +19,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [Pagination](#pagination)
     - [Loader](#loader)
     - [NavigationRoutes](#navigationroutes)
+    - [SectionHeading](#sectionheading)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -1571,6 +1572,97 @@ const breadcrumb: NavigationRouteItem[] = [
 
 ---
 
+### SectionHeading
+
+Componente de encabezado de sección que replica el bloque `.section-titulares` del diseño original: un link de navegación opcional encima, un título principal y un subtítulo descriptivo.
+
+#### Props
+
+| Prop        | Tipo                           | Default  | Descripción                                                      |
+| ----------- | ------------------------------ | -------- | ---------------------------------------------------------------- |
+| `title`     | `string`                       | -        | Título principal                                                 |
+| `subtitle`  | `string`                       | -        | Subtítulo descriptivo debajo del título                          |
+| `link`      | `SectionHeadingLink`           | -        | Link de navegación encima del título (ej: "← Volver a trámites") |
+| `as`        | `'h1' \| 'h2' \| 'h3' \| 'h4'` | `'h2'`   | Nivel semántico del heading principal                            |
+| `align`     | `'left' \| 'center'`           | `'left'` | Alineación del bloque completo                                   |
+| `className` | `string`                       | `''`     | Clases CSS adicionales sobre el contenedor                       |
+
+#### Tipo `SectionHeadingLink`
+
+```typescript
+interface SectionHeadingLink {
+    label: string; // Texto del link
+    href: string; // URL de destino
+    icon?: ReactNode; // Ícono a la izquierda (default: flecha ←)
+}
+```
+
+#### Tamaños de título según `as`
+
+| `as` | font-size equivalente |
+| ---- | --------------------- |
+| `h1` | 42px                  |
+| `h2` | 35px ← default        |
+| `h3` | 28px                  |
+| `h4` | 22px                  |
+
+#### Ejemplos
+
+```tsx
+import { SectionHeading } from '@/lib';
+import type { SectionHeadingProps } from '@/lib';
+
+// ── Completo: link + título + subtítulo ───────────────────────────────────────
+<SectionHeading
+  link={{ label: 'Volver a trámites', href: '/tramites' }}
+  title="Habilitación Comercial"
+  subtitle="Completá el formulario para solicitar la habilitación de tu local."
+/>
+
+// ── Sin link ──────────────────────────────────────────────────────────────────
+<SectionHeading
+  title="Mis trámites"
+  subtitle="Revisá el estado de tus solicitudes en curso."
+/>
+
+// ── Solo título ───────────────────────────────────────────────────────────────
+<SectionHeading title="Novedades del municipio" />
+
+// ── Niveles semánticos ────────────────────────────────────────────────────────
+<SectionHeading as="h1" title="Título principal de página" />
+<SectionHeading as="h2" title="Título de sección" />          // default
+<SectionHeading as="h3" title="Subtítulo de bloque" />
+<SectionHeading as="h4" title="Título de tarjeta" />
+
+// ── Link con ícono personalizado ──────────────────────────────────────────────
+<SectionHeading
+  link={{
+    label: 'Ir al inicio',
+    href: '/',
+    icon: <HomeIcon />,
+  }}
+  title="Panel de control"
+  subtitle="Administrá tus datos y configuraciones."
+/>
+
+// ── Alineación centrada ───────────────────────────────────────────────────────
+<SectionHeading
+  align="center"
+  link={{ label: 'Ver todos los servicios', href: '/servicios' }}
+  title="Servicios Municipales"
+  subtitle="Todo lo que necesitás en un solo lugar."
+/>
+
+// ── Ejemplo práctico — cabecera de página de trámite ─────────────────────────
+<SectionHeading
+  link={{ label: 'Mis trámites', href: '/tramites' }}
+  title={tramite.nombre}
+  subtitle={`Expediente N° ${tramite.numero} · Iniciado el ${tramite.fecha}`}
+/>
+```
+
+---
+
 ## 📦 Estructura del Proyecto
 
 ```
@@ -1580,6 +1672,10 @@ lib/
 │   ├── Button/
 │   ├── Card/
 │   ├── Checkbox/
+│   ├── Headings/
+│   │   ├── Headings.tsx
+│   │   ├── Headings.types.ts
+│   │   └── index.ts
 │   ├── Input/
 │   ├── InputFile/
 │   ├── Loader/
