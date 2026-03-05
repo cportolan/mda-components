@@ -19,6 +19,7 @@ import {
     StepperNavigation,
     Pagination,
     Loader,
+    NavigationRoutes,
 } from "@/lib";
 import type { Step } from "@/lib";
 
@@ -2301,6 +2302,271 @@ export default function Home() {
                                         label="Cargando..."
                                     />
                                 )}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── NavigationRoutes ── */}
+                    <section>
+                        <h2 className="text-xl font-semibold text-[#3f3f3f] mb-6">
+                            NavigationRoutes
+                        </h2>
+                        <div className="space-y-8">
+                            {/* Separadores */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Separadores
+                                </h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-xs text-[#999] mb-2">
+                                            chevron (default)
+                                        </p>
+                                        <NavigationRoutes
+                                            items={[
+                                                { label: "Inicio", href: "/" },
+                                                {
+                                                    label: "Trámites",
+                                                    href: "/tramites",
+                                                },
+                                                {
+                                                    label: "Habilitaciones",
+                                                    href: "/tramites/habilitaciones",
+                                                },
+                                                { label: "Nueva solicitud" },
+                                            ]}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-[#999] mb-2">
+                                            slash
+                                        </p>
+                                        <NavigationRoutes
+                                            separator="slash"
+                                            items={[
+                                                { label: "Inicio", href: "/" },
+                                                {
+                                                    label: "Trámites",
+                                                    href: "/tramites",
+                                                },
+                                                {
+                                                    label: "Habilitaciones",
+                                                    href: "/tramites/habilitaciones",
+                                                },
+                                                { label: "Nueva solicitud" },
+                                            ]}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-[#999] mb-2">
+                                            dot
+                                        </p>
+                                        <NavigationRoutes
+                                            separator="dot"
+                                            items={[
+                                                { label: "Inicio", href: "/" },
+                                                {
+                                                    label: "Trámites",
+                                                    href: "/tramites",
+                                                },
+                                                {
+                                                    label: "Habilitaciones",
+                                                    href: "/tramites/habilitaciones",
+                                                },
+                                                { label: "Nueva solicitud" },
+                                            ]}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Tamaños */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Tamaños
+                                </h3>
+                                <div className="space-y-4">
+                                    {(["sm", "md", "lg"] as const).map((s) => (
+                                        <div key={s}>
+                                            <p className="text-xs text-[#999] mb-2">
+                                                {s}
+                                            </p>
+                                            <NavigationRoutes
+                                                size={s}
+                                                items={[
+                                                    {
+                                                        label: "Inicio",
+                                                        href: "/",
+                                                    },
+                                                    {
+                                                        label: "Servicios",
+                                                        href: "/servicios",
+                                                    },
+                                                    { label: "Detalle" },
+                                                ]}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Colapso con maxItems */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Colapso con{" "}
+                                    <code className="font-mono bg-[#f6f6f6] px-1 rounded">
+                                        maxItems
+                                    </code>
+                                </h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-xs text-[#999] mb-2">
+                                            Sin colapso (todos los ítems)
+                                        </p>
+                                        <NavigationRoutes
+                                            items={[
+                                                { label: "Inicio", href: "/" },
+                                                {
+                                                    label: "Municipio",
+                                                    href: "/municipio",
+                                                },
+                                                {
+                                                    label: "Secretarías",
+                                                    href: "/municipio/secretarias",
+                                                },
+                                                {
+                                                    label: "Obras Públicas",
+                                                    href: "/municipio/secretarias/obras",
+                                                },
+                                                {
+                                                    label: "Licitaciones",
+                                                    href: "/municipio/secretarias/obras/licitaciones",
+                                                },
+                                                { label: "Detalle #4821" },
+                                            ]}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-[#999] mb-2">
+                                            maxItems=4 → primero + … + últimos +
+                                            actual
+                                        </p>
+                                        <NavigationRoutes
+                                            maxItems={4}
+                                            items={[
+                                                { label: "Inicio", href: "/" },
+                                                {
+                                                    label: "Municipio",
+                                                    href: "/municipio",
+                                                },
+                                                {
+                                                    label: "Secretarías",
+                                                    href: "/municipio/secretarias",
+                                                },
+                                                {
+                                                    label: "Obras Públicas",
+                                                    href: "/municipio/secretarias/obras",
+                                                },
+                                                {
+                                                    label: "Licitaciones",
+                                                    href: "/municipio/secretarias/obras/licitaciones",
+                                                },
+                                                { label: "Detalle #4821" },
+                                            ]}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-[#999] mb-2">
+                                            maxItems=3 → primero + … + actual
+                                        </p>
+                                        <NavigationRoutes
+                                            maxItems={3}
+                                            items={[
+                                                { label: "Inicio", href: "/" },
+                                                {
+                                                    label: "Municipio",
+                                                    href: "/municipio",
+                                                },
+                                                {
+                                                    label: "Secretarías",
+                                                    href: "/municipio/secretarias",
+                                                },
+                                                {
+                                                    label: "Obras Públicas",
+                                                    href: "/municipio/secretarias/obras",
+                                                },
+                                                {
+                                                    label: "Licitaciones",
+                                                    href: "/municipio/secretarias/obras/licitaciones",
+                                                },
+                                                { label: "Detalle #4821" },
+                                            ]}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Con íconos */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Con íconos
+                                </h3>
+                                <NavigationRoutes
+                                    items={[
+                                        {
+                                            label: "Inicio",
+                                            href: "/",
+                                            icon: (
+                                                <svg
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    className="w-full h-full"
+                                                >
+                                                    <path
+                                                        d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                    <path
+                                                        d="M9 21V12h6v9"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            ),
+                                        },
+                                        {
+                                            label: "Trámites",
+                                            href: "/tramites",
+                                            icon: (
+                                                <svg
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    className="w-full h-full"
+                                                >
+                                                    <rect
+                                                        x="4"
+                                                        y="4"
+                                                        width="16"
+                                                        height="16"
+                                                        rx="2"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <path
+                                                        d="M8 9h8M8 13h5"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2"
+                                                        strokeLinecap="round"
+                                                    />
+                                                </svg>
+                                            ),
+                                        },
+                                        { label: "Nueva solicitud" },
+                                    ]}
+                                />
                             </div>
                         </div>
                     </section>

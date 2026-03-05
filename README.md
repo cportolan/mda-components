@@ -18,6 +18,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [Stepper](#stepper)
     - [Pagination](#pagination)
     - [Loader](#loader)
+    - [NavigationRoutes](#navigationroutes)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -1460,6 +1461,116 @@ const fetchData = async () => {
 
 ---
 
+### NavigationRoutes
+
+Componente de navegación estilo breadcrumb. Muestra la ruta de páginas como una lista de segmentos enlazados, colapsando automáticamente los segmentos intermedios cuando se supera `maxItems`.
+
+#### Props
+
+| Prop        | Tipo                            | Default     | Descripción                                                                        |
+| ----------- | ------------------------------- | ----------- | ---------------------------------------------------------------------------------- |
+| `items`     | `NavigationRouteItem[]`         | -           | Lista ordenada de segmentos de la ruta                                             |
+| `separator` | `'chevron' \| 'slash' \| 'dot'` | `'chevron'` | Separador entre ítems                                                              |
+| `size`      | `'sm' \| 'md' \| 'lg'`          | `'md'`      | Tamaño del texto e íconos                                                          |
+| `maxItems`  | `number`                        | `0`         | Máximo de ítems visibles. Si se supera, colapsa el medio con `…`. `0` = sin límite |
+| `className` | `string`                        | `''`        | Clases CSS adicionales                                                             |
+
+#### Tipo `NavigationRouteItem`
+
+```typescript
+interface NavigationRouteItem {
+    label: string; // Texto visible
+    href?: string; // URL. Sin href → se renderiza como texto plano (último segmento)
+    icon?: ReactNode; // Ícono opcional a la izquierda del label
+}
+```
+
+#### Comportamiento de colapso
+
+Cuando `maxItems` está definido y la cantidad de ítems lo supera:
+
+- **Siempre** se muestra el primer ítem.
+- **Siempre** se muestra el último ítem (segmento activo, sin enlace).
+- Los ítems intermedios que no entran se reemplazan por `…`.
+
+Ejemplo con 6 ítems y `maxItems=3`: `Inicio > … > Detalle #4821`
+
+#### Ejemplos
+
+```tsx
+import { NavigationRoutes } from '@/lib';
+import type { NavigationRouteItem } from '@/lib';
+
+// ── Básico ────────────────────────────────────────────────────────────────────
+<NavigationRoutes
+  items={[
+    { label: 'Inicio',        href: '/' },
+    { label: 'Trámites',      href: '/tramites' },
+    { label: 'Nueva solicitud' },   // ← último segmento: sin href, sin enlace
+  ]}
+/>
+// → Inicio > Trámites > Nueva solicitud
+
+// ── Separadores ───────────────────────────────────────────────────────────────
+<NavigationRoutes separator="chevron" items={items} />  // default
+<NavigationRoutes separator="slash"   items={items} />
+<NavigationRoutes separator="dot"     items={items} />
+
+// ── Tamaños ───────────────────────────────────────────────────────────────────
+<NavigationRoutes size="sm" items={items} />
+<NavigationRoutes size="md" items={items} />
+<NavigationRoutes size="lg" items={items} />
+
+// ── Colapso con maxItems ──────────────────────────────────────────────────────
+const ruta: NavigationRouteItem[] = [
+  { label: 'Inicio',        href: '/' },
+  { label: 'Municipio',     href: '/municipio' },
+  { label: 'Secretarías',   href: '/municipio/secretarias' },
+  { label: 'Obras Públicas',href: '/municipio/secretarias/obras' },
+  { label: 'Licitaciones',  href: '/municipio/secretarias/obras/licitaciones' },
+  { label: 'Detalle #4821' },
+];
+
+// Sin colapso:  Inicio > Municipio > Secretarías > Obras Públicas > Licitaciones > Detalle #4821
+<NavigationRoutes items={ruta} />
+
+// maxItems=4:   Inicio > … > Licitaciones > Detalle #4821
+<NavigationRoutes items={ruta} maxItems={4} />
+
+// maxItems=3:   Inicio > … > Detalle #4821
+<NavigationRoutes items={ruta} maxItems={3} />
+
+// ── Con íconos ────────────────────────────────────────────────────────────────
+<NavigationRoutes
+  items={[
+    {
+      label: 'Inicio',
+      href: '/',
+      icon: <HomeIcon />,
+    },
+    {
+      label: 'Trámites',
+      href: '/tramites',
+      icon: <DocumentIcon />,
+    },
+    { label: 'Nueva solicitud' },
+  ]}
+/>
+
+// ── Ejemplo práctico — página de trámite ──────────────────────────────────────
+// Genera la ruta breadcrumb desde el estado de la app
+const breadcrumb: NavigationRouteItem[] = [
+  { label: 'Inicio',           href: '/' },
+  { label: 'Mis trámites',     href: '/tramites' },
+  { label: 'Habilitación comercial', href: '/tramites/habilitaciones' },
+  { label: tramite.nombre },           // último segmento sin href
+];
+
+<NavigationRoutes items={breadcrumb} maxItems={4} />
+```
+
+---
+
 ## 📦 Estructura del Proyecto
 
 ```
@@ -1476,6 +1587,10 @@ lib/
 │   │   ├── Loader.types.ts
 │   │   └── index.ts
 │   ├── Message/
+│   ├── NavigationRoutes/
+│   │   ├── NavigationRoutes.tsx
+│   │   ├── NavigationRoute.types.ts
+│   │   └── index.ts
 │   ├── Pagination/
 │   │   ├── Pagination.tsx
 │   │   ├── Pagination.index.ts   ← tipos

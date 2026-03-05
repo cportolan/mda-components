@@ -79,6 +79,14 @@ export type {
     LoaderSize,
 } from "./components/Loader";
 
+export { NavigationRoutes } from "./components/NavigationRoutes";
+export type {
+    NavigationRoutesProps,
+    NavigationRouteItem,
+    NavigationRouteSeparator,
+    NavigationRouteSize,
+} from "./components/NavigationRoutes";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';
