@@ -20,6 +20,8 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [Loader](#loader)
     - [NavigationRoutes](#navigationroutes)
     - [SectionHeading](#sectionheading)
+    - [Heading](#heading)
+    - [Modal](#modal)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -1663,6 +1665,217 @@ import type { SectionHeadingProps } from '@/lib';
 
 ---
 
+### Heading
+
+Componente tipográfico puro para h1–h6. Sin estructura adicional — sólo el tag semántico con escala de tamaños, peso, color y truncado consistentes con el diseño del sistema.
+
+#### Props
+
+| Prop        | Tipo                                                      | Default     | Descripción                                |
+| ----------- | --------------------------------------------------------- | ----------- | ------------------------------------------ |
+| `as`        | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'`            | `'h2'`      | Nivel semántico del heading                |
+| `children`  | `ReactNode`                                               | -           | Contenido del heading                      |
+| `weight`    | `'light' \| 'normal' \| 'medium' \| 'semibold' \| 'bold'` | —           | Sobreescribe el peso por defecto del nivel |
+| `color`     | `'default' \| 'primary' \| 'muted' \| 'dark' \| 'white'`  | `'default'` | Color del texto                            |
+| `truncate`  | `boolean`                                                 | `false`     | Trunca con `…` en una sola línea           |
+| `className` | `string`                                                  | `''`        | Clases CSS adicionales                     |
+
+#### Escala tipográfica
+
+| `as` | Tamaño | Peso default |
+| ---- | ------ | ------------ |
+| `h1` | 48px   | semibold     |
+| `h2` | 35px   | medium       |
+| `h3` | 28px   | medium       |
+| `h4` | 22px   | medium       |
+| `h5` | 18px   | medium       |
+| `h6` | 15px   | medium       |
+
+#### Colores
+
+| `color`   | Valor hex |
+| --------- | --------- |
+| `default` | `#3f3f3f` |
+| `primary` | `#83c442` |
+| `muted`   | `#999999` |
+| `dark`    | `#1a1a1a` |
+| `white`   | `#ffffff` |
+
+#### Ejemplos
+
+```tsx
+import { Heading } from '@/lib';
+
+// Escala completa
+<Heading as="h1">Título principal de la página</Heading>
+<Heading as="h2">Título de sección</Heading>
+<Heading as="h3">Subtítulo de bloque</Heading>
+<Heading as="h4">Título de tarjeta</Heading>
+<Heading as="h5">Etiqueta destacada</Heading>
+<Heading as="h6">Microtítulo</Heading>
+
+// Pesos
+<Heading as="h2" weight="light">Liviano</Heading>
+<Heading as="h2" weight="semibold">Semibold</Heading>
+<Heading as="h2" weight="bold">Bold</Heading>
+
+// Colores
+<Heading as="h3" color="primary">Sección destacada</Heading>
+<Heading as="h3" color="muted">Texto secundario</Heading>
+<Heading as="h3" color="dark">Texto oscuro</Heading>
+<Heading as="h3" color="white">Sobre fondo oscuro</Heading>
+
+// Truncate
+<div className="max-w-xs">
+  <Heading as="h4" truncate>
+    Este es un título muy largo que debería cortarse con puntos suspensivos
+  </Heading>
+</div>
+
+// Combinado
+<Heading as="h1" weight="bold" color="primary">
+  Municipalidad de Avellaneda
+</Heading>
+```
+
+---
+
+### Modal
+
+Componente de diálogo modal con animación de entrada/salida (fade + slide), portal al `body`, cierre por backdrop, tecla `Esc` y botón de salida en el header. Soporta un slot `headerRight` para acciones o badges de estado.
+
+#### Props
+
+| Prop              | Tipo                                     | Default   | Descripción                                        |
+| ----------------- | ---------------------------------------- | --------- | -------------------------------------------------- |
+| `isOpen`          | `boolean`                                | -         | Controla si el modal está abierto                  |
+| `onClose`         | `() => void`                             | -         | Callback al cerrar                                 |
+| `children`        | `ReactNode`                              | -         | Contenido del panel                                |
+| `closeLabel`      | `string`                                 | `'Salir'` | Texto del botón de cierre en el header             |
+| `headerRight`     | `ReactNode`                              | -         | Slot derecho del header (badges, acciones, estado) |
+| `size`            | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'`    | Ancho máximo del panel                             |
+| `closeOnBackdrop` | `boolean`                                | `true`    | Cierra al hacer click fuera del panel              |
+| `closeOnEsc`      | `boolean`                                | `true`    | Cierra al presionar `Escape`                       |
+| `className`       | `string`                                 | `''`      | Clases CSS adicionales sobre el panel              |
+
+#### Tamaños
+
+| `size` | Ancho máximo                  |
+| ------ | ----------------------------- |
+| `sm`   | `min(90vw, 480px)`            |
+| `md`   | `min(84vw, 720px)`            |
+| `lg`   | `min(80vw, 1000px)` ← default |
+| `xl`   | `min(80vw, 1200px)`           |
+| `full` | `min(96vw, 100%)`             |
+
+#### Animación
+
+- **Backdrop**: fade `opacity 0 → 1` en 300ms.
+- **Panel**: slide + fade (`translateY(-25px) + opacity 0 → 0 + opacity 1`) en 300ms.
+- Al cerrar se ejecuta la animación inversa antes de desmontar el nodo.
+- Bloquea el scroll del `body` mientras está abierto.
+- Se renderiza en un **portal al `body`**, sin afectar el layout de la página.
+
+#### Ejemplos
+
+```tsx
+import { Modal } from '@/lib';
+
+// ── Básico ────────────────────────────────────────────────────────────────────
+const [open, setOpen] = useState(false);
+
+<button onClick={() => setOpen(true)}>Abrir modal</button>
+
+<Modal isOpen={open} onClose={() => setOpen(false)}>
+  <h2>Título del modal</h2>
+  <p>Contenido del modal...</p>
+</Modal>
+
+// ── Tamaños ───────────────────────────────────────────────────────────────────
+<Modal isOpen={open} onClose={() => setOpen(false)} size="sm">...</Modal>
+<Modal isOpen={open} onClose={() => setOpen(false)} size="md">...</Modal>
+<Modal isOpen={open} onClose={() => setOpen(false)} size="lg">...</Modal>  {/* default */}
+<Modal isOpen={open} onClose={() => setOpen(false)} size="xl">...</Modal>
+<Modal isOpen={open} onClose={() => setOpen(false)} size="full">...</Modal>
+
+// ── Label personalizado ───────────────────────────────────────────────────────
+<Modal isOpen={open} onClose={() => setOpen(false)} closeLabel="Volver">
+  <p>Modal con label de cierre personalizado</p>
+</Modal>
+
+// ── Con headerRight — badge de estado ─────────────────────────────────────────
+<Modal
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  headerRight={
+    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+      En proceso
+    </span>
+  }
+>
+  <h2>Solicitud de Permiso de Obra</h2>
+  <p>...</p>
+</Modal>
+
+// ── Con headerRight — acciones ────────────────────────────────────────────────
+<Modal
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  headerRight={
+    <div className="flex gap-2">
+      <button onClick={handleEdit}>Editar</button>
+      <button onClick={handleDelete}>Eliminar</button>
+    </div>
+  }
+>
+  ...
+</Modal>
+
+// ── Sin cierre por backdrop ───────────────────────────────────────────────────
+<Modal
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  closeOnBackdrop={false}
+  closeOnEsc={false}
+>
+  <p>Solo se cierra con el botón Salir</p>
+</Modal>
+
+// ── Ejemplo práctico — confirmación de eliminación ────────────────────────────
+const [confirmOpen, setConfirmOpen] = useState(false);
+
+<Modal
+  isOpen={confirmOpen}
+  onClose={() => setConfirmOpen(false)}
+  size="sm"
+  closeLabel="Cancelar"
+>
+  <h3>¿Eliminar trámite?</h3>
+  <p>Esta acción no se puede deshacer.</p>
+  <div className="flex justify-end gap-3 mt-6">
+    <button onClick={() => setConfirmOpen(false)}>Cancelar</button>
+    <button onClick={handleDelete}>Eliminar</button>
+  </div>
+</Modal>
+
+// ── Ejemplo práctico — detalle de trámite ────────────────────────────────────
+<Modal
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  size="xl"
+  closeLabel="Volver a trámites"
+  headerRight={<EstadoBadge estado={tramite.estado} />}
+>
+  <SectionHeading
+    title={tramite.nombre}
+    subtitle={`Expediente N° ${tramite.numero}`}
+  />
+  <DetalleTramiteBody tramite={tramite} />
+</Modal>
+```
+
+---
+
 ## 📦 Estructura del Proyecto
 
 ```
@@ -1672,6 +1885,10 @@ lib/
 │   ├── Button/
 │   ├── Card/
 │   ├── Checkbox/
+│   ├── Heading/
+│   │   ├── Heading.tsx
+│   │   ├── Heading.types.ts
+│   │   └── index.ts
 │   ├── Headings/
 │   │   ├── Headings.tsx
 │   │   ├── Headings.types.ts
@@ -1683,6 +1900,10 @@ lib/
 │   │   ├── Loader.types.ts
 │   │   └── index.ts
 │   ├── Message/
+│   ├── Modal/
+│   │   ├── Modal.tsx
+│   │   ├── Modal.types.ts
+│   │   └── index.ts
 │   ├── NavigationRoutes/
 │   │   ├── NavigationRoutes.tsx
 │   │   ├── NavigationRoute.types.ts

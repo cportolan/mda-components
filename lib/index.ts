@@ -101,6 +101,9 @@ export type {
     HeadingColor,
 } from "./components/Heading";
 
+export { Modal } from "./components/Modal";
+export type { ModalProps, ModalSize } from "./components/Modal";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';

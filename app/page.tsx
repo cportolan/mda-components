@@ -22,6 +22,7 @@ import {
     NavigationRoutes,
     SectionHeading,
     Heading,
+    Modal,
 } from "@/lib";
 import type { Step } from "@/lib";
 
@@ -51,6 +52,12 @@ export default function Home() {
     const [loaderFull, setLoaderFull] = useState(false);
     const [loaderOverlay, setLoaderOverlay] = useState(false);
     const [loaderBlue, setLoaderBlue] = useState(false);
+
+    // Modal state
+    const [modalBasic, setModalBasic] = useState(false);
+    const [modalSm, setModalSm] = useState(false);
+    const [modalXl, setModalXl] = useState(false);
+    const [modalHeader, setModalHeader] = useState(false);
 
     // Stepper state
     const [stepperDefault, setStepperDefault] = useState(1);
@@ -2821,6 +2828,169 @@ export default function Home() {
                             </div>
                         </div>
                     </section>
+
+                    {/* ── Modal ── */}
+                    <section>
+                        <h2 className="text-xl font-semibold text-[#3f3f3f] mb-6">
+                            Modal
+                        </h2>
+                        <div className="space-y-8">
+                            {/* Tamaños */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-4">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Tamaños
+                                </h3>
+                                <div className="flex flex-wrap gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setModalSm(true)}
+                                        className="inline-flex items-center gap-2 rounded-lg border-2 border-[#83c442] px-4 py-2 text-sm font-medium text-[#83c442] transition-all hover:bg-[#83c442]/10"
+                                    >
+                                        Abrir sm
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setModalBasic(true)}
+                                        className="inline-flex items-center gap-2 rounded-lg border-2 border-[#83c442] px-4 py-2 text-sm font-medium text-[#83c442] transition-all hover:bg-[#83c442]/10"
+                                    >
+                                        Abrir lg (default)
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setModalXl(true)}
+                                        className="inline-flex items-center gap-2 rounded-lg border-2 border-[#83c442] px-4 py-2 text-sm font-medium text-[#83c442] transition-all hover:bg-[#83c442]/10"
+                                    >
+                                        Abrir xl
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Header right */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-4">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Con headerRight
+                                </h3>
+                                <button
+                                    type="button"
+                                    onClick={() => setModalHeader(true)}
+                                    className="inline-flex items-center gap-2 rounded-lg border-2 border-[#83c442] px-4 py-2 text-sm font-medium text-[#83c442] transition-all hover:bg-[#83c442]/10"
+                                >
+                                    Abrir con acciones en header
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── Instancias de Modal ── */}
+                    <Modal
+                        isOpen={modalBasic}
+                        onClose={() => setModalBasic(false)}
+                        size="lg"
+                    >
+                        <SectionHeading
+                            title="Habilitación Comercial"
+                            subtitle="Completá los datos para iniciar el trámite de habilitación de tu local."
+                        />
+                        <div className="mt-6 space-y-4 text-[#3f3f3f]">
+                            <p>
+                                Este es el contenido del modal. Podés poner
+                                cualquier componente acá adentro: formularios,
+                                tablas, texto enriquecido, lo que necesites.
+                            </p>
+                            <p>
+                                El modal cierra con el botón{" "}
+                                <strong>Salir</strong>, presionando{" "}
+                                <kbd className="rounded bg-[#f6f6f6] border border-[#e2e2e2] px-1.5 py-0.5 text-xs font-mono">
+                                    Esc
+                                </kbd>{" "}
+                                o haciendo click fuera del panel.
+                            </p>
+                        </div>
+                    </Modal>
+
+                    <Modal
+                        isOpen={modalSm}
+                        onClose={() => setModalSm(false)}
+                        size="sm"
+                        closeLabel="Volver"
+                    >
+                        <SectionHeading
+                            title="Confirmación"
+                            subtitle="¿Estás seguro de que querés eliminar este elemento?"
+                        />
+                        <div className="mt-6 flex justify-end gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setModalSm(false)}
+                                className="rounded-lg border border-[#e2e2e2] px-4 py-2 text-sm font-medium text-[#3f3f3f] hover:bg-[#f6f6f6] transition-colors"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setModalSm(false)}
+                                className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 transition-colors"
+                            >
+                                Eliminar
+                            </button>
+                        </div>
+                    </Modal>
+
+                    <Modal
+                        isOpen={modalXl}
+                        onClose={() => setModalXl(false)}
+                        size="xl"
+                    >
+                        <SectionHeading
+                            title="Detalle del Trámite"
+                            subtitle="Expediente N° 2024-00423 · Habilitación comercial"
+                        />
+                        <div className="mt-6 grid grid-cols-2 gap-4 text-sm text-[#3f3f3f]">
+                            {Array.from({ length: 8 }).map((_, i) => (
+                                <div
+                                    key={i}
+                                    className="rounded-lg border border-[#e2e2e2] bg-[#f6f6f6] p-4"
+                                >
+                                    <p className="text-xs text-[#999] mb-1">
+                                        Campo {i + 1}
+                                    </p>
+                                    <p className="font-medium">
+                                        Valor de ejemplo {i + 1}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </Modal>
+
+                    <Modal
+                        isOpen={modalHeader}
+                        onClose={() => setModalHeader(false)}
+                        headerRight={
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#83c442]/15 px-3 py-1 text-xs font-semibold text-[#5a9428]">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#83c442]" />
+                                En proceso
+                            </span>
+                        }
+                    >
+                        <SectionHeading
+                            title="Solicitud de Permiso de Obra"
+                            subtitle="Los datos ingresados pueden modificarse mientras el trámite esté en proceso."
+                        />
+                        <div className="mt-6 text-[#3f3f3f] space-y-3 text-sm">
+                            <p>
+                                El slot{" "}
+                                <code className="bg-[#f6f6f6] border border-[#e2e2e2] rounded px-1 font-mono">
+                                    headerRight
+                                </code>{" "}
+                                acepta cualquier{" "}
+                                <code className="bg-[#f6f6f6] border border-[#e2e2e2] rounded px-1 font-mono">
+                                    ReactNode
+                                </code>
+                                : badges de estado, botones de acción, íconos,
+                                etc.
+                            </p>
+                        </div>
+                    </Modal>
                 </div>
             </div>
         </div>
