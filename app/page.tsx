@@ -2677,22 +2677,6 @@ export default function Home() {
                                     subtitle="Administrá tus datos y configuraciones."
                                 />
                             </div>
-
-                            {/* Alineación centrada */}
-                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
-                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
-                                    Alineación centrada
-                                </h3>
-                                <SectionHeading
-                                    align="center"
-                                    link={{
-                                        label: "Ver todos los servicios",
-                                        href: "#",
-                                    }}
-                                    title="Servicios Municipales"
-                                    subtitle="Todo lo que necesitás en un solo lugar."
-                                />
-                            </div>
                         </div>
                     </section>
 
