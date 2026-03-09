@@ -22,6 +22,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [SectionHeading](#sectionheading)
     - [Heading](#heading)
     - [Modal](#modal)
+    - [Slider](#slider)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -1876,6 +1877,130 @@ const [confirmOpen, setConfirmOpen] = useState(false);
 
 ---
 
+### Slider
+
+Componente de entrada de rango. **5 variantes visuales**, 3 tamaños, modo controlado y no controlado, `formatValue` personalizable, sin dependencias externas.
+
+#### Variantes
+
+| Variante    | Descripción                                                           |
+| ----------- | --------------------------------------------------------------------- |
+| `default`   | Track liso con relleno verde hasta el valor actual                    |
+| `labeled`   | Tooltip flotante sobre el thumb con el valor formateado               |
+| `stepped`   | Marcas (ticks) bajo el track en cada `step`, coloreadas si están activas |
+| `gradient`  | Relleno del track con gradiente verde → amarillo                      |
+| `range`     | Dos thumbs para seleccionar un intervalo `[min, max]`                 |
+
+#### Props — `SliderProps` (variantes single)
+
+| Prop           | Tipo                          | Default        | Descripción                                      |
+| -------------- | ----------------------------- | -------------- | ------------------------------------------------ |
+| `variant`      | `'default' \| 'labeled' \| 'stepped' \| 'gradient'` | `'default'` | Variante visual          |
+| `value`        | `number`                      | -              | Valor controlado                                 |
+| `defaultValue` | `number`                      | `0`            | Valor inicial (no controlado)                    |
+| `min`          | `number`                      | `0`            | Valor mínimo                                     |
+| `max`          | `number`                      | `100`          | Valor máximo                                     |
+| `step`         | `number`                      | `1`            | Incremento entre pasos                           |
+| `size`         | `'sm' \| 'md' \| 'lg'`        | `'md'`         | Tamaño del track y el thumb                      |
+| `disabled`     | `boolean`                     | `false`        | Deshabilita la interacción                       |
+| `showMinMax`   | `boolean`                     | `false`        | Muestra el valor mín/máx a los extremos          |
+| `formatValue`  | `(value: number) => string`   | `String(v)`    | Formatea el valor en tooltip, labels y minMax    |
+| `onChange`     | `(value: number) => void`     | -              | Callback al cambiar                              |
+| `className`    | `string`                      | `''`           | Clases CSS adicionales sobre el contenedor       |
+
+#### Props — `RangeSliderProps` (variant `"range"`)
+
+| Prop           | Tipo                                  | Default       | Descripción                          |
+| -------------- | ------------------------------------- | ------------- | ------------------------------------ |
+| `variant`      | `'range'`                             | -             | **Requerido** para activar el rango  |
+| `value`        | `[number, number]`                    | -             | Par de valores controlado            |
+| `defaultValue` | `[number, number]`                    | `[20, 70]`    | Par de valores inicial               |
+| `onChange`     | `(value: [number, number]) => void`   | -             | Callback al cambiar el rango         |
+| *(el resto)*   | igual que `SliderProps`               |               |                                      |
+
+#### Ejemplos
+
+```tsx
+import { Slider } from '@/lib';
+import type { SliderProps, RangeSliderProps } from '@/lib';
+
+// ── Default ───────────────────────────────────────────────────────────────────
+const [value, setValue] = useState(40);
+
+<Slider value={value} onChange={setValue} />
+<Slider value={value} onChange={setValue} showMinMax />
+
+// ── Labeled (tooltip flotante) ────────────────────────────────────────────────
+<Slider variant="labeled" value={value} onChange={setValue} />
+
+// ── Stepped (ticks en cada paso) ──────────────────────────────────────────────
+<Slider
+  variant="stepped"
+  min={0} max={10} step={1}
+  value={value}
+  onChange={setValue}
+  showMinMax
+/>
+
+// ── Gradient (relleno verde → amarillo) ───────────────────────────────────────
+<Slider variant="gradient" value={value} onChange={setValue} showMinMax />
+
+// ── Range (dos thumbs) ────────────────────────────────────────────────────────
+const [range, setRange] = useState<[number, number]>([20, 75]);
+
+<Slider variant="range" value={range} onChange={setRange} showMinMax />
+
+// ── Tamaños ───────────────────────────────────────────────────────────────────
+<Slider size="sm" value={value} onChange={setValue} />
+<Slider size="md" value={value} onChange={setValue} />   // default
+<Slider size="lg" value={value} onChange={setValue} />
+
+// ── formatValue ───────────────────────────────────────────────────────────────
+// Moneda
+<Slider
+  variant="labeled"
+  min={0} max={10000} step={500}
+  value={value}
+  onChange={setValue}
+  formatValue={(v) => `$${v.toLocaleString()}`}
+  showMinMax
+/>
+
+// Porcentaje
+<Slider
+  variant="gradient"
+  value={value}
+  onChange={setValue}
+  formatValue={(v) => `${v}%`}
+  showMinMax
+/>
+
+// ── Deshabilitado ─────────────────────────────────────────────────────────────
+<Slider value={45} disabled showMinMax />
+
+// ── No controlado ─────────────────────────────────────────────────────────────
+<Slider defaultValue={30} onChange={(v) => console.log(v)} />
+
+// ── Ejemplo práctico — filtro de precio ──────────────────────────────────────
+const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
+
+<div>
+  <label className="text-sm font-medium text-[#3f3f3f]">
+    Rango de precio: ${priceRange[0].toLocaleString()} – ${priceRange[1].toLocaleString()}
+  </label>
+  <Slider
+    variant="range"
+    min={0} max={10000} step={100}
+    value={priceRange}
+    onChange={setPriceRange}
+    formatValue={(v) => `$${v.toLocaleString()}`}
+    showMinMax
+  />
+</div>
+```
+
+---
+
 ## 📦 Estructura del Proyecto
 
 ```
@@ -1913,6 +2038,10 @@ lib/
 │   │   ├── Pagination.index.ts   ← tipos
 │   │   └── index.ts
 │   ├── Select/
+│   ├── Slider/
+│   │   ├── Slider.tsx
+│   │   ├── Slider.types.ts
+│   │   └── index.ts
 │   ├── Stepper/
 │   │   ├── Stepper.tsx
 │   │   ├── Stepper.types.ts

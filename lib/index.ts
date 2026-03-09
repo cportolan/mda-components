@@ -104,6 +104,14 @@ export type {
 export { Modal } from "./components/Modal";
 export type { ModalProps, ModalSize } from "./components/Modal";
 
+export { Slider } from "./components/Slider";
+export type {
+    SliderProps,
+    RangeSliderProps,
+    SliderVariant,
+    SliderSize,
+} from "./components/Slider";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';
