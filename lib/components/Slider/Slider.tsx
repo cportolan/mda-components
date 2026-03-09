@@ -5,7 +5,7 @@ import { SliderProps, RangeSliderProps, SliderSize } from "./Slider.types";
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 
-const GREEN    = "#83c442";
+const GREEN = "#83c442";
 const GREEN_DK = "#6fb035";
 const TRACK_BG = "#e2e2e2";
 
@@ -141,7 +141,12 @@ const Ticks = ({
 }) => {
     const count = Math.floor((max - min) / step);
     if (count > 50) return null; // too many ticks
-    const tickSize = size === "sm" ? "w-0.5 h-1.5" : size === "lg" ? "w-0.5 h-2.5" : "w-0.5 h-2";
+    const tickSize =
+        size === "sm"
+            ? "w-0.5 h-1.5"
+            : size === "lg"
+              ? "w-0.5 h-2.5"
+              : "w-0.5 h-2";
 
     return (
         <div className="relative w-full flex justify-between px-0 mt-1">
@@ -211,7 +216,9 @@ const MinMaxLabels = ({
     const cls =
         size === "sm" ? "text-[11px]" : size === "lg" ? "text-sm" : "text-xs";
     return (
-        <div className={`flex justify-between mt-1 ${cls} text-[#999] select-none`}>
+        <div
+            className={`flex justify-between mt-1 ${cls} text-[#999] select-none`}
+        >
             <span>{format(min)}</span>
             <span>{format(max)}</span>
         </div>
@@ -261,8 +268,8 @@ const SingleSlider: React.FC<SliderProps> = ({
 
     const p = pct(value, min, max);
     const trackH = TRACK_H[size];
-    const isLabeled  = variant === "labeled";
-    const isStepped  = variant === "stepped";
+    const isLabeled = variant === "labeled";
+    const isStepped = variant === "stepped";
     const isGradient = variant === "gradient";
 
     return (
@@ -343,7 +350,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
     onChange,
     className = "",
 }) => {
-    const idLow  = useId();
+    const idLow = useId();
     const idHigh = useId();
 
     const isControlled = controlledValue !== undefined;
@@ -368,7 +375,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
         update([low, v]);
     };
 
-    const pLow  = pct(low,  min, max);
+    const pLow = pct(low, min, max);
     const pHigh = pct(high, min, max);
     const trackH = TRACK_H[size];
 
@@ -377,7 +384,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
         position: "absolute",
         top: "50%",
         transform: "translateY(-50%)",
-        left:  `${pLow}%`,
+        left: `${pLow}%`,
         right: `${100 - pHigh}%`,
         height: trackH,
         background: GREEN,
@@ -418,11 +425,15 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
                         value={low}
                         disabled={disabled}
                         onChange={handleLow}
-                        className={["mda-slider", `mda-slider-${size}`, "relative z-10"].join(" ")}
+                        className={[
+                            "mda-slider",
+                            `mda-slider-${size}`,
+                            "relative z-10",
+                        ].join(" ")}
                         style={
                             {
                                 "--track-h": trackH,
-                                "--pct": "0%",           // no fill on track itself
+                                "--pct": "0%", // no fill on track itself
                                 "--fill-color": "transparent",
                                 position: "absolute",
                                 inset: 0,
@@ -441,7 +452,11 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
                         value={high}
                         disabled={disabled}
                         onChange={handleHigh}
-                        className={["mda-slider", `mda-slider-${size}`, "relative z-10"].join(" ")}
+                        className={[
+                            "mda-slider",
+                            `mda-slider-${size}`,
+                            "relative z-10",
+                        ].join(" ")}
                         style={
                             {
                                 "--track-h": trackH,

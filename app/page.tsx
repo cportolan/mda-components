@@ -2987,102 +2987,157 @@ export default function Home() {
                         </div>
                     </Modal>
 
-                {/* ── Slider ── */}
-                <section>
-                    <h2 className="text-xl font-semibold text-[#3f3f3f] mb-6">
-                        Slider
-                    </h2>
-                    <div className="space-y-8">
+                    {/* ── Slider ── */}
+                    <section>
+                        <h2 className="text-xl font-semibold text-[#3f3f3f] mb-6">
+                            Slider
+                        </h2>
+                        <div className="space-y-8">
+                            {/* Variantes */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-10">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Variantes
+                                </h3>
 
-                        {/* Variantes */}
-                        <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-10">
-                            <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">Variantes</h3>
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-3">
+                                        default — valor: {sliderDefault}
+                                    </p>
+                                    <Slider
+                                        value={sliderDefault}
+                                        onChange={setSliderDefault}
+                                        showMinMax
+                                    />
+                                </div>
 
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-3">default — valor: {sliderDefault}</p>
-                                <Slider value={sliderDefault} onChange={setSliderDefault} showMinMax />
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-3">
+                                        labeled — valor: {sliderLabeled}
+                                    </p>
+                                    <Slider
+                                        variant="labeled"
+                                        value={sliderLabeled}
+                                        onChange={setSliderLabeled}
+                                    />
+                                </div>
+
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-4">
+                                        stepped — paso 5, valor:{" "}
+                                        {sliderStepped * 5}
+                                    </p>
+                                    <Slider
+                                        variant="stepped"
+                                        min={0}
+                                        max={10}
+                                        step={1}
+                                        value={sliderStepped}
+                                        onChange={setSliderStepped}
+                                        formatValue={(v) => String(v * 5)}
+                                        showMinMax
+                                    />
+                                </div>
+
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-3">
+                                        gradient — valor: {sliderGradient}%
+                                    </p>
+                                    <Slider
+                                        variant="gradient"
+                                        value={sliderGradient}
+                                        onChange={setSliderGradient}
+                                        formatValue={(v) => `${v}%`}
+                                        showMinMax
+                                    />
+                                </div>
+
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-3">
+                                        range — [{sliderRange[0]},{" "}
+                                        {sliderRange[1]}]
+                                    </p>
+                                    <Slider
+                                        variant="range"
+                                        value={sliderRange}
+                                        onChange={setSliderRange}
+                                        showMinMax
+                                    />
+                                </div>
                             </div>
 
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-3">labeled — valor: {sliderLabeled}</p>
-                                <Slider variant="labeled" value={sliderLabeled} onChange={setSliderLabeled} />
+                            {/* Tamaños */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Tamaños
+                                </h3>
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-2">
+                                        sm
+                                    </p>
+                                    <Slider
+                                        size="sm"
+                                        value={sliderSm}
+                                        onChange={setSliderSm}
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-2">
+                                        md (default)
+                                    </p>
+                                    <Slider
+                                        size="md"
+                                        value={sliderDefault}
+                                        onChange={setSliderDefault}
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-2">
+                                        lg
+                                    </p>
+                                    <Slider
+                                        size="lg"
+                                        value={sliderLg}
+                                        onChange={setSliderLg}
+                                    />
+                                </div>
                             </div>
 
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-4">stepped — paso 5, valor: {sliderStepped * 5}</p>
-                                <Slider
-                                    variant="stepped"
-                                    min={0} max={10} step={1}
-                                    value={sliderStepped}
-                                    onChange={setSliderStepped}
-                                    formatValue={(v) => String(v * 5)}
-                                    showMinMax
-                                />
-                            </div>
-
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-3">gradient — valor: {sliderGradient}%</p>
-                                <Slider
-                                    variant="gradient"
-                                    value={sliderGradient}
-                                    onChange={setSliderGradient}
-                                    formatValue={(v) => `${v}%`}
-                                    showMinMax
-                                />
-                            </div>
-
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-3">range — [{sliderRange[0]}, {sliderRange[1]}]</p>
-                                <Slider
-                                    variant="range"
-                                    value={sliderRange}
-                                    onChange={setSliderRange}
-                                    showMinMax
-                                />
+                            {/* Formateo + deshabilitado */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Formateo y deshabilitado
+                                </h3>
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-3">
+                                        formatValue — moneda
+                                    </p>
+                                    <Slider
+                                        variant="labeled"
+                                        value={sliderLabeled}
+                                        onChange={setSliderLabeled}
+                                        min={0}
+                                        max={10000}
+                                        step={500}
+                                        formatValue={(v) =>
+                                            `$${v.toLocaleString()}`
+                                        }
+                                        showMinMax
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <p className="text-xs text-[#999] mb-2">
+                                        disabled
+                                    </p>
+                                    <Slider
+                                        value={sliderDisabled}
+                                        disabled
+                                        showMinMax
+                                    />
+                                </div>
                             </div>
                         </div>
-
-                        {/* Tamaños */}
-                        <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
-                            <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">Tamaños</h3>
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-2">sm</p>
-                                <Slider size="sm" value={sliderSm} onChange={setSliderSm} />
-                            </div>
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-2">md (default)</p>
-                                <Slider size="md" value={sliderDefault} onChange={setSliderDefault} />
-                            </div>
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-2">lg</p>
-                                <Slider size="lg" value={sliderLg} onChange={setSliderLg} />
-                            </div>
-                        </div>
-
-                        {/* Formateo + deshabilitado */}
-                        <div className="rounded-xl border border-[#e2e2e2] bg-white p-8 space-y-8">
-                            <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">Formateo y deshabilitado</h3>
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-3">formatValue — moneda</p>
-                                <Slider
-                                    variant="labeled"
-                                    value={sliderLabeled}
-                                    onChange={setSliderLabeled}
-                                    min={0} max={10000} step={500}
-                                    formatValue={(v) => `$${v.toLocaleString()}`}
-                                    showMinMax
-                                />
-                            </div>
-                            <div className="space-y-1">
-                                <p className="text-xs text-[#999] mb-2">disabled</p>
-                                <Slider value={sliderDisabled} disabled showMinMax />
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-            </div>
+                    </section>
+                </div>
             </div>
         </div>
     );

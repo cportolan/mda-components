@@ -1883,40 +1883,40 @@ Componente de entrada de rango. **5 variantes visuales**, 3 tamaños, modo contr
 
 #### Variantes
 
-| Variante    | Descripción                                                           |
-| ----------- | --------------------------------------------------------------------- |
-| `default`   | Track liso con relleno verde hasta el valor actual                    |
-| `labeled`   | Tooltip flotante sobre el thumb con el valor formateado               |
-| `stepped`   | Marcas (ticks) bajo el track en cada `step`, coloreadas si están activas |
-| `gradient`  | Relleno del track con gradiente verde → amarillo                      |
-| `range`     | Dos thumbs para seleccionar un intervalo `[min, max]`                 |
+| Variante   | Descripción                                                              |
+| ---------- | ------------------------------------------------------------------------ |
+| `default`  | Track liso con relleno verde hasta el valor actual                       |
+| `labeled`  | Tooltip flotante sobre el thumb con el valor formateado                  |
+| `stepped`  | Marcas (ticks) bajo el track en cada `step`, coloreadas si están activas |
+| `gradient` | Relleno del track con gradiente verde → amarillo                         |
+| `range`    | Dos thumbs para seleccionar un intervalo `[min, max]`                    |
 
 #### Props — `SliderProps` (variantes single)
 
-| Prop           | Tipo                          | Default        | Descripción                                      |
-| -------------- | ----------------------------- | -------------- | ------------------------------------------------ |
-| `variant`      | `'default' \| 'labeled' \| 'stepped' \| 'gradient'` | `'default'` | Variante visual          |
-| `value`        | `number`                      | -              | Valor controlado                                 |
-| `defaultValue` | `number`                      | `0`            | Valor inicial (no controlado)                    |
-| `min`          | `number`                      | `0`            | Valor mínimo                                     |
-| `max`          | `number`                      | `100`          | Valor máximo                                     |
-| `step`         | `number`                      | `1`            | Incremento entre pasos                           |
-| `size`         | `'sm' \| 'md' \| 'lg'`        | `'md'`         | Tamaño del track y el thumb                      |
-| `disabled`     | `boolean`                     | `false`        | Deshabilita la interacción                       |
-| `showMinMax`   | `boolean`                     | `false`        | Muestra el valor mín/máx a los extremos          |
-| `formatValue`  | `(value: number) => string`   | `String(v)`    | Formatea el valor en tooltip, labels y minMax    |
-| `onChange`     | `(value: number) => void`     | -              | Callback al cambiar                              |
-| `className`    | `string`                      | `''`           | Clases CSS adicionales sobre el contenedor       |
+| Prop           | Tipo                                                | Default     | Descripción                                   |
+| -------------- | --------------------------------------------------- | ----------- | --------------------------------------------- |
+| `variant`      | `'default' \| 'labeled' \| 'stepped' \| 'gradient'` | `'default'` | Variante visual                               |
+| `value`        | `number`                                            | -           | Valor controlado                              |
+| `defaultValue` | `number`                                            | `0`         | Valor inicial (no controlado)                 |
+| `min`          | `number`                                            | `0`         | Valor mínimo                                  |
+| `max`          | `number`                                            | `100`       | Valor máximo                                  |
+| `step`         | `number`                                            | `1`         | Incremento entre pasos                        |
+| `size`         | `'sm' \| 'md' \| 'lg'`                              | `'md'`      | Tamaño del track y el thumb                   |
+| `disabled`     | `boolean`                                           | `false`     | Deshabilita la interacción                    |
+| `showMinMax`   | `boolean`                                           | `false`     | Muestra el valor mín/máx a los extremos       |
+| `formatValue`  | `(value: number) => string`                         | `String(v)` | Formatea el valor en tooltip, labels y minMax |
+| `onChange`     | `(value: number) => void`                           | -           | Callback al cambiar                           |
+| `className`    | `string`                                            | `''`        | Clases CSS adicionales sobre el contenedor    |
 
 #### Props — `RangeSliderProps` (variant `"range"`)
 
-| Prop           | Tipo                                  | Default       | Descripción                          |
-| -------------- | ------------------------------------- | ------------- | ------------------------------------ |
-| `variant`      | `'range'`                             | -             | **Requerido** para activar el rango  |
-| `value`        | `[number, number]`                    | -             | Par de valores controlado            |
-| `defaultValue` | `[number, number]`                    | `[20, 70]`    | Par de valores inicial               |
-| `onChange`     | `(value: [number, number]) => void`   | -             | Callback al cambiar el rango         |
-| *(el resto)*   | igual que `SliderProps`               |               |                                      |
+| Prop           | Tipo                                | Default    | Descripción                         |
+| -------------- | ----------------------------------- | ---------- | ----------------------------------- |
+| `variant`      | `'range'`                           | -          | **Requerido** para activar el rango |
+| `value`        | `[number, number]`                  | -          | Par de valores controlado           |
+| `defaultValue` | `[number, number]`                  | `[20, 70]` | Par de valores inicial              |
+| `onChange`     | `(value: [number, number]) => void` | -          | Callback al cambiar el rango        |
+| _(el resto)_   | igual que `SliderProps`             |            |                                     |
 
 #### Ejemplos
 

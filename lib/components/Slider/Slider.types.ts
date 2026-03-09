@@ -1,10 +1,10 @@
 import React from "react";
 
 export type SliderVariant =
-    | "default"   // track liso + thumb circular
-    | "range"     // dos thumbs (valor mínimo y máximo)
-    | "stepped"   // con marcas (ticks) en cada step
-    | "labeled"   // valor flotante sobre el thumb
+    | "default" // track liso + thumb circular
+    | "range" // dos thumbs (valor mínimo y máximo)
+    | "stepped" // con marcas (ticks) en cada step
+    | "labeled" // valor flotante sobre el thumb
     | "gradient"; // track relleno con gradiente verde→amarillo
 
 export type SliderSize = "sm" | "md" | "lg";
