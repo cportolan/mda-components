@@ -52,7 +52,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
             {link && (
                 <a
                     href={link.href}
-                    className="inline-flex items-center gap-1.5 text-[#0800e1] hover:underline underline-offset-2 text-[18px] leading-none transition-colors mt-[5px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0800e1]/40 rounded-sm"
+                    className="inline-flex items-center gap-1.5 text-[#0800e1] hover:underline underline-offset-2 text-[18px] leading-none transition-colors mt-1.25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0800e1]/40 rounded-sm"
                 >
                     <span className="w-7.5 h-7.5 flex items-center justify-center shrink-0">
                         {link.icon ?? <ArrowLeft />}

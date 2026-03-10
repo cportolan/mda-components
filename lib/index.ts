@@ -112,6 +112,17 @@ export type {
     SliderSize,
 } from "./components/Slider";
 
+export { Chart } from "./components/Chart";
+export type {
+    ChartProps,
+    ChartType,
+    ChartDataItem,
+    ChartSeries,
+    ChartAxisConfig,
+    ChartTooltipConfig,
+    ChartLegendConfig,
+} from "./components/Chart";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';

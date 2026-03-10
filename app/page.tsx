@@ -24,6 +24,7 @@ import {
     Heading,
     Modal,
     Slider,
+    Chart,
 } from "@/lib";
 import type { Step, RangeSliderProps } from "@/lib";
 
@@ -3135,6 +3136,370 @@ export default function Home() {
                                     />
                                 </div>
                             </div>
+                        </div>
+                    </section>
+
+                    {/* ── CHART ─────────────────────────────────────── */}
+                    <section id="chart" className="space-y-6">
+                        <SectionHeading
+                            title="Chart"
+                            subtitle="Visualización de datos con múltiples tipos de gráfico"
+                        />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* Bar */}
+                            <Chart
+                                type="bar"
+                                title="Barras verticales"
+                                description="Comparativa mensual de ventas"
+                                data={[
+                                    { month: "Ene", ventas: 186, gastos: 80 },
+                                    { month: "Feb", ventas: 305, gastos: 200 },
+                                    { month: "Mar", ventas: 237, gastos: 120 },
+                                    { month: "Abr", ventas: 73, gastos: 190 },
+                                    { month: "May", ventas: 209, gastos: 130 },
+                                    { month: "Jun", ventas: 264, gastos: 140 },
+                                ]}
+                                series={[
+                                    { key: "ventas", label: "Ventas" },
+                                    { key: "gastos", label: "Gastos" },
+                                ]}
+                                categoryKey="month"
+                            />
+
+                            {/* Bar Horizontal */}
+                            <Chart
+                                type="bar-horizontal"
+                                title="Barras horizontales"
+                                description="Ranking de productos más vendidos"
+                                data={[
+                                    { product: "Producto A", valor: 400 },
+                                    { product: "Producto B", valor: 300 },
+                                    { product: "Producto C", valor: 250 },
+                                    { product: "Producto D", valor: 180 },
+                                    { product: "Producto E", valor: 90 },
+                                ]}
+                                series={[{ key: "valor", label: "Unidades" }]}
+                                categoryKey="product"
+                            />
+
+                            {/* Bar Stacked */}
+                            <Chart
+                                type="bar-stacked"
+                                title="Barras apiladas"
+                                description="Distribución de presupuesto por trimestre"
+                                data={[
+                                    {
+                                        q: "Q1",
+                                        infra: 120,
+                                        rrhh: 80,
+                                        marketing: 40,
+                                    },
+                                    {
+                                        q: "Q2",
+                                        infra: 150,
+                                        rrhh: 90,
+                                        marketing: 60,
+                                    },
+                                    {
+                                        q: "Q3",
+                                        infra: 100,
+                                        rrhh: 110,
+                                        marketing: 80,
+                                    },
+                                    {
+                                        q: "Q4",
+                                        infra: 180,
+                                        rrhh: 95,
+                                        marketing: 70,
+                                    },
+                                ]}
+                                series={[
+                                    { key: "infra", label: "Infraestructura" },
+                                    { key: "rrhh", label: "RRHH" },
+                                    { key: "marketing", label: "Marketing" },
+                                ]}
+                                categoryKey="q"
+                            />
+
+                            {/* Line Smooth */}
+                            <Chart
+                                type="line-smooth"
+                                title="Línea suavizada"
+                                description="Evolución de visitas al sitio web"
+                                data={[
+                                    {
+                                        week: "Sem 1",
+                                        visitas: 420,
+                                        sesiones: 310,
+                                    },
+                                    {
+                                        week: "Sem 2",
+                                        visitas: 380,
+                                        sesiones: 290,
+                                    },
+                                    {
+                                        week: "Sem 3",
+                                        visitas: 510,
+                                        sesiones: 400,
+                                    },
+                                    {
+                                        week: "Sem 4",
+                                        visitas: 490,
+                                        sesiones: 380,
+                                    },
+                                    {
+                                        week: "Sem 5",
+                                        visitas: 620,
+                                        sesiones: 470,
+                                    },
+                                    {
+                                        week: "Sem 6",
+                                        visitas: 740,
+                                        sesiones: 560,
+                                    },
+                                ]}
+                                series={[
+                                    { key: "visitas", label: "Visitas" },
+                                    { key: "sesiones", label: "Sesiones" },
+                                ]}
+                                categoryKey="week"
+                            />
+
+                            {/* Line */}
+                            <Chart
+                                type="line"
+                                title="Línea recta"
+                                description="Temperatura promedio mensual (°C)"
+                                data={[
+                                    { mes: "Ene", temp: 28 },
+                                    { mes: "Feb", temp: 30 },
+                                    { mes: "Mar", temp: 25 },
+                                    { mes: "Abr", temp: 20 },
+                                    { mes: "May", temp: 16 },
+                                    { mes: "Jun", temp: 12 },
+                                    { mes: "Jul", temp: 11 },
+                                    { mes: "Ago", temp: 13 },
+                                    { mes: "Sep", temp: 17 },
+                                    { mes: "Oct", temp: 21 },
+                                    { mes: "Nov", temp: 24 },
+                                    { mes: "Dic", temp: 27 },
+                                ]}
+                                series={[{ key: "temp", label: "Temperatura" }]}
+                                categoryKey="mes"
+                                strokeWidth={3}
+                                yAxis={{ tickFormatter: (v) => `${v}°` }}
+                            />
+
+                            {/* Area */}
+                            <Chart
+                                type="area"
+                                title="Área"
+                                description="Ingresos vs egresos mensuales"
+                                data={[
+                                    { mes: "Ene", ingresos: 800, egresos: 600 },
+                                    { mes: "Feb", ingresos: 950, egresos: 700 },
+                                    { mes: "Mar", ingresos: 880, egresos: 650 },
+                                    {
+                                        mes: "Abr",
+                                        ingresos: 1100,
+                                        egresos: 720,
+                                    },
+                                    {
+                                        mes: "May",
+                                        ingresos: 1050,
+                                        egresos: 690,
+                                    },
+                                    {
+                                        mes: "Jun",
+                                        ingresos: 1300,
+                                        egresos: 800,
+                                    },
+                                ]}
+                                series={[
+                                    { key: "ingresos", label: "Ingresos" },
+                                    { key: "egresos", label: "Egresos" },
+                                ]}
+                                categoryKey="mes"
+                                areaOpacity={0.2}
+                            />
+
+                            {/* Area Stacked */}
+                            <Chart
+                                type="area-stacked"
+                                title="Área apilada"
+                                description="Consumo energético por fuente"
+                                data={[
+                                    {
+                                        año: "2020",
+                                        solar: 120,
+                                        eolica: 80,
+                                        hidro: 200,
+                                    },
+                                    {
+                                        año: "2021",
+                                        solar: 160,
+                                        eolica: 110,
+                                        hidro: 190,
+                                    },
+                                    {
+                                        año: "2022",
+                                        solar: 210,
+                                        eolica: 140,
+                                        hidro: 185,
+                                    },
+                                    {
+                                        año: "2023",
+                                        solar: 280,
+                                        eolica: 180,
+                                        hidro: 175,
+                                    },
+                                    {
+                                        año: "2024",
+                                        solar: 350,
+                                        eolica: 220,
+                                        hidro: 170,
+                                    },
+                                ]}
+                                series={[
+                                    { key: "solar", label: "Solar" },
+                                    { key: "eolica", label: "Eólica" },
+                                    { key: "hidro", label: "Hidro" },
+                                ]}
+                                categoryKey="año"
+                            />
+
+                            {/* Pie */}
+                            <Chart
+                                type="pie"
+                                title="Torta"
+                                description="Distribución de tipos de trámite"
+                                height={280}
+                                data={[
+                                    { tipo: "Habilitación", value: 35 },
+                                    { tipo: "Permiso", value: 25 },
+                                    { tipo: "Licencia", value: 20 },
+                                    { tipo: "Certificado", value: 12 },
+                                    { tipo: "Otros", value: 8 },
+                                ]}
+                                series={[
+                                    { key: "value", label: "Habilitación" },
+                                    { key: "value", label: "Permiso" },
+                                    { key: "value", label: "Licencia" },
+                                    { key: "value", label: "Certificado" },
+                                    { key: "value", label: "Otros" },
+                                ]}
+                                categoryKey="tipo"
+                            />
+
+                            {/* Donut */}
+                            <Chart
+                                type="donut"
+                                title="Rosquilla (donut)"
+                                description="Estado de expedientes activos"
+                                height={280}
+                                data={[
+                                    { estado: "En proceso", value: 48 },
+                                    { estado: "Aprobados", value: 31 },
+                                    { estado: "Observados", value: 14 },
+                                    { estado: "Rechazados", value: 7 },
+                                ]}
+                                series={[
+                                    { key: "value", label: "En proceso" },
+                                    { key: "value", label: "Aprobados" },
+                                    { key: "value", label: "Observados" },
+                                    { key: "value", label: "Rechazados" },
+                                ]}
+                                categoryKey="estado"
+                                innerRadius={55}
+                                footer={
+                                    <span>
+                                        Total: <strong>100 expedientes</strong>
+                                    </span>
+                                }
+                            />
+
+                            {/* Radar */}
+                            <Chart
+                                type="radar"
+                                title="Radar"
+                                description="Evaluación de desempeño por área"
+                                height={300}
+                                data={[
+                                    { area: "Atención", dpto1: 80, dpto2: 65 },
+                                    {
+                                        area: "Eficiencia",
+                                        dpto1: 70,
+                                        dpto2: 85,
+                                    },
+                                    { area: "Calidad", dpto1: 90, dpto2: 75 },
+                                    {
+                                        area: "Puntualidad",
+                                        dpto1: 60,
+                                        dpto2: 90,
+                                    },
+                                    {
+                                        area: "Innovación",
+                                        dpto1: 75,
+                                        dpto2: 55,
+                                    },
+                                ]}
+                                series={[
+                                    { key: "dpto1", label: "Dpto. A" },
+                                    { key: "dpto2", label: "Dpto. B" },
+                                ]}
+                                categoryKey="area"
+                                areaOpacity={0.15}
+                            />
+
+                            {/* Radial */}
+                            <Chart
+                                type="radial"
+                                title="Radial"
+                                description="Progreso de metas por sector"
+                                height={280}
+                                data={[
+                                    { sector: "Obras", value: 75 },
+                                    { sector: "Salud", value: 60 },
+                                    { sector: "Educación", value: 88 },
+                                    { sector: "Ambiente", value: 45 },
+                                ]}
+                                series={[
+                                    { key: "value", label: "Obras" },
+                                    { key: "value", label: "Salud" },
+                                    { key: "value", label: "Educación" },
+                                    { key: "value", label: "Ambiente" },
+                                ]}
+                                categoryKey="sector"
+                            />
+
+                            {/* Scatter */}
+                            <Chart
+                                type="scatter"
+                                title="Dispersión"
+                                description="Relación entre superficie y precio de propiedades"
+                                height={280}
+                                data={[
+                                    { x: 45, y: 120000 },
+                                    { x: 62, y: 155000 },
+                                    { x: 78, y: 190000 },
+                                    { x: 90, y: 210000 },
+                                    { x: 105, y: 260000 },
+                                    { x: 120, y: 295000 },
+                                    { x: 55, y: 138000 },
+                                    { x: 83, y: 198000 },
+                                    { x: 97, y: 235000 },
+                                    { x: 140, y: 350000 },
+                                ]}
+                                series={[
+                                    { key: "value", label: "Propiedades" },
+                                ]}
+                                xAxis={{ tickFormatter: (v) => `${v}m²` }}
+                                yAxis={{
+                                    tickFormatter: (v) =>
+                                        `$${Number(v) / 1000}k`,
+                                }}
+                            />
                         </div>
                     </section>
                 </div>

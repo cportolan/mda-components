@@ -23,6 +23,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [Heading](#heading)
     - [Modal](#modal)
     - [Slider](#slider)
+    - [Chart](#chart)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -2139,3 +2140,220 @@ export type { MiComponenteProps } from "./components/MiComponente";
 ## 📄 Licencia
 
 MIT
+
+---
+
+## Chart
+
+Componente de visualización de datos que soporta 13 tipos de gráfico, construido sobre [recharts](https://recharts.org/) y los primitivos de shadcn/ui `ChartContainer` / `ChartTooltip` / `ChartLegend`.
+
+### Importación
+
+```tsx
+import { Chart } from "@/lib";
+import type { ChartProps, ChartType, ChartSeries } from "@/lib";
+```
+
+### Tipos de gráfico (`type`)
+
+| Valor            | Descripción                       |
+| ---------------- | --------------------------------- |
+| `bar`            | Barras verticales agrupadas       |
+| `bar-horizontal` | Barras horizontales               |
+| `bar-stacked`    | Barras apiladas                   |
+| `bar-grouped`    | Barras agrupadas (alias de `bar`) |
+| `line`           | Línea recta                       |
+| `line-smooth`    | Línea suavizada (monotone)        |
+| `area`           | Área con gradiente                |
+| `area-stacked`   | Área apilada                      |
+| `pie`            | Torta                             |
+| `donut`          | Rosquilla                         |
+| `radial`         | Barras radiales                   |
+| `radar`          | Radar / telaraña                  |
+| `scatter`        | Dispersión (scatter plot)         |
+
+### Props
+
+| Prop          | Tipo                 | Default     | Descripción                         |
+| ------------- | -------------------- | ----------- | ----------------------------------- |
+| `type`        | `ChartType`          | —           | **Requerido.** Tipo de gráfico      |
+| `data`        | `ChartDataItem[]`    | —           | **Requerido.** Array de datos       |
+| `series`      | `ChartSeries[]`      | —           | **Requerido.** Definición de series |
+| `categoryKey` | `string`             | auto-detect | Clave de la dimensión categórica    |
+| `title`       | `string`             | —           | Título del card                     |
+| `description` | `string`             | —           | Descripción bajo el título          |
+| `height`      | `number`             | `300`       | Altura del gráfico en px            |
+| `className`   | `string`             | `""`        | Clase extra para el wrapper         |
+| `xAxis`       | `ChartAxisConfig`    | —           | Config del eje X                    |
+| `yAxis`       | `ChartAxisConfig`    | —           | Config del eje Y                    |
+| `tooltip`     | `ChartTooltipConfig` | —           | Config del tooltip                  |
+| `legend`      | `ChartLegendConfig`  | —           | Config de la leyenda                |
+| `showGrid`    | `boolean`            | `true`      | Mostrar grilla cartesiana           |
+| `barRadius`   | `number`             | `4`         | Radio esquinas de barras            |
+| `innerRadius` | `number`             | `55`        | Radio interno del donut (%)         |
+| `outerRadius` | `number`             | `80`        | Radio externo pie/donut (%)         |
+| `showLabels`  | `boolean`            | `false`     | Mostrar etiquetas de valor          |
+| `footer`      | `ReactNode`          | —           | Contenido debajo del gráfico        |
+| `strokeWidth` | `number`             | `2`         | Grosor de línea / área              |
+| `areaOpacity` | `number`             | `0.15`      | Opacidad del área de relleno        |
+| `maxBarSize`  | `number`             | `48`        | Ancho máximo de cada barra (px)     |
+
+### `ChartSeries`
+
+```ts
+interface ChartSeries {
+    key: string; // clave en el objeto de datos
+    label: string; // etiqueta para leyenda/tooltip
+    color?: string; // color CSS (hex, hsl…). Usa paleta interna si no se indica
+}
+```
+
+### `ChartAxisConfig`
+
+```ts
+interface ChartAxisConfig {
+    hide?: boolean;
+    tickFormatter?: (value: unknown) => string;
+}
+```
+
+### `ChartTooltipConfig`
+
+```ts
+interface ChartTooltipConfig {
+    show?: boolean; // default true
+    indicator?: "dot" | "line" | "dashed"; // default "dot"
+    formatter?: (value: number, name: string) => string;
+}
+```
+
+### `ChartLegendConfig`
+
+```ts
+interface ChartLegendConfig {
+    show?: boolean; // default true
+    verticalAlign?: "top" | "bottom"; // default "bottom"
+}
+```
+
+### Paleta de colores por defecto
+
+Los colores se asignan en orden cuando no se especifica `color` en `ChartSeries`:
+
+| #   | Hex       | Uso                |
+| --- | --------- | ------------------ |
+| 1   | `#83c442` | Verde primario MDA |
+| 2   | `#3f7fbf` | Azul               |
+| 3   | `#f0a500` | Ámbar              |
+| 4   | `#e05252` | Rojo               |
+| 5   | `#9b59b6` | Violeta            |
+| 6   | `#1abc9c` | Teal               |
+| 7   | `#e67e22` | Naranja            |
+| 8   | `#34495e` | Gris oscuro        |
+
+### Ejemplos
+
+**Barras verticales con dos series:**
+
+```tsx
+<Chart
+    type="bar"
+    title="Ventas vs Gastos"
+    data={[
+        { month: "Ene", ventas: 186, gastos: 80 },
+        { month: "Feb", ventas: 305, gastos: 200 },
+        { month: "Mar", ventas: 237, gastos: 120 },
+    ]}
+    series={[
+        { key: "ventas", label: "Ventas" },
+        { key: "gastos", label: "Gastos" },
+    ]}
+    categoryKey="month"
+/>
+```
+
+**Donut con footer y radio personalizado:**
+
+```tsx
+<Chart
+    type="donut"
+    title="Estado de expedientes"
+    data={[
+        { estado: "En proceso", value: 48 },
+        { estado: "Aprobados", value: 31 },
+        { estado: "Observados", value: 14 },
+        { estado: "Rechazados", value: 7 },
+    ]}
+    series={[
+        { key: "value", label: "En proceso" },
+        { key: "value", label: "Aprobados" },
+        { key: "value", label: "Observados" },
+        { key: "value", label: "Rechazados" },
+    ]}
+    categoryKey="estado"
+    innerRadius={60}
+    footer={
+        <span>
+            Total: <strong>100 expedientes</strong>
+        </span>
+    }
+/>
+```
+
+**Línea suavizada con formato de eje Y:**
+
+```tsx
+<Chart
+    type="line-smooth"
+    title="Temperatura mensual"
+    data={months}
+    series={[{ key: "temp", label: "°C" }]}
+    categoryKey="mes"
+    strokeWidth={3}
+    yAxis={{ tickFormatter: (v) => `${v}°` }}
+/>
+```
+
+**Radar multi-serie:**
+
+```tsx
+<Chart
+    type="radar"
+    data={[
+        { area: "Atención", dpto1: 80, dpto2: 65 },
+        { area: "Eficiencia", dpto1: 70, dpto2: 85 },
+        { area: "Calidad", dpto1: 90, dpto2: 75 },
+    ]}
+    series={[
+        { key: "dpto1", label: "Dpto. A" },
+        { key: "dpto2", label: "Dpto. B" },
+    ]}
+    categoryKey="area"
+    areaOpacity={0.15}
+/>
+```
+
+**Scatter con ejes formateados:**
+
+```tsx
+<Chart
+    type="scatter"
+    title="Superficie vs Precio"
+    data={[
+        { x: 45, y: 120000 },
+        { x: 78, y: 190000 },
+        { x: 120, y: 295000 },
+    ]}
+    series={[{ key: "value", label: "Propiedades" }]}
+    xAxis={{ tickFormatter: (v) => `${v}m²` }}
+    yAxis={{ tickFormatter: (v) => `$${Number(v) / 1000}k` }}
+/>
+```
+
+### Notas de implementación
+
+- El componente usa `"use client"` — no es compatible con RSC directamente.
+- Internamente envuelve el gráfico en `ChartContainer` de shadcn (inyecta variables CSS `--color-{key}` por serie).
+- Los gradientes de área se generan como `<linearGradient>` SVG con opacidad dinámica.
+- Para `pie` / `donut`, el color de cada segmento se toma de `series[i].color` o de la paleta; la clave `key` de la serie apunta al campo numérico del datum.
+- Para `scatter`, los datos deben incluir propiedades `x` e `y` numéricas.
