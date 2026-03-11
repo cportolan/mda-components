@@ -25,8 +25,9 @@ import {
     Modal,
     Slider,
     Chart,
+    Calendar,
 } from "@/lib";
-import type { Step, RangeSliderProps } from "@/lib";
+import type { Step, RangeSliderProps, CalendarEvent } from "@/lib";
 
 export default function Home() {
     const [selectValue, setSelectValue] = useState("");
@@ -70,6 +71,14 @@ export default function Home() {
     const [sliderSm, setSliderSm] = useState(30);
     const [sliderLg, setSliderLg] = useState(70);
     const [sliderDisabled] = useState(45);
+
+    // Calendar state
+    const [calSingle, setCalSingle] = useState<string | null>(null);
+    const [calRange, setCalRange] = useState<[string | null, string | null]>([
+        null,
+        null,
+    ]);
+    const [calMultiple, setCalMultiple] = useState<string[]>([]);
 
     // Stepper state
     const [stepperDefault, setStepperDefault] = useState(1);
@@ -3500,6 +3509,391 @@ export default function Home() {
                                         `$${Number(v) / 1000}k`,
                                 }}
                             />
+                        </div>
+                    </section>
+
+                    {/* ── Calendar ────────────────────────────────────────── */}
+                    <section id="calendar" className="space-y-6">
+                        <SectionHeading
+                            title="Calendar"
+                            subtitle="Selector de fechas con modos single, range y multiple. Soporte para eventos, navegación por año/década, semanas y más."
+                        />
+
+                        <div className="space-y-8">
+                            {/* Single + Range side by side */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Single vs Range
+                                </h3>
+                                <div className="flex flex-wrap gap-8">
+                                    {/* Single */}
+                                    <div className="space-y-3">
+                                        <p className="text-xs text-[#999]">
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                mode="single"
+                                            </code>
+                                            {calSingle ? (
+                                                <span className="ml-2 text-[#83c442] font-medium">
+                                                    {calSingle}
+                                                </span>
+                                            ) : (
+                                                <span className="ml-2 text-[#bbb]">
+                                                    Sin selección
+                                                </span>
+                                            )}
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            value={calSingle}
+                                            onChange={setCalSingle}
+                                            showTodayButton
+                                            showClearButton
+                                            events={[
+                                                {
+                                                    date: "2026-03-15",
+                                                    label: "Reunión",
+                                                    color: "#83c442",
+                                                    title: "Reunión de equipo",
+                                                },
+                                                {
+                                                    date: "2026-03-20",
+                                                    label: "Evento",
+                                                    color: "#1a6fa8",
+                                                    title: "Capacitación",
+                                                },
+                                                {
+                                                    date: "2026-03-25",
+                                                    color: "#e07a2b",
+                                                    title: "Vencimiento",
+                                                },
+                                            ]}
+                                        />
+                                    </div>
+
+                                    {/* Range */}
+                                    <div className="space-y-3">
+                                        <p className="text-xs text-[#999]">
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                mode="range"
+                                            </code>
+                                            {calRange[0] || calRange[1] ? (
+                                                <span className="ml-2 text-[#83c442] font-medium">
+                                                    {calRange[0] ?? "…"} →{" "}
+                                                    {calRange[1] ?? "…"}
+                                                </span>
+                                            ) : (
+                                                <span className="ml-2 text-[#bbb]">
+                                                    Seleccioná inicio y fin
+                                                </span>
+                                            )}
+                                        </p>
+                                        <Calendar
+                                            mode="range"
+                                            value={calRange}
+                                            onChange={setCalRange}
+                                            showTodayButton
+                                            showClearButton
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Multiple */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Multiple
+                                </h3>
+                                <div className="flex flex-wrap gap-8 items-start">
+                                    <div className="space-y-3">
+                                        <p className="text-xs text-[#999]">
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                mode="multiple"
+                                            </code>
+                                        </p>
+                                        <Calendar
+                                            mode="multiple"
+                                            value={calMultiple}
+                                            onChange={setCalMultiple}
+                                            showClearButton
+                                            showTodayButton
+                                        />
+                                    </div>
+                                    <div className="flex-1 min-w-45 space-y-2">
+                                        <p className="text-xs font-semibold text-[#999] uppercase tracking-wide">
+                                            Fechas seleccionadas
+                                        </p>
+                                        {calMultiple.length === 0 ? (
+                                            <p className="text-sm text-[#bbb]">
+                                                Ninguna
+                                            </p>
+                                        ) : (
+                                            <ul className="space-y-1">
+                                                {calMultiple.map((d) => (
+                                                    <li
+                                                        key={d}
+                                                        className="flex items-center gap-2 text-sm text-[#3f3f3f]"
+                                                    >
+                                                        <span className="w-2 h-2 rounded-full bg-[#83c442] shrink-0" />
+                                                        {d}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Tamaños */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Tamaños
+                                </h3>
+                                <div className="flex flex-wrap gap-6 items-start">
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999] font-medium uppercase tracking-wide">
+                                            sm
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            size="sm"
+                                            defaultValue="2026-03-11"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999] font-medium uppercase tracking-wide">
+                                            md (default)
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            size="md"
+                                            defaultValue="2026-03-11"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999] font-medium uppercase tracking-wide">
+                                            lg
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            size="lg"
+                                            defaultValue="2026-03-11"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Con eventos */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Con eventos y números de semana
+                                </h3>
+                                <p className="text-xs text-[#999]">
+                                    Cada fecha puede tener uno o más eventos
+                                    representados con puntos de colores. Con{" "}
+                                    <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                        showWeekNumbers
+                                    </code>{" "}
+                                    se muestra la columna de semana ISO.
+                                </p>
+                                <Calendar
+                                    mode="single"
+                                    showWeekNumbers
+                                    showTodayButton
+                                    events={
+                                        [
+                                            {
+                                                date: "2026-03-02",
+                                                color: "#83c442",
+                                                title: "Apertura de licitación",
+                                            },
+                                            {
+                                                date: "2026-03-05",
+                                                color: "#1a6fa8",
+                                                title: "Reunión de concejo",
+                                            },
+                                            {
+                                                date: "2026-03-10",
+                                                color: "#e07a2b",
+                                                title: "Vencimiento de tasas",
+                                            },
+                                            {
+                                                date: "2026-03-10",
+                                                color: "#83c442",
+                                                title: "Taller vecinal",
+                                            },
+                                            {
+                                                date: "2026-03-15",
+                                                color: "#83c442",
+                                                title: "Día del vecino",
+                                            },
+                                            {
+                                                date: "2026-03-18",
+                                                color: "#c44282",
+                                                title: "Evento cultural",
+                                            },
+                                            {
+                                                date: "2026-03-24",
+                                                color: "#e07a2b",
+                                                title: "Feriado nacional",
+                                            },
+                                            {
+                                                date: "2026-03-25",
+                                                color: "#e07a2b",
+                                                title: "Feriado nacional",
+                                            },
+                                            {
+                                                date: "2026-03-28",
+                                                color: "#1a6fa8",
+                                                title: "Asamblea",
+                                            },
+                                        ] satisfies CalendarEvent[]
+                                    }
+                                />
+                            </div>
+
+                            {/* minDate / maxDate / disabledDates */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Restricciones de fecha
+                                </h3>
+                                <div className="flex flex-wrap gap-8 items-start">
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999]">
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                minDate
+                                            </code>{" "}
+                                            y{" "}
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                maxDate
+                                            </code>
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            minDate="2026-03-05"
+                                            maxDate="2026-03-25"
+                                            showTodayButton
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999]">
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                disabledDates
+                                            </code>{" "}
+                                            y{" "}
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                disabledDate
+                                            </code>
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            disabledDates={[
+                                                "2026-03-10",
+                                                "2026-03-11",
+                                                "2026-03-12",
+                                            ]}
+                                            disabledDate={(iso) => {
+                                                const d = new Date(
+                                                    iso + "T00:00:00"
+                                                );
+                                                return (
+                                                    d.getDay() === 0 ||
+                                                    d.getDay() === 6
+                                                );
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Navegación año/década */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Navegación de vistas — mes → año → década
+                                </h3>
+                                <p className="text-xs text-[#999]">
+                                    Hacé click en el título del header para
+                                    navegar hacia vistas más amplias. Con{" "}
+                                    <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                        showViewNavigation=false
+                                    </code>{" "}
+                                    se deshabilita esa navegación.
+                                </p>
+                                <div className="flex flex-wrap gap-8 items-start">
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999] font-medium">
+                                            Con navegación (default)
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            showViewNavigation
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999] font-medium">
+                                            Sin navegación
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            showViewNavigation={false}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Locale y primer día */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Locale y primer día de semana
+                                </h3>
+                                <div className="flex flex-wrap gap-8 items-start">
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999]">
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                locale="es-AR"
+                                            </code>{" "}
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                firstDayOfWeek=1
+                                            </code>{" "}
+                                            (lunes)
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            locale="es-AR"
+                                            firstDayOfWeek={1}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <p className="text-xs text-[#999]">
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                locale="en-US"
+                                            </code>{" "}
+                                            <code className="bg-[#f6f6f6] px-1 rounded font-mono">
+                                                firstDayOfWeek=0
+                                            </code>{" "}
+                                            (domingo)
+                                        </p>
+                                        <Calendar
+                                            mode="single"
+                                            locale="en-US"
+                                            firstDayOfWeek={0}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Disabled */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-5">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Deshabilitado
+                                </h3>
+                                <Calendar
+                                    mode="single"
+                                    defaultValue="2026-03-11"
+                                    disabled
+                                    showTodayButton
+                                    showClearButton
+                                />
+                            </div>
                         </div>
                     </section>
                 </div>

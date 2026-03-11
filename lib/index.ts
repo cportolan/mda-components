@@ -123,6 +123,19 @@ export type {
     ChartLegendConfig,
 } from "./components/Chart";
 
+export { Calendar } from "./components/Calendar";
+export type {
+    CalendarProps,
+    CalendarMode,
+    CalendarView,
+    CalendarSize,
+    CalendarEvent,
+    CalendarSingleProps,
+    CalendarRangeProps,
+    CalendarMultipleProps,
+    CalendarCommonProps,
+} from "./components/Calendar";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
 // export { Modal } from './components/Modal';

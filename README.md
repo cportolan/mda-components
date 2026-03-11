@@ -24,6 +24,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [Modal](#modal)
     - [Slider](#slider)
     - [Chart](#chart)
+    - [Calendar](#calendar)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -2357,3 +2358,147 @@ Los colores se asignan en orden cuando no se especifica `color` en `ChartSeries`
 - Los gradientes de área se generan como `<linearGradient>` SVG con opacidad dinámica.
 - Para `pie` / `donut`, el color de cada segmento se toma de `series[i].color` o de la paleta; la clave `key` de la serie apunta al campo numérico del datum.
 - Para `scatter`, los datos deben incluir propiedades `x` e `y` numéricas.
+
+---
+
+## Calendar
+
+Selector de fechas completo con tres modos de selección, navegación por vistas (mes → año → década), soporte de eventos/marcas y configuración de locale.
+
+### Importación
+
+```tsx
+import { Calendar } from "@/lib";
+import type { CalendarEvent } from "@/lib";
+```
+
+### Modos
+
+| Modo       | Descripción                                                      |
+| ---------- | ---------------------------------------------------------------- |
+| `single`   | Selecciona una fecha; segundo click deselecciona                 |
+| `range`    | Selecciona un rango: primer click = inicio, segundo = fin        |
+| `multiple` | Selecciona varias fechas individuales; click repite deselecciona |
+
+### Props comunes
+
+| Prop                 | Tipo                       | Default     | Descripción                                    |
+| -------------------- | -------------------------- | ----------- | ---------------------------------------------- |
+| `size`               | `"sm" \| "md" \| "lg"`     | `"md"`      | Tamaño visual del calendario                   |
+| `minDate`            | `string`                   | —           | Fecha mínima seleccionable `"YYYY-MM-DD"`      |
+| `maxDate`            | `string`                   | —           | Fecha máxima seleccionable `"YYYY-MM-DD"`      |
+| `disabledDates`      | `string[]`                 | `[]`        | Fechas específicas deshabilitadas              |
+| `disabledDate`       | `(iso: string) => boolean` | —           | Predicado para deshabilitar fechas arbitrarias |
+| `events`             | `CalendarEvent[]`          | `[]`        | Eventos/marcas visuales por fecha              |
+| `showWeekNumbers`    | `boolean`                  | `false`     | Muestra columna con número de semana ISO       |
+| `locale`             | `string`                   | `"es-AR"`   | Locale para nombres de meses/días              |
+| `firstDayOfWeek`     | `0 \| 1`                   | `1`         | Primer día: 0 = domingo, 1 = lunes             |
+| `showTodayButton`    | `boolean`                  | `false`     | Muestra botón "Hoy" en el footer               |
+| `todayButtonLabel`   | `string`                   | `"Hoy"`     | Texto del botón Hoy                            |
+| `showClearButton`    | `boolean`                  | `false`     | Muestra botón "Limpiar" en el footer           |
+| `clearButtonLabel`   | `string`                   | `"Limpiar"` | Texto del botón Limpiar                        |
+| `disabled`           | `boolean`                  | `false`     | Deshabilita toda interacción                   |
+| `showViewNavigation` | `boolean`                  | `true`      | Permite navegar a vistas de año/década         |
+| `className`          | `string`                   | `""`        | Clases CSS adicionales en el root              |
+
+### Interfaz `CalendarEvent`
+
+```ts
+interface CalendarEvent {
+    date: string; // ISO "YYYY-MM-DD"
+    label?: string; // Etiqueta corta (no mostrada en cell, solo tooltip)
+    color?: string; // Color del punto (default: #83c442)
+    title?: string; // Tooltip al hacer hover sobre la fecha
+}
+```
+
+### Ejemplos
+
+**Single controlado con eventos:**
+
+```tsx
+const [date, setDate] = useState<string | null>(null);
+
+<Calendar
+    mode="single"
+    value={date}
+    onChange={setDate}
+    showTodayButton
+    showClearButton
+    events={[
+        { date: "2026-03-15", color: "#83c442", title: "Reunión de equipo" },
+        { date: "2026-03-24", color: "#e07a2b", title: "Feriado nacional" },
+    ]}
+/>;
+```
+
+**Range controlado:**
+
+```tsx
+const [range, setRange] = useState<[string | null, string | null]>([
+    null,
+    null,
+]);
+
+<Calendar
+    mode="range"
+    value={range}
+    onChange={setRange}
+    showTodayButton
+    showClearButton
+/>;
+```
+
+**Multiple controlado:**
+
+```tsx
+const [dates, setDates] = useState<string[]>([]);
+
+<Calendar mode="multiple" value={dates} onChange={setDates} showClearButton />;
+```
+
+**Fechas deshabilitadas (fines de semana + fechas puntuales):**
+
+```tsx
+<Calendar
+    mode="single"
+    disabledDates={["2026-03-24", "2026-03-25"]}
+    disabledDate={(iso) => {
+        const d = new Date(iso + "T00:00:00");
+        return d.getDay() === 0 || d.getDay() === 6;
+    }}
+/>
+```
+
+**Con semanas ISO y locale inglés:**
+
+```tsx
+<Calendar mode="single" locale="en-US" firstDayOfWeek={0} showWeekNumbers />
+```
+
+**Tamaño large con minDate/maxDate:**
+
+```tsx
+<Calendar
+    mode="single"
+    size="lg"
+    minDate="2026-03-01"
+    maxDate="2026-03-31"
+    showTodayButton
+/>
+```
+
+### Navegación de vistas
+
+- Click en el **título** del header (`"Marzo 2026"`) → pasa a vista de año (selector de mes)
+- Click en el **año** (`"2026"`) → pasa a vista de décadas (selector de año)
+- Deshabilitar con `showViewNavigation={false}`
+
+### Notas de implementación
+
+- Usa `"use client"` — requiere entorno de cliente.
+- Completamente autónomo: sin dependencias externas de calendario (lógica de fechas 100% nativa).
+- Soporta modo controlado (prop `value`) y no controlado (`defaultValue`) en los tres modos.
+- Los números de semana siguen el estándar ISO 8601 (la semana que contiene el primer jueves del año es la semana 1).
+- Los eventos se muestran como puntos de color en la celda; hasta 3 puntos por día (el resto se omite visualmente pero el tooltip los incluye todos).
+- El highlight de rango usa un fondo semitransparente continuo entre las fechas inicio y fin.
