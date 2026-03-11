@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState, useEffect, useId } from "react";
+import React, { useMemo, useState, useEffect, useId, useRef } from "react";
 import {
     BarChart, Bar,
     LineChart, Line,
@@ -18,6 +18,7 @@ import {
     ChartTooltipContent,
     ChartLegend,
     ChartLegendContent,
+    ChartContextProvider,
 } from "@/components/ui/chart";
 import type { ChartConfig } from "@/components/ui/chart";
 import type { ChartProps, ChartDataItem } from "./Chart.types";
@@ -284,9 +285,29 @@ export const Chart: React.FC<ChartProps> = (props) => {
     const rawId = useId();
     const chartId = rawId.replace(/:/g, "");
     const chartConfig = useMemo(() => buildChartConfig(series), [series]);
+    const initialWidth =
+        typeof window === "undefined"
+            ? 600
+            : Math.max(320, Math.min(window.innerWidth - 48, 960));
 
     const [mounted, setMounted] = useState(false);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [measured, setMeasured] = useState({ width: 0, height: 0 });
     useEffect(() => { setMounted(true); }, []);
+    useEffect(() => {
+        if (!containerRef.current) return;
+        const update = () => {
+            if (!containerRef.current) return;
+            const rect = containerRef.current.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            setMeasured({ width: rect.width, height: rect.height });
+        };
+        update();
+        if (typeof ResizeObserver === "undefined") return;
+        const obs = new ResizeObserver(() => update());
+        obs.observe(containerRef.current);
+        return () => obs.disconnect();
+    }, []);
 
     return (
         <div className={`flex flex-col gap-2 rounded-2xl border border-[#e2e2e2] bg-white p-6 shadow-sm ${className}`}>
@@ -298,17 +319,51 @@ export const Chart: React.FC<ChartProps> = (props) => {
             )}
 
             {mounted ? (
-                <div
-                    data-chart-id={chartId}
-                    style={{ display: "block", width: "100%", height: `${height}px` }}
-                >
-                    <CssVars chartId={chartId} config={chartConfig} />
-                    <ResponsiveContainer width="100%" height="100%">
-                        {renderChart(props) as React.ReactElement}
-                    </ResponsiveContainer>
-                </div>
+                <ChartContextProvider config={chartConfig}>
+                    <div
+                        data-chart-id={chartId}
+                        ref={containerRef}
+                        style={{
+                            display: "block",
+                            width: "100%",
+                            height: `${height}px`,
+                        }}
+                    >
+                        <CssVars chartId={chartId} config={chartConfig} />
+                        {(() => {
+                            const rendered = renderChart(props) as React.ReactElement | null;
+                            if (!rendered) {
+                                return (
+                                    <div className="h-full w-full flex items-center justify-center rounded-xl border border-dashed border-[#e2e2e2] text-xs text-[#999]">
+                                        Chart type no reconocido: {String(props.type)}
+                                    </div>
+                                );
+                            }
+                            const width = measured.width || initialWidth;
+                            const heightPx = measured.height || height;
+                            return React.cloneElement(rendered, {
+                                width,
+                                height: heightPx,
+                            });
+                        })()}
+                        {false && (
+                            <ResponsiveContainer
+                                width="100%"
+                                height="100%"
+                                minHeight={height}
+                                minWidth={320}
+                                initialDimension={{ width: initialWidth, height }}
+                            >
+                                {renderChart(props) as React.ReactElement}
+                            </ResponsiveContainer>
+                        )}
+                    </div>
+                </ChartContextProvider>
             ) : (
-                <div style={{ height }} className="w-full animate-pulse bg-[#f6f6f6] rounded-xl" />
+                <div
+                    style={{ height }}
+                    className="w-full animate-pulse bg-[#f6f6f6] rounded-xl"
+                />
             )}
 
             {footer && (

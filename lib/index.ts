@@ -136,6 +136,15 @@ export type {
     CalendarCommonProps,
 } from "./components/Calendar";
 
+export { Carousel } from "./components/Carousel";
+export type {
+    CarouselProps,
+    CarouselSlide,
+    CarouselVariant,
+    CarouselSize,
+    CarouselArrowStyle,
+    CarouselDotsStyle,
+} from "./components/Carousel";
+
 // Próximos componentes:
 // export { Table } from './components/Table';
-// export { Modal } from './components/Modal';

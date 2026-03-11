@@ -26,8 +26,14 @@ import {
     Slider,
     Chart,
     Calendar,
+    Carousel,
 } from "@/lib";
-import type { Step, RangeSliderProps, CalendarEvent } from "@/lib";
+import type {
+    Step,
+    RangeSliderProps,
+    CalendarEvent,
+    CarouselSlide,
+} from "@/lib";
 
 export default function Home() {
     const [selectValue, setSelectValue] = useState("");
@@ -79,6 +85,69 @@ export default function Home() {
         null,
     ]);
     const [calMultiple, setCalMultiple] = useState<string[]>([]);
+
+    // Carousel state
+    const [carouselIdx, setCarouselIdx] = useState(0);
+    const carouselSlides: CarouselSlide[] = [
+        {
+            key: "slide-1",
+            content: (
+                <div className="w-full h-full bg-gradient-to-br from-[#83c442] to-[#5a9a2a] flex items-center justify-center">
+                    <div className="text-center text-white">
+                        <div className="text-5xl mb-3">🏛️</div>
+                        <p className="text-2xl font-bold">Municipalidad</p>
+                        <p className="text-base opacity-80">de Avellaneda</p>
+                    </div>
+                </div>
+            ),
+            label: "Inicio",
+        },
+        {
+            key: "slide-2",
+            content: (
+                <div className="w-full h-full bg-gradient-to-br from-[#3f80c4] to-[#1a5a9a] flex items-center justify-center">
+                    <div className="text-center text-white">
+                        <div className="text-5xl mb-3">🌳</div>
+                        <p className="text-2xl font-bold">Espacios Verdes</p>
+                        <p className="text-base opacity-80">
+                            Cuidamos nuestra ciudad
+                        </p>
+                    </div>
+                </div>
+            ),
+            label: "Espacios verdes",
+        },
+        {
+            key: "slide-3",
+            content: (
+                <div className="w-full h-full bg-gradient-to-br from-[#e67e22] to-[#c0392b] flex items-center justify-center">
+                    <div className="text-center text-white">
+                        <div className="text-5xl mb-3">📋</div>
+                        <p className="text-2xl font-bold">Trámites Online</p>
+                        <p className="text-base opacity-80">
+                            Gestiones desde tu casa
+                        </p>
+                    </div>
+                </div>
+            ),
+            label: "Trámites",
+        },
+        {
+            key: "slide-4",
+            content: (
+                <div className="w-full h-full bg-gradient-to-br from-[#8e44ad] to-[#6c3483] flex items-center justify-center">
+                    <div className="text-center text-white">
+                        <div className="text-5xl mb-3">🎭</div>
+                        <p className="text-2xl font-bold">Cultura y Arte</p>
+                        <p className="text-base opacity-80">
+                            Eventos para todos
+                        </p>
+                    </div>
+                </div>
+            ),
+            label: "Cultura",
+        },
+    ];
 
     // Stepper state
     const [stepperDefault, setStepperDefault] = useState(1);
@@ -3893,6 +3962,208 @@ export default function Home() {
                                     showTodayButton
                                     showClearButton
                                 />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── CAROUSEL ─────────────────────────────────────── */}
+                    <section id="carousel" className="space-y-6">
+                        <SectionHeading
+                            title="Carousel"
+                            subtitle="Presentación de contenidos en diapositivas con soporte para múltiples variantes, autoplay, arrastre y accesibilidad."
+                            link={{ label: "Ver en GitHub", href: "#" }}
+                        />
+
+                        <div className="space-y-8">
+                            {/* Default */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-4">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Default — slide con flechas y dots
+                                </h3>
+                                <Carousel
+                                    slides={carouselSlides}
+                                    variant="default"
+                                    size="md"
+                                    activeIndex={carouselIdx}
+                                    onChange={setCarouselIdx}
+                                    loop
+                                    dotsStyle="dots"
+                                    arrowStyle="circle"
+                                />
+                            </div>
+
+                            {/* Fade */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-4">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Fade — transición cruzada
+                                </h3>
+                                <Carousel
+                                    slides={carouselSlides}
+                                    variant="fade"
+                                    size="md"
+                                    loop
+                                    dotsStyle="bars"
+                                    arrowStyle="rounded"
+                                />
+                            </div>
+
+                            {/* Cards */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-4">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Cards — peek de slides adyacentes
+                                </h3>
+                                <Carousel
+                                    slides={carouselSlides}
+                                    variant="cards"
+                                    size="md"
+                                    loop
+                                    dotsStyle="numbers"
+                                    cardGap={16}
+                                    cardPeek={40}
+                                />
+                            </div>
+
+                            {/* Thumbnails */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-4">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Thumbnails — tira de miniaturas
+                                </h3>
+                                <Carousel
+                                    slides={carouselSlides.map((s, i) => ({
+                                        ...s,
+                                        thumbnail: (
+                                            <div
+                                                className={`w-full h-full flex items-center justify-center text-white text-xs font-bold ${
+                                                    [
+                                                        "bg-[#83c442]",
+                                                        "bg-[#3f80c4]",
+                                                        "bg-[#e67e22]",
+                                                        "bg-[#8e44ad]",
+                                                    ][i]
+                                                }`}
+                                            >
+                                                {i + 1}
+                                            </div>
+                                        ),
+                                    }))}
+                                    variant="thumbnails"
+                                    size="md"
+                                    loop
+                                    showDots={false}
+                                    arrowStyle="square"
+                                />
+                            </div>
+
+                            {/* Autoplay */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-4">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Autoplay — avance automático (2 s, pausa al
+                                    hover)
+                                </h3>
+                                <Carousel
+                                    slides={carouselSlides}
+                                    variant="default"
+                                    size="sm"
+                                    autoPlay={2000}
+                                    pauseOnHover
+                                    loop
+                                    dotsStyle="bars"
+                                    arrowStyle="none"
+                                />
+                            </div>
+
+                            {/* Sizes */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-6">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Tamaños — sm / md / lg
+                                </h3>
+                                <div className="space-y-4">
+                                    {(["sm", "md", "lg"] as const).map((sz) => (
+                                        <div key={sz} className="space-y-1">
+                                            <p className="text-xs text-[#999] font-mono">
+                                                {sz}
+                                            </p>
+                                            <Carousel
+                                                slides={carouselSlides.slice(
+                                                    0,
+                                                    2
+                                                )}
+                                                size={sz}
+                                                loop
+                                                arrowStyle="circle"
+                                                dotsStyle="dots"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Arrow styles */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-6">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Estilos de flecha — circle / rounded /
+                                    square / none
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {(
+                                        [
+                                            "circle",
+                                            "rounded",
+                                            "square",
+                                            "none",
+                                        ] as const
+                                    ).map((as) => (
+                                        <div key={as} className="space-y-1">
+                                            <p className="text-xs text-[#999] font-mono">
+                                                {as}
+                                            </p>
+                                            <Carousel
+                                                slides={carouselSlides.slice(
+                                                    0,
+                                                    3
+                                                )}
+                                                size="sm"
+                                                arrowStyle={as}
+                                                dotsStyle="none"
+                                                loop
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Dots styles */}
+                            <div className="rounded-xl border border-[#e2e2e2] bg-white p-6 space-y-6">
+                                <h3 className="text-sm font-semibold text-[#3f3f3f] uppercase tracking-wide">
+                                    Estilos de indicador — dots / bars / numbers
+                                    / none
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {(
+                                        [
+                                            "dots",
+                                            "bars",
+                                            "numbers",
+                                            "none",
+                                        ] as const
+                                    ).map((ds) => (
+                                        <div key={ds} className="space-y-1">
+                                            <p className="text-xs text-[#999] font-mono">
+                                                {ds}
+                                            </p>
+                                            <Carousel
+                                                slides={carouselSlides.slice(
+                                                    0,
+                                                    3
+                                                )}
+                                                size="sm"
+                                                dotsStyle={ds}
+                                                arrowStyle="circle"
+                                                loop
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </section>

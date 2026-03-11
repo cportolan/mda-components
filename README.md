@@ -25,6 +25,7 @@ Librería de componentes React reutilizables construida con Next.js, TypeScript 
     - [Slider](#slider)
     - [Chart](#chart)
     - [Calendar](#calendar)
+    - [Carousel](#carousel)
 - [Desarrollo](#️-desarrollo)
 - [Agregar Nuevos Componentes](#-agregar-nuevos-componentes)
 
@@ -2502,3 +2503,181 @@ const [dates, setDates] = useState<string[]>([]);
 - Los números de semana siguen el estándar ISO 8601 (la semana que contiene el primer jueves del año es la semana 1).
 - Los eventos se muestran como puntos de color en la celda; hasta 3 puntos por día (el resto se omite visualmente pero el tooltip los incluye todos).
 - El highlight de rango usa un fondo semitransparente continuo entre las fechas inicio y fin.
+
+---
+
+## Carousel
+
+Componente de carrusel para presentar contenidos en diapositivas. Soporta 5 variantes visuales, autoplay, arrastre/swipe, navegación por teclado y es completamente accesible.
+
+### Importación
+
+```tsx
+import { Carousel } from "@/lib";
+import type { CarouselSlide } from "@/lib";
+```
+
+### Props
+
+| Prop           | Tipo                                                             | Default      | Descripción                                              |
+| -------------- | ---------------------------------------------------------------- | ------------ | -------------------------------------------------------- |
+| `slides`       | `CarouselSlide[]`                                                | **required** | Array de diapositivas a mostrar                          |
+| `variant`      | `"default" \| "fade" \| "cards" \| "thumbnails" \| "fullscreen"` | `"default"`  | Variante visual del carrusel                             |
+| `size`         | `"sm" \| "md" \| "lg" \| "full"`                                 | `"md"`       | Altura del track: `h-40` / `h-64` / `h-96` / `h-screen`  |
+| `activeIndex`  | `number`                                                         | —            | Índice controlado (modo controlado)                      |
+| `defaultIndex` | `number`                                                         | `0`          | Índice inicial (modo no controlado)                      |
+| `onChange`     | `(index: number) => void`                                        | —            | Callback al cambiar de slide                             |
+| `autoPlay`     | `number`                                                         | `0`          | Intervalo en ms para avance automático (0 = desactivado) |
+| `pauseOnHover` | `boolean`                                                        | `true`       | Pausa el autoplay al pasar el cursor                     |
+| `loop`         | `boolean`                                                        | `true`       | Hace circular la navegación al llegar al final/inicio    |
+| `arrowStyle`   | `"circle" \| "rounded" \| "square" \| "none"`                    | `"circle"`   | Forma de los botones de flecha                           |
+| `dotsStyle`    | `"dots" \| "bars" \| "numbers" \| "none"`                        | `"dots"`     | Estilo del indicador de posición                         |
+| `showArrows`   | `boolean`                                                        | `true`       | Muestra u oculta las flechas de navegación               |
+| `showDots`     | `boolean`                                                        | `true`       | Muestra u oculta los indicadores                         |
+| `draggable`    | `boolean`                                                        | `true`       | Habilita el arrastre / swipe táctil                      |
+| `cardGap`      | `number`                                                         | `24`         | Espacio en px entre tarjetas (variante `cards`)          |
+| `cardPeek`     | `number`                                                         | `48`         | Px visibles de la tarjeta adyacente (variante `cards`)   |
+| `className`    | `string`                                                         | `""`         | Clases adicionales para el contenedor raíz               |
+
+### Interfaz `CarouselSlide`
+
+```ts
+interface CarouselSlide {
+    key?: string; // Clave única (default: índice)
+    content: React.ReactNode; // Contenido del slide
+    alt?: string; // Alt text (cuando content es una imagen)
+    thumbnail?: React.ReactNode; // Miniatura para variante "thumbnails"
+    label?: string; // Etiqueta overlay sobre el slide
+}
+```
+
+### Variantes
+
+| Variante     | Descripción                                                   |
+| ------------ | ------------------------------------------------------------- |
+| `default`    | Deslizamiento horizontal clásico con flechas y dots           |
+| `fade`       | Transición cruzada (crossfade) entre slides                   |
+| `cards`      | Muestra parcialmente los slides adyacentes ("peek")           |
+| `thumbnails` | Slide principal + tira de miniaturas clickeables              |
+| `fullscreen` | Ocupa toda la pantalla (`h-screen`), flechas con fondo oscuro |
+
+### Ejemplos de uso
+
+**Default controlado:**
+
+```tsx
+const [idx, setIdx] = useState(0);
+
+const slides: CarouselSlide[] = [
+    {
+        key: "slide-1",
+        content: (
+            <img
+                src="/foto1.jpg"
+                alt="Ciudad"
+                className="w-full h-full object-cover"
+            />
+        ),
+        label: "Plaza principal",
+    },
+    {
+        key: "slide-2",
+        content: (
+            <img
+                src="/foto2.jpg"
+                alt="Parque"
+                className="w-full h-full object-cover"
+            />
+        ),
+        label: "Parque municipal",
+    },
+];
+
+<Carousel
+    slides={slides}
+    activeIndex={idx}
+    onChange={setIdx}
+    variant="default"
+    size="lg"
+    loop
+/>;
+```
+
+**Fade con autoplay:**
+
+```tsx
+<Carousel
+    slides={slides}
+    variant="fade"
+    size="md"
+    autoPlay={3000}
+    pauseOnHover
+    dotsStyle="bars"
+    arrowStyle="rounded"
+/>
+```
+
+**Cards con peek:**
+
+```tsx
+<Carousel
+    slides={slides}
+    variant="cards"
+    size="md"
+    cardGap={16}
+    cardPeek={40}
+    dotsStyle="numbers"
+/>
+```
+
+**Thumbnails con miniaturas personalizadas:**
+
+```tsx
+const slidesWithThumbs: CarouselSlide[] = slides.map((s, i) => ({
+    ...s,
+    thumbnail: (
+        <img
+            src={`/thumb-${i}.jpg`}
+            alt=""
+            className="w-full h-full object-cover"
+        />
+    ),
+}));
+
+<Carousel
+    slides={slidesWithThumbs}
+    variant="thumbnails"
+    size="md"
+    showDots={false}
+/>;
+```
+
+**Sin flechas, solo drag/swipe:**
+
+```tsx
+<Carousel
+    slides={slides}
+    variant="default"
+    showArrows={false}
+    dotsStyle="dots"
+    draggable
+/>
+```
+
+### Navegación
+
+- **Flechas**: clic en los botones `◀` / `▶`
+- **Teclado**: `←` / `→` (cuando el componente tiene foco)
+- **Drag / Swipe**: arrastrar horizontalmente ≥ 40 px cambia de slide
+- **Dots / Bars**: clic en cualquier indicador navega directamente al slide
+- **Thumbnails**: clic en una miniatura navega a ese slide
+
+### Notas de implementación
+
+- Usa `"use client"` — requiere entorno de cliente.
+- Completamente autónomo: sin dependencias externas de carrusel.
+- Soporta modo **controlado** (`activeIndex` + `onChange`) y **no controlado** (`defaultIndex`).
+- La variante `cards` usa `overflow-hidden` en el wrapper y `transform: translateX` con offsets calculados a partir de `cardGap` y `cardPeek`.
+- La variante `fade` utiliza opacidad y `position: absolute` para hacer el crossfade; todos los slides se renderizan en el DOM pero solo el activo es visible.
+- El autoplay se pausa automáticamente al hacer hover si `pauseOnHover={true}` y se reanuda al salir.
+- Las clases Tailwind usan valores arbitrarios para los tokens de diseño del sistema MDA (`#83c442`, `#3f3f3f`, etc.).
