@@ -1,0 +1,155 @@
+.mda-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.mda-chart__header {
+  margin-bottom: 0.5rem;
+}
+
+.mda-chart__title {
+  margin: 0;
+  color: #3f3f3f;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.375;
+}
+
+.mda-chart__description {
+  margin: 0.125rem 0 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.mda-chart__tooltip {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
+  font-size: 0.75rem;
+}
+
+.mda-chart__tooltip-list {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.mda-chart__tooltip-item,
+.mda-chart__tooltip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.mda-chart__tooltip-row--stacked {
+  justify-content: flex-start;
+  margin-bottom: 0.25rem;
+}
+
+.mda-chart__tooltip-label-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mda-chart__tooltip-label,
+.mda-chart__tooltip-title {
+  color: #3f3f3f;
+  font-weight: 500;
+}
+
+.mda-chart__tooltip-title {
+  margin-bottom: 0.25rem;
+}
+
+.mda-chart__tooltip-value,
+.mda-chart__tooltip-strong {
+  color: #666;
+  font-variant-numeric: tabular-nums;
+}
+
+.mda-chart__tooltip-strong {
+  color: #3f3f3f;
+  font-weight: 500;
+}
+
+.mda-chart__tooltip-key {
+  color: #999;
+}
+
+.mda-chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.mda-chart__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #3f3f3f;
+}
+
+.mda-chart__legend-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+}
+
+.mda-chart__legend-label {
+  color: #3f3f3f;
+  font-size: 11px;
+}
+
+.mda-chart__empty,
+.mda-chart__loading {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+}
+
+.mda-chart__empty {
+  height: 100%;
+  border: 1px dashed #e2e2e2;
+  color: #999;
+  font-size: 0.75rem;
+}
+
+.mda-chart__loading {
+  background: #f6f6f6;
+  animation: mda-chart-pulse 2s ease-in-out infinite;
+}
+
+.mda-chart__footer {
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f0f0f0;
+  color: #999;
+  font-size: 12px;
+}
+
+@keyframes mda-chart-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}

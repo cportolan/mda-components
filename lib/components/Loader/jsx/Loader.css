@@ -1,0 +1,126 @@
+.mda-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mda-loader--inline {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+}
+
+.mda-loader--overlay,
+.mda-loader--full {
+  position: fixed;
+  inset: 0;
+  z-index: 10005;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mda-loader--overlay {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.mda-loader--full {
+  background: #fff;
+}
+
+.mda-loader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.mda-loader__icon--sm,
+.mda-loader__logo--sm {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.mda-loader__icon--md,
+.mda-loader__logo--md {
+  width: 4rem;
+  height: 4rem;
+}
+
+.mda-loader__icon--lg,
+.mda-loader__logo--lg {
+  width: 6rem;
+  height: 6rem;
+}
+
+.mda-loader__label {
+  font-weight: 500;
+  user-select: none;
+}
+
+.mda-loader__label--sm {
+  font-size: 0.75rem;
+}
+
+.mda-loader__label--md {
+  font-size: 0.875rem;
+}
+
+.mda-loader__label--lg {
+  font-size: 1rem;
+}
+
+.mda-loader__label--green {
+  color: #83c442;
+}
+
+.mda-loader__label--blue {
+  color: #1a6fa8;
+}
+
+@keyframes mda-loader-pulse-green {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+    filter: invert(48%) sepia(77%) saturate(200%) hue-rotate(76deg);
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: invert(48%) sepia(77%) saturate(200%) hue-rotate(76deg);
+  }
+}
+
+@keyframes mda-loader-pulse-blue {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+    filter: invert(34%) sepia(93%) saturate(600%) hue-rotate(182deg) brightness(80%) contrast(110%);
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: invert(34%) sepia(93%) saturate(600%) hue-rotate(182deg) brightness(80%) contrast(110%);
+  }
+}
+
+.mda-loader__logo {
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.mda-loader__logo--green {
+  animation-name: mda-loader-pulse-green;
+}
+
+.mda-loader__logo--blue {
+  animation-name: mda-loader-pulse-blue;
+}

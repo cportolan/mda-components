@@ -1,0 +1,406 @@
+.mda-calendar {
+  display: inline-block;
+  border: 1px solid #e2e2e2;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  user-select: none;
+}
+
+.mda-calendar--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.mda-calendar--sm {
+  width: 280px;
+}
+
+.mda-calendar--md {
+  width: 320px;
+}
+
+.mda-calendar--lg {
+  width: 380px;
+}
+
+.mda-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mda-calendar__nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #3f3f3f;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.mda-calendar__nav-button:hover {
+  background: #f0f7e8;
+  color: #83c442;
+}
+
+.mda-calendar__nav-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mda-calendar__nav-button--sm {
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 1rem;
+}
+
+.mda-calendar__nav-button--md {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+.mda-calendar__nav-button--lg {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1.125rem;
+}
+
+.mda-calendar__nav-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.mda-calendar__header-label {
+  border: 0;
+  background: transparent;
+  color: #3f3f3f;
+  font-weight: 600;
+}
+
+.mda-calendar__header-label--interactive {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.mda-calendar__header-label--interactive:hover {
+  color: #83c442;
+}
+
+.mda-calendar__header-label--static {
+  cursor: default;
+}
+
+.mda-calendar__header-label--sm,
+.mda-calendar__header-label--md {
+  font-size: 0.875rem;
+}
+
+.mda-calendar__header-label--lg {
+  font-size: 1rem;
+}
+
+.mda-calendar__body {
+  padding: 0.75rem;
+}
+
+.mda-calendar__day-headers,
+.mda-calendar__week-row {
+  display: grid;
+}
+
+.mda-calendar__day-headers {
+  margin-bottom: 0.25rem;
+}
+
+.mda-calendar__day-headers--with-week,
+.mda-calendar__week-row--with-week {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.mda-calendar__day-headers--regular,
+.mda-calendar__week-row--regular {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.mda-calendar__week-header,
+.mda-calendar__day-header,
+.mda-calendar__week-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mda-calendar__week-header {
+  color: #bbb;
+  font-weight: 500;
+}
+
+.mda-calendar__day-header {
+  color: #83c442;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.mda-calendar__day-header--sm {
+  height: 1.75rem;
+  font-size: 11px;
+}
+
+.mda-calendar__day-header--md {
+  height: 2rem;
+  font-size: 0.75rem;
+}
+
+.mda-calendar__day-header--lg {
+  height: 2.25rem;
+  font-size: 0.875rem;
+}
+
+.mda-calendar__month-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.mda-calendar__cell-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mda-calendar__cell-wrap--range {
+  background: rgba(131, 196, 66, 0.1);
+}
+
+.mda-calendar__cell-wrap--range-start {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.mda-calendar__cell-wrap--range-end {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.mda-calendar__cell-button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  transition: all 0.15s ease;
+}
+
+.mda-calendar__cell-button--sm {
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 12px;
+}
+
+.mda-calendar__cell-button--md {
+  width: 2rem;
+  height: 2rem;
+  font-size: 13px;
+}
+
+.mda-calendar__cell-button--lg {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 0.875rem;
+}
+
+.mda-calendar__cell-button--disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mda-calendar__cell-button--selected {
+  background: #83c442;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(131, 196, 66, 0.22);
+}
+
+.mda-calendar__cell-button--in-range {
+  border-radius: 0;
+  background: rgba(131, 196, 66, 0.15);
+  color: #3f3f3f;
+}
+
+.mda-calendar__cell-button--today {
+  border: 1px solid #83c442;
+  color: #83c442;
+  font-weight: 600;
+}
+
+.mda-calendar__cell-button--today:hover {
+  background: rgba(131, 196, 66, 0.1);
+}
+
+.mda-calendar__cell-button--outside {
+  color: #bbb;
+}
+
+.mda-calendar__cell-button--outside:hover {
+  background: #f6f6f6;
+}
+
+.mda-calendar__cell-button--default {
+  color: #3f3f3f;
+}
+
+.mda-calendar__cell-button--default:hover {
+  background: #f0f7e8;
+}
+
+.mda-calendar__cell-text--sm {
+  font-size: 11px;
+}
+
+.mda-calendar__cell-text--md {
+  font-size: 0.75rem;
+}
+
+.mda-calendar__cell-text--lg {
+  font-size: 0.75rem;
+}
+
+.mda-calendar__week-number {
+  color: #bbb;
+}
+
+.mda-calendar__event-dots {
+  position: absolute;
+  bottom: 0.125rem;
+  left: 50%;
+  display: flex;
+  gap: 0.125rem;
+  transform: translateX(-50%);
+}
+
+.mda-calendar__event-dot {
+  border-radius: 999px;
+}
+
+.mda-calendar__event-dot--sm {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+.mda-calendar__event-dot--md {
+  width: 0.375rem;
+  height: 0.375rem;
+}
+
+.mda-calendar__event-dot--lg {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.mda-calendar__picker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.mda-calendar__picker-button {
+  padding: 0.5rem 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.mda-calendar__picker-button--selected {
+  background: #83c442;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(131, 196, 66, 0.22);
+}
+
+.mda-calendar__picker-button--current {
+  border: 1px solid #83c442;
+  color: #83c442;
+}
+
+.mda-calendar__picker-button--default {
+  color: #3f3f3f;
+}
+
+.mda-calendar__picker-button--default:hover {
+  background: #f0f7e8;
+}
+
+.mda-calendar__picker-button--outside {
+  color: #bbb;
+}
+
+.mda-calendar__picker-button--outside:hover {
+  background: #f6f6f6;
+}
+
+.mda-calendar__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.mda-calendar__footer-button {
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mda-calendar__footer-button--sm {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.mda-calendar__footer-button--md {
+  padding: 0.375rem 1rem;
+  font-size: 0.875rem;
+}
+
+.mda-calendar__footer-button--lg {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.mda-calendar__footer-button--secondary {
+  border: 1px solid #e2e2e2;
+  background: transparent;
+  color: #3f3f3f;
+}
+
+.mda-calendar__footer-button--secondary:hover {
+  background: #f6f6f6;
+}
+
+.mda-calendar__footer-button--primary {
+  border: 0;
+  background: #83c442;
+  color: #fff;
+}
+
+.mda-calendar__footer-button--primary:hover {
+  background: #6fb035;
+}
+
+.mda-calendar__footer-button--push {
+  margin-left: auto;
+}

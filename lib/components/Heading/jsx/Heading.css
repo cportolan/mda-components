@@ -1,0 +1,92 @@
+.mda-heading {
+  margin: 0;
+  padding: 0;
+}
+
+.mda-heading--h1 {
+  font-size: 48px;
+  line-height: 1.25;
+}
+
+.mda-heading--h2 {
+  font-size: 35px;
+  line-height: 1.25;
+}
+
+.mda-heading--h3 {
+  font-size: 28px;
+  line-height: 1.375;
+}
+
+.mda-heading--h4 {
+  font-size: 22px;
+  line-height: 1.375;
+}
+
+.mda-heading--h5 {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.mda-heading--h6 {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.mda-heading--default-weight-h1 {
+  font-weight: 600;
+}
+
+.mda-heading--default-weight-h2,
+.mda-heading--default-weight-h3,
+.mda-heading--default-weight-h4,
+.mda-heading--default-weight-h5,
+.mda-heading--default-weight-h6 {
+  font-weight: 500;
+}
+
+.mda-heading--light {
+  font-weight: 300;
+}
+
+.mda-heading--normal {
+  font-weight: 400;
+}
+
+.mda-heading--medium {
+  font-weight: 500;
+}
+
+.mda-heading--semibold {
+  font-weight: 600;
+}
+
+.mda-heading--bold {
+  font-weight: 700;
+}
+
+.mda-heading--default {
+  color: #3f3f3f;
+}
+
+.mda-heading--primary {
+  color: #83c442;
+}
+
+.mda-heading--muted {
+  color: #999999;
+}
+
+.mda-heading--dark {
+  color: #1a1a1a;
+}
+
+.mda-heading--white {
+  color: #ffffff;
+}
+
+.mda-heading--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

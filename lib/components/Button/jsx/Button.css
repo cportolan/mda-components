@@ -1,0 +1,113 @@
+.mda-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mda-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mda-button--primary {
+  background: #83c442;
+  color: #fff;
+}
+
+.mda-button--primary:hover {
+  background: #6fb035;
+}
+
+.mda-button--primary:active {
+  background: #5a9428;
+}
+
+.mda-button--secondary {
+  background: transparent;
+  color: #83c442;
+  border: 2px solid #83c442;
+}
+
+.mda-button--secondary:hover {
+  background: rgba(131, 196, 66, 0.1);
+}
+
+.mda-button--secondary:active {
+  background: rgba(131, 196, 66, 0.2);
+}
+
+.mda-button--ghost {
+  background: transparent;
+  color: #83c442;
+}
+
+.mda-button--ghost:hover {
+  background: rgba(131, 196, 66, 0.1);
+}
+
+.mda-button--ghost:active {
+  background: rgba(131, 196, 66, 0.2);
+}
+
+.mda-button--danger {
+  background: #dc2626;
+  color: #fff;
+}
+
+.mda-button--danger:hover {
+  background: #b91c1c;
+}
+
+.mda-button--danger:active {
+  background: #991b1b;
+}
+
+.mda-button--sm {
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.mda-button--md {
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.mda-button--lg {
+  gap: 0.625rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+.mda-button--full {
+  width: 100%;
+}
+
+.mda-button__spinner {
+  width: 1rem;
+  height: 1rem;
+  animation: mda-button-spin 1s linear infinite;
+}
+
+.mda-button__spinner-circle {
+  opacity: 0.25;
+}
+
+.mda-button__spinner-path {
+  opacity: 0.75;
+}
+
+@keyframes mda-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

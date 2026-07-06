@@ -1,0 +1,132 @@
+.mda-message {
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.mda-message--success {
+  background: #f0fdf4;
+  color: #1f3a0f;
+}
+
+.mda-message--success:hover {
+  background: rgba(220, 252, 231, 0.5);
+}
+
+.mda-message--error {
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+
+.mda-message--error:hover {
+  background: rgba(254, 226, 226, 0.5);
+}
+
+.mda-message--warning {
+  background: #fffbeb;
+  color: #78350f;
+}
+
+.mda-message--warning:hover {
+  background: rgba(254, 243, 199, 0.5);
+}
+
+.mda-message--default {
+  background: #f9fafb;
+  color: #3f3f3f;
+}
+
+.mda-message--default:hover {
+  background: rgba(243, 244, 246, 0.5);
+}
+
+.mda-message__content {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.mda-message__icon {
+  flex-shrink: 0;
+  padding-top: 0.125rem;
+}
+
+.mda-message__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.mda-message__title {
+  margin: 0 0 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.mda-message__text {
+  font-size: 0.875rem;
+}
+
+.mda-message__close {
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mda-message__close--success {
+  color: #83c442;
+}
+
+.mda-message__close--success:hover {
+  background: #83c442;
+  color: #fff;
+}
+
+.mda-message__close--error {
+  color: #ef4444;
+}
+
+.mda-message__close--error:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.mda-message__close--warning {
+  color: #d97706;
+}
+
+.mda-message__close--warning:hover {
+  background: #f59e0b;
+  color: #fff;
+}
+
+.mda-message__close--default {
+  color: #6b7280;
+}
+
+.mda-message__close--default:hover {
+  background: #6b7280;
+  color: #fff;
+}
+
+.mda-message__icon-tone--success {
+  color: #83c442;
+}
+
+.mda-message__icon-tone--error {
+  color: #ef4444;
+}
+
+.mda-message__icon-tone--warning {
+  color: #f59e0b;
+}
+
+.mda-message__icon-tone--default {
+  color: #6b7280;
+}

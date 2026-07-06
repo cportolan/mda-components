@@ -1,0 +1,111 @@
+.mda-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.mda-checkbox--interactive {
+  cursor: pointer;
+}
+
+.mda-checkbox--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.mda-checkbox__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mda-checkbox__input {
+  appearance: none;
+  border: 2px solid #70f787;
+  border-radius: 0.5rem;
+  background: #fff;
+  transition: all 0.3s ease-out;
+}
+
+.mda-checkbox__input:focus {
+  outline: none;
+}
+
+.mda-checkbox__input--sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+.mda-checkbox__input--md {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.mda-checkbox__input--lg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.mda-checkbox__input--default:focus {
+  box-shadow: 0 0 0 4px rgba(131, 196, 66, 0.2);
+}
+
+.mda-checkbox__input--error {
+  border-color: #f87171;
+}
+
+.mda-checkbox__input--error:focus {
+  box-shadow: 0 0 0 4px rgba(254, 226, 226, 1);
+}
+
+.mda-checkbox__input--checked {
+  border-color: #83c442;
+  background: #83c442;
+}
+
+.mda-checkbox__input--unchecked:hover {
+  border-color: #83c442;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.mda-checkbox__input--hoverable:hover {
+  transform: scale(1.1);
+}
+
+.mda-checkbox__check-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.mda-checkbox__indeterminate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.625rem;
+  height: 0.125rem;
+  border-radius: 999px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.mda-checkbox__label {
+  color: #3f3f3f;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.mda-checkbox:hover .mda-checkbox__label {
+  color: #1f3a0f;
+}
+
+.mda-checkbox__label--error {
+  color: #dc2626;
+}

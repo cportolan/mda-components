@@ -1,0 +1,136 @@
+.mda-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mda-breadcrumb--sm {
+  gap: 0.25rem;
+}
+
+.mda-breadcrumb--md {
+  gap: 0.375rem;
+}
+
+.mda-breadcrumb--lg {
+  gap: 0.625rem;
+}
+
+.mda-breadcrumb__separator,
+.mda-breadcrumb__item {
+  display: flex;
+  align-items: center;
+}
+
+.mda-breadcrumb__separator-icon {
+  flex-shrink: 0;
+  color: #c0c0c0;
+}
+
+.mda-breadcrumb__separator-text {
+  color: #c0c0c0;
+  user-select: none;
+}
+
+.mda-breadcrumb__separator-text--sm {
+  font-size: 0.75rem;
+}
+
+.mda-breadcrumb__separator-text--md {
+  font-size: 0.875rem;
+}
+
+.mda-breadcrumb__separator-text--lg {
+  font-size: 1.125rem;
+}
+
+.mda-breadcrumb__separator-dot {
+  width: 0.25rem;
+  height: 0.25rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #c0c0c0;
+}
+
+.mda-breadcrumb__item-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.mda-breadcrumb__item-inner--sm {
+  font-size: 0.75rem;
+}
+
+.mda-breadcrumb__item-inner--md {
+  font-size: 0.875rem;
+}
+
+.mda-breadcrumb__item-inner--lg {
+  font-size: 1rem;
+}
+
+.mda-breadcrumb__item-icon {
+  flex-shrink: 0;
+}
+
+.mda-breadcrumb__item-icon--sm {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.mda-breadcrumb__item-icon--md {
+  width: 1rem;
+  height: 1rem;
+}
+
+.mda-breadcrumb__item-icon--lg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.mda-breadcrumb__item-current {
+  color: #3f3f3f;
+  cursor: default;
+}
+
+.mda-breadcrumb__item-link {
+  color: #83c442;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.mda-breadcrumb__item-link:hover {
+  color: #6fb035;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.mda-breadcrumb__item-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(131, 196, 66, 0.35);
+  border-radius: 0.125rem;
+}
+
+.mda-breadcrumb__ellipsis {
+  color: #999;
+  font-weight: 500;
+  user-select: none;
+}
+
+.mda-breadcrumb__ellipsis--sm {
+  font-size: 0.75rem;
+}
+
+.mda-breadcrumb__ellipsis--md {
+  font-size: 0.875rem;
+}
+
+.mda-breadcrumb__ellipsis--lg {
+  font-size: 1rem;
+}

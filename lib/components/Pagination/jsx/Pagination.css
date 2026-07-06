@@ -1,0 +1,119 @@
+.mda-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.mda-pagination__page-size {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(63, 63, 63, 0.7);
+  font-size: 0.875rem;
+}
+
+.mda-pagination__page-size-select {
+  border: 1px solid #dfe3e8;
+  border-radius: 0.5rem;
+  background: #f6f6f6;
+  padding: 0.25rem 0.5rem;
+  color: #3f3f3f;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mda-pagination__page-size-select:focus {
+  outline: none;
+  border-color: #83c442;
+  box-shadow: 0 0 0 3px rgba(131, 196, 66, 0.15);
+}
+
+.mda-pagination__page-size-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.mda-pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mda-pagination__info {
+  color: rgba(63, 63, 63, 0.6);
+  font-size: 0.75rem;
+}
+
+.mda-pagination__info-value {
+  color: #3f3f3f;
+  font-weight: 600;
+}
+
+.mda-pagination__buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mda-pagination__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dfe3e8;
+  border-radius: 0.5rem;
+  background: transparent;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.mda-pagination__button--sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.875rem;
+}
+
+.mda-pagination__button--md {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+}
+
+.mda-pagination__button--lg {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.125rem;
+}
+
+.mda-pagination__button--default {
+  color: #3f3f3f;
+  cursor: pointer;
+}
+
+.mda-pagination__button--default:hover {
+  background: #f0f2f5;
+}
+
+.mda-pagination__button--active {
+  border-color: #83c442;
+  color: #83c442;
+  cursor: pointer;
+}
+
+.mda-pagination__button--active:hover {
+  background: rgba(131, 196, 66, 0.1);
+}
+
+.mda-pagination__button--disabled {
+  background: #f0f2f5;
+  color: #a1a6ad;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.mda-pagination__button--dots {
+  color: #a1a6ad;
+  cursor: default;
+}
